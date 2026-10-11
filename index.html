@@ -411,38 +411,38 @@
       <button class="btn-action btn-secondary" style="background: #3b82f6; margin-bottom: 12px;" onclick="nuevaEvaluacion()">➕ Nueva Evaluación (Limpiar Campos)</button>
 
       <h2>Datos del Evaluado</h2>
-      <div class="form-group"><label>Nombre del Cliente / Atleta:</label><input type="text" id="nombre" value="Honey Escalona" oninput="calcular();"></div>
-      <div class="form-group"><label>Edad (años):</label><input type="number" id="edad" value="33" oninput="calcular()"></div>
+      <div class="form-group"><label>Nombre del Cliente / Atleta:</label><input type="text" id="nombre" placeholder="Ej. Juan Pérez" oninput="calcular();"></div>
+      <div class="form-group"><label>Edad (años):</label><input type="number" id="edad" placeholder="Ej. 30" oninput="calcular()"></div>
       <div class="form-group">
         <label>Sexo Biológico:</label>
         <select id="sexo" onchange="calcular()">
-          <option value="M">Masculino</option>
-          <option value="F" selected>Femenino</option>
+          <option value="M" selected>Masculino</option>
+          <option value="F">Femenino</option>
         </select>
       </div>
-      <div class="form-group"><label>Talla (cm):</label><input type="number" id="talla" value="158" oninput="calcular()"></div>
-      <div class="form-group"><label>Masa Corporal Total (kg):</label><input type="number" id="peso" value="63.7" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Talla (cm):</label><input type="number" id="talla" placeholder="Ej. 170" oninput="calcular()"></div>
+      <div class="form-group"><label>Masa Corporal Total (kg):</label><input type="number" id="peso" placeholder="Ej. 70.0" step="0.1" oninput="calcular()"></div>
 
       <h2>Pliegues Cutáneos (mm)</h2>
-      <div class="form-group"><label>Tríceps:</label><input type="number" id="triceps" value="9.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Bíceps:</label><input type="number" id="biceps" value="16.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Subescapular:</label><input type="number" id="subescapular" value="16.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Suprailíaco:</label><input type="number" id="suprailiaco" value="21.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Tríceps:</label><input type="number" id="triceps" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Bíceps:</label><input type="number" id="biceps" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Subescapular:</label><input type="number" id="subescapular" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Suprailíaco:</label><input type="number" id="suprailiaco" placeholder="0.0" step="0.5" oninput="calcular()"></div>
 
       <h2>Perímetros (cm)</h2>
-      <div class="form-group"><label>Brazo Relajado:</label><input type="number" id="brazoRelajado" value="32.5" step="0.1" oninput="calcular()"></div>
-      <div class="form-group"><label>Brazo Flexionado:</label><input type="number" id="brazoFlexionado" value="33.1" step="0.1" oninput="calcular()"></div>
-      <div class="form-group"><label>Cintura Abdominal:</label><input type="number" id="cintura" value="79.4" step="0.1" oninput="calcular()"></div>
-      <div class="form-group"><label>Cadera Maximum:</label><input type="number" id="cadera" value="98.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Brazo Relajado:</label><input type="number" id="brazoRelajado" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Brazo Flexionado:</label><input type="number" id="brazoFlexionado" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Cintura Abdominal:</label><input type="number" id="cintura" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Cadera Maximum:</label><input type="number" id="cadera" placeholder="0.0" step="0.1" oninput="calcular()"></div>
 
       <h2>Dinamometría de Agarre (kg)</h2>
-      <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" value="45.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" value="42.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" placeholder="0.0" step="0.5" oninput="calcular()"></div>
 
       <h2>Prescripción / Hito Meta</h2>
       <div class="form-group">
         <label>🎯 % Grasa Objetivo Personalizado (%):</label>
-        <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 23.0" step="0.5" oninput="calcular()">
+        <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="calcular()">
       </div>
 
       <h2>Gestión de Historial</h2>
@@ -497,34 +497,34 @@
           <span id="label-comparativa-header" style="font-size: 0.7rem; color: #38bdf8; font-weight: 600;"></span>
         </div>
         <div class="datos-medidos-grid">
-          <div class="datos-medidos-block"><small>Nombre / Atleta:</small><strong id="res-nombre">Honey Escalona</strong></div>
-          <div class="datos-medidos-block"><small>Edad / Sexo:</small><strong id="res-edad-sexo">33 años | Femenino</strong></div>
-          <div class="datos-medidos-block"><small>Talla / Peso Total:</small><strong id="res-talla-peso">158 cm | 63.7 kg</strong> <span id="delta-peso"></span></div>
-          <div class="datos-medidos-block"><small>Dinamometría Izq / Der:</small><strong id="res-dino-raw">42.0 kg / 45.0 kg</strong> <span id="delta-dino"></span></div>
-          <div class="datos-medidos-block"><small>Pliegues Tríceps / Bíceps:</small><strong id="res-pliegues-1">9.0 mm / 16.0 mm</strong></div>
-          <div class="datos-medidos-block"><small>Pliegues Subescap. / Suprail. (∑4):</small><strong id="res-pliegues-2">16.0 mm / 21.0 mm</strong> <span id="delta-suma4"></span></div>
-          <div class="datos-medidos-block"><small>Perím. Brazo Rel. / Flex.:</small><strong id="res-perim-brazo">32.5 cm / 33.1 cm</strong> <span id="delta-brazo"></span></div>
-          <div class="datos-medidos-block"><small>Perím. Cintura / Cadera:</small><strong id="res-perim-cintura-cadera">79.4 cm / 98.0 cm</strong> <span id="delta-cintura"></span></div>
+          <div class="datos-medidos-block"><small>Nombre / Atleta:</small><strong id="res-nombre">-</strong></div>
+          <div class="datos-medidos-block"><small>Edad / Sexo:</small><strong id="res-edad-sexo">-</strong></div>
+          <div class="datos-medidos-block"><small>Talla / Peso Total:</small><strong id="res-talla-peso">-</strong> <span id="delta-peso"></span></div>
+          <div class="datos-medidos-block"><small>Dinamometría Izq / Der:</small><strong id="res-dino-raw">-</strong> <span id="delta-dino"></span></div>
+          <div class="datos-medidos-block"><small>Pliegues Tríceps / Bíceps:</small><strong id="res-pliegues-1">-</strong></div>
+          <div class="datos-medidos-block"><small>Pliegues Subescap. / Suprail. (∑4):</small><strong id="res-pliegues-2">-</strong> <span id="delta-suma4"></span></div>
+          <div class="datos-medidos-block"><small>Perím. Brazo Rel. / Flex.:</small><strong id="res-perim-brazo">-</strong> <span id="delta-brazo"></span></div>
+          <div class="datos-medidos-block"><small>Perím. Cintura / Cadera:</small><strong id="res-perim-cintura-cadera">-</strong> <span id="delta-cintura"></span></div>
         </div>
       </section>
 
       <div class="dashboard-grid">
-        <div class="kpi-card"><span>ÍNDICE MASA CORP (IMC)</span><h3 id="kpi-imc">25.5 kg/m²</h3><small id="kpi-imc-estado">Sobrepeso</small><div id="delta-imc-badge"></div></div>
-        <div class="kpi-card"><span>PORCENTAJE GRASA</span><h3 id="kpi-grasa">29.9%</h3><small id="kpi-grasa-kg">19.1 kg (Moderado)</small><div id="delta-grasa-badge"></div></div>
-        <div class="kpi-card"><span>MASA LIBRE DE GRASA (MLG)</span><h3 id="kpi-mlg">70.1%</h3><small id="kpi-mlg-kg">44.6 kg MLG</small><div id="delta-mlg-badge"></div></div>
-        <div class="kpi-card"><span>SUMATORIA 4 PLIEGUES (∑4)</span><h3 id="kpi-suma4-val">62.0 mm</h3><small id="kpi-suma4-estado">4 Pliegues ISAK</small><div id="delta-suma4-badge"></div></div>
+        <div class="kpi-card"><span>ÍNDICE MASA CORP (IMC)</span><h3 id="kpi-imc">-</h3><small id="kpi-imc-estado">-</small><div id="delta-imc-badge"></div></div>
+        <div class="kpi-card"><span>PORCENTAJE GRASA</span><h3 id="kpi-grasa">-</h3><small id="kpi-grasa-kg">-</small><div id="delta-grasa-badge"></div></div>
+        <div class="kpi-card"><span>MASA LIBRE DE GRASA (MLG)</span><h3 id="kpi-mlg">-</h3><small id="kpi-mlg-kg">-</small><div id="delta-mlg-badge"></div></div>
+        <div class="kpi-card"><span>SUMATORIA 4 PLIEGUES (∑4)</span><h3 id="kpi-suma4-val">-</h3><small id="kpi-suma4-estado">4 Pliegues ISAK</small><div id="delta-suma4-badge"></div></div>
         <div class="kpi-card" style="border-top-color: #3b82f6;">
           <span>PROYECCIÓN RECOMPOSICIÓN</span>
-          <h3 id="kpi-recomp-val">≈ -5.8 kg*</h3>
-          <small id="kpi-recomp-estado">Meta: 23.0% GC</small>
+          <h3 id="kpi-recomp-val">-</h3>
+          <small id="kpi-recomp-estado">-</small>
           <div class="nota-sub">*Suponiendo MLG constante</div>
         </div>
 
-        <div class="kpi-card"><span>RIESGO CARDIOMETABÓLICO (ICT)</span><h3 id="kpi-ict">0.50</h3><small id="kpi-ict-estado">Riesgo Leve</small><div id="delta-ict-badge"></div></div>
-        <div class="kpi-card"><span>ADIPOSIDAD VISCERAL (ADA 2026)</span><h3 id="kpi-visceral-val">79.4 cm</h3><small id="kpi-visceral-estado">Poco Probable</small><div id="delta-visceral-badge"></div></div>
-        <div class="kpi-card"><span>DIAGNÓSTICO OBESIDAD CLÍNICA (RUBINO 2025)</span><h3 id="kpi-lancet-val">No Cumple Criterios</h3><small id="kpi-lancet-estado">Sin Exceso Clínico</small></div>
-        <div class="kpi-card"><span>FUERZA RELATIVA AGARRE</span><h3 id="kpi-fuerza-rel">0.71 kg/kg</h3><small id="kpi-fuerza-estado">Fuerza Óptima</small><div id="delta-fuerza-badge"></div></div>
-        <div class="kpi-card"><span>ASIMETRÍA BILATERAL</span><h3 id="kpi-asimetria">6.7%</h3><small id="kpi-asimetria-estado">Balance Simétrico</small><div id="delta-asimetria-badge"></div></div>
+        <div class="kpi-card"><span>RIESGO CARDIOMETABÓLICO (ICT)</span><h3 id="kpi-ict">-</h3><small id="kpi-ict-estado">-</small><div id="delta-ict-badge"></div></div>
+        <div class="kpi-card"><span>ADIPOSIDAD VISCERAL (ADA 2026)</span><h3 id="kpi-visceral-val">-</h3><small id="kpi-visceral-estado">-</small><div id="delta-visceral-badge"></div></div>
+        <div class="kpi-card"><span>DIAGNÓSTICO OBESIDAD CLÍNICA (RUBINO 2025)</span><h3 id="kpi-lancet-val">-</h3><small id="kpi-lancet-estado">-</small></div>
+        <div class="kpi-card"><span>FUERZA RELATIVA AGARRE</span><h3 id="kpi-fuerza-rel">-</h3><small id="kpi-fuerza-estado">-</small><div id="delta-fuerza-badge"></div></div>
+        <div class="kpi-card"><span>ASIMETRÍA BILATERAL</span><h3 id="kpi-asimetria">-</h3><small id="kpi-asimetria-estado">-</small><div id="delta-asimetria-badge"></div></div>
       </div>
 
       <div class="charts-grid">
@@ -532,18 +532,18 @@
           <div class="card-header-flex"><h4><span style="color: var(--primary);">◔</span> Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
           <div class="chart-wrapper-inner"><canvas id="chartComposicion"></canvas></div>
           <div class="fraccionamiento-footer">
-            <div class="fraccionamiento-item"><small>Masa Grasa Total</small><strong id="footer-kg-grasa" style="color: #f43f5e;">19.1 kg</strong><div id="delta-kg-grasa-badge"></div></div>
-            <div class="fraccionamiento-item"><small>Masa Libre de Grasa</small><strong id="footer-kg-mlg" style="color: #10b981;">44.6 kg</strong><div id="delta-kg-mlg-badge"></div></div>
+            <div class="fraccionamiento-item"><small>Masa Grasa Total</small><strong id="footer-kg-grasa" style="color: #f43f5e;">-</strong><div id="delta-kg-grasa-badge"></div></div>
+            <div class="fraccionamiento-item"><small>Masa Libre de Grasa</small><strong id="footer-kg-mlg" style="color: #10b981;">-</strong><div id="delta-kg-mlg-badge"></div></div>
           </div>
         </div>
         <div class="chart-container">
           <div class="card-header-flex"><h4><span style="color: #3b82f6;">📊</span> Fuerza de Agarre (kg)</h4><span>Dinamometría Manual</span></div>
           <div class="chart-wrapper-inner" style="height: 100px; margin-top: 5px;"><canvas id="chartDinamometria"></canvas></div>
           <div class="fraccionamiento-footer">
-            <div class="fraccionamiento-item"><small>Mano Izquierda</small><strong id="footer-dino-izq" style="color: #38bdf8;">42.0 kg</strong></div>
-            <div class="fraccionamiento-item"><small>Mano Derecha</small><strong id="footer-dino-der" style="color: #3b82f6;">45.0 kg</strong></div>
+            <div class="fraccionamiento-item"><small>Mano Izquierda</small><strong id="footer-dino-izq" style="color: #38bdf8;">-</strong></div>
+            <div class="fraccionamiento-item"><small>Mano Derecha</small><strong id="footer-dino-der" style="color: #3b82f6;">-</strong></div>
           </div>
-          <div id="fuerza-dominancia-label" class="fuerza-dominancia-label">Mano Derecha Dominante</div>
+          <div id="fuerza-dominancia-label" class="fuerza-dominancia-label">-</div>
         </div>
       </div>
 
@@ -581,7 +581,7 @@
       <div class="recomendacion-container">
         <div class="recomendacion-title">📌 Síntesis Diagnóstica y Recomendación de Evaluación</div>
         <div id="txtSintesisRecomendacion" class="recomendacion-text">
-          Cargando síntesis...
+          Ingresa los datos del evaluado para generar la síntesis diagnóstica...
         </div>
         <div id="txtPersuasivoCliente" class="recomendacion-persuasivo" style="display: none;">
           🚀 Este es tu punto de partida. A partir de esta evaluación, puedo estructurar un plan de entrenamiento y recomposición corporal personalizado que evite el estancamiento y garantice tus resultados de forma segura.
@@ -738,7 +738,6 @@
       document.getElementById('chkPotencialCliente').checked = false;
       fijarFechaHoyInput();
       calcular();
-      alert('✨ Campos vaciados. Listo para ingresar los datos de una Nueva Evaluación.');
     }
 
     function obtenerClavePerfil(nombre) {
@@ -957,23 +956,23 @@
       if (!evalSel) return;
 
       document.getElementById('nombre').value = evalSel.nombre || '';
-      document.getElementById('edad').value = evalSel.edad || 0;
+      document.getElementById('edad').value = evalSel.edad || '';
       document.getElementById('sexo').value = evalSel.sexo || 'M';
-      document.getElementById('talla').value = evalSel.talla || 0;
-      document.getElementById('peso').value = evalSel.peso || 0;
+      document.getElementById('talla').value = evalSel.talla || '';
+      document.getElementById('peso').value = evalSel.peso || '';
 
-      document.getElementById('triceps').value = evalSel.triceps || 0;
-      document.getElementById('biceps').value = evalSel.biceps || 0;
-      document.getElementById('subescapular').value = evalSel.subescapular || 0;
-      document.getElementById('suprailiaco').value = evalSel.suprailiaco || 0;
+      document.getElementById('triceps').value = evalSel.triceps || '';
+      document.getElementById('biceps').value = evalSel.biceps || '';
+      document.getElementById('subescapular').value = evalSel.subescapular || '';
+      document.getElementById('suprailiaco').value = evalSel.suprailiaco || '';
 
-      document.getElementById('brazoRelajado').value = evalSel.brazoRel || 0;
-      document.getElementById('brazoFlexionado').value = evalSel.brazoFlex || 0;
-      document.getElementById('cintura').value = evalSel.cintura || 0;
-      document.getElementById('cadera').value = evalSel.cadera || 0;
+      document.getElementById('brazoRelajado').value = evalSel.brazoRel || '';
+      document.getElementById('brazoFlexionado').value = evalSel.brazoFlex || '';
+      document.getElementById('cintura').value = evalSel.cintura || '';
+      document.getElementById('cadera').value = evalSel.cadera || '';
 
-      document.getElementById('dinoDer').value = evalSel.dinoDer || 0;
-      document.getElementById('dinoIzq').value = evalSel.dinoIzq || 0;
+      document.getElementById('dinoDer').value = evalSel.dinoDer || '';
+      document.getElementById('dinoIzq').value = evalSel.dinoIzq || '';
 
       if (evalSel.timestamp) {
         const f = new Date(evalSel.timestamp);
@@ -1028,7 +1027,7 @@
     }
 
     function calcular() {
-      const nombre = document.getElementById('nombre').value || 'Cliente';
+      const nombre = document.getElementById('nombre').value || '';
       const peso = parseFloat(document.getElementById('peso').value) || 0;
       const talla = parseFloat(document.getElementById('talla').value) || 0;
       const edad = parseInt(document.getElementById('edad').value) || 0;
@@ -1046,6 +1045,47 @@
 
       const dinoDer = parseFloat(document.getElementById('dinoDer').value) || 0;
       const dinoIzq = parseFloat(document.getElementById('dinoIzq').value) || 0;
+
+      if (peso === 0 || talla === 0) {
+        document.getElementById('res-nombre').innerText = nombre || '-';
+        document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} años | ${sexo === 'M' ? 'Masculino' : 'Femenino'}` : '-';
+        document.getElementById('res-talla-peso').innerText = '-';
+        document.getElementById('res-dino-raw').innerText = '-';
+        document.getElementById('res-pliegues-1').innerText = '-';
+        document.getElementById('res-pliegues-2').innerText = '-';
+        document.getElementById('res-perim-brazo').innerText = '-';
+        document.getElementById('res-perim-cintura-cadera').innerText = '-';
+
+        document.getElementById('kpi-imc').innerText = '-';
+        document.getElementById('kpi-imc-estado').innerText = 'Sin datos';
+        document.getElementById('kpi-grasa').innerText = '-';
+        document.getElementById('kpi-grasa-kg').innerText = 'Sin datos';
+        document.getElementById('kpi-mlg').innerText = '-';
+        document.getElementById('kpi-mlg-kg').innerText = 'Sin datos';
+        document.getElementById('kpi-suma4-val').innerText = '-';
+        document.getElementById('kpi-recomp-val').innerText = '-';
+        document.getElementById('kpi-recomp-estado').innerText = '-';
+        document.getElementById('kpi-ict').innerText = '-';
+        document.getElementById('kpi-ict-estado').innerText = '-';
+        document.getElementById('kpi-visceral-val').innerText = '-';
+        document.getElementById('kpi-visceral-estado').innerText = '-';
+        document.getElementById('kpi-lancet-val').innerText = '-';
+        document.getElementById('kpi-lancet-estado').innerText = '-';
+        document.getElementById('kpi-fuerza-rel').innerText = '-';
+        document.getElementById('kpi-fuerza-estado').innerText = '-';
+        document.getElementById('kpi-asimetria').innerText = '-';
+        document.getElementById('kpi-asimetria-estado').innerText = '-';
+
+        document.getElementById('footer-kg-grasa').innerText = '-';
+        document.getElementById('footer-kg-mlg').innerText = '-';
+        document.getElementById('footer-dino-izq').innerText = '-';
+        document.getElementById('footer-dino-der').innerText = '-';
+        document.getElementById('fuerza-dominancia-label').innerText = '-';
+
+        document.getElementById('txtSintesisRecomendacion').innerHTML = 'Ingresa los datos del evaluado para generar la síntesis diagnóstica...';
+        actualizarGraficosConReintento(0, 0, 0, 0);
+        return;
+      }
 
       let evalPasada = null;
       const chkComparar = document.getElementById('chkCompararAnterior').checked;
@@ -1224,9 +1264,11 @@
       } else if (dinoIzq > dinoDer) {
         elDominancia.innerText = `Mano Izquierda Dominante (+${(dinoIzq - dinoDer).toFixed(1)} kg)`;
         elDominancia.style.color = '#38bdf8';
-      } else {
+      } else if (maxDino > 0) {
         elDominancia.innerText = `Simetría Perfecta en Ambas Manos`;
         elDominancia.style.color = '#10b981';
+      } else {
+        elDominancia.innerText = '-';
       }
 
       const txtSintesis = document.getElementById('txtSintesisRecomendacion');
@@ -1241,7 +1283,7 @@
         recoCompTxt = `Actualmente presenta un porcentaje graso dentro del rango óptimo. Se sugiere priorizar un programa de hipertrofia muscular y ganancia de fuerza.`;
       }
 
-      txtSintesis.innerHTML = `${generoTxt} <strong>${nombre}</strong> presenta una composición corporal con un porcentaje de grasa en rango <strong>${estadoGrasa.toLowerCase()} (${pctGrasa.toFixed(1)}%)</strong>, una adecuada masa libre de grasa (<strong>${kgMLG.toFixed(1)} kg</strong>) y un desempeño de fuerza de agarre relativa de <strong>${fuerzaRel.toFixed(2)} kg/kg</strong> (${fuerzaRel >= (sexo==='M'?0.55:0.40) ? 'Óptima' : 'A mejorar'}, calculada sobre mano dominante). La diferencia bilateral entre extremidades (${asimetria.toFixed(1)}%) ${simetriaTxt}. La circunferencia de cintura (${cintura.toFixed(1)} cm) ${visceralTxt}. El Índice Cintura-Talla (ICT = <strong>${ict.toFixed(2)}</strong>) se clasifica en nivel <strong>${estadoICT}</strong>, requiriendo seguimiento de acuerdo con el criterio cardiometabólico empleado. ${recoCompTxt}`;
+      txtSintesis.innerHTML = `${generoTxt} <strong>${nombre || 'Atleta'}</strong> presenta una composición corporal con un porcentaje de grasa en rango <strong>${estadoGrasa.toLowerCase()} (${pctGrasa.toFixed(1)}%)</strong>, una adecuada masa libre de grasa (<strong>${kgMLG.toFixed(1)} kg</strong>) y un desempeño de fuerza de agarre relativa de <strong>${fuerzaRel.toFixed(2)} kg/kg</strong> (${fuerzaRel >= (sexo==='M'?0.55:0.40) ? 'Óptima' : 'A mejorar'}, calculada sobre mano dominante). La diferencia bilateral entre extremidades (${asimetria.toFixed(1)}%) ${simetriaTxt}. La circunferencia de cintura (${cintura.toFixed(1)} cm) ${visceralTxt}. El Índice Cintura-Talla (ICT = <strong>${ict.toFixed(2)}</strong>) se clasifica en nivel <strong>${estadoICT}</strong>, requiriendo seguimiento de acuerdo con el criterio cardiometabólico empleado. ${recoCompTxt}`;
 
       const chkCliente = document.getElementById('chkPotencialCliente').checked;
       document.getElementById('txtPersuasivoCliente').style.display = chkCliente ? 'block' : 'none';
