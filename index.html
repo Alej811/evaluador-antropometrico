@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CIENCIA DEPORTIVA - Informe Antropométrico y Funcional</title>
+  
+  <!-- Icono para pestaña del navegador y acceso directo en celular -->
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Alej811/Logo-cd/main/Isologo%20de%20Ciencia%20Deportivapng_.png">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Alej811/Logo-cd/main/Isologo%20de%20Ciencia%20Deportivapng_.png">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
@@ -23,7 +28,7 @@
     .header-branding {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       background: var(--card-bg);
       padding: 12px 20px;
       border-radius: 12px;
@@ -35,17 +40,6 @@
     .brand-logo-container img { width: 55px; height: 55px; object-fit: contain; border-radius: 8px; }
     .brand-title h1 { font-size: 1.4rem; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
     .brand-title p { font-size: 0.8rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-
-    .evaluator-badge {
-      text-align: right;
-      background: rgba(16, 185, 129, 0.1);
-      padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .evaluator-badge small { display: block; color: var(--text-muted); font-size: 0.72rem; }
-    .evaluator-badge strong { color: var(--primary); font-size: 0.9rem; display: block; }
-    .evaluator-badge span { color: var(--text-light); font-size: 0.78rem; }
 
     .main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 15px; }
 
@@ -381,7 +375,7 @@
         page-break-inside: avoid;
       }
       .kpi-card h3, .brand-title h1, .anexo-title, .anexo-signature strong, .card-header-flex h4, .datos-medidos-block strong, .section-longitudinal-header, .recomendacion-title { color: #000 !important; }
-      .evaluator-badge strong, .brand-title p, .anexo-signature span, .val-optimo, .datos-medidos-header, .recomendacion-title { color: #059669 !important; }
+      .brand-title p, .anexo-signature span, .val-optimo, .datos-medidos-header, .recomendacion-title { color: #059669 !important; }
       .val-riesgo { color: #dc2626 !important; }
       .recomendacion-text { color: #000 !important; }
       .recomendacion-persuasivo { color: #0284c7 !important; border-top-color: #ccc !important; }
@@ -398,11 +392,6 @@
         <h1>CIENCIA DEPORTIVA</h1>
         <p>Informe Técnico de Evaluación Antropométrica & Funcional</p>
       </div>
-    </div>
-    <div class="evaluator-badge">
-      <small>Evaluador Responsable:</small>
-      <strong>Lcdo. Maykol Jayaro</strong>
-      <span>Lcdo. en Ciencias del deporte +51 925986816</span>
     </div>
   </header>
 
