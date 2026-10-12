@@ -64,7 +64,6 @@
     .btn-secondary:hover { background: #475569; }
     .btn-disabled { background: #475569; color: #94a3b8; cursor: not-allowed; }
 
-    /* Estructura optimizada para resumen de mediciones directas */
     .datos-medidos-container {
       background: #0f172a;
       border: 1px solid var(--border);
@@ -225,14 +224,24 @@
       letter-spacing: 0.5px;
       margin-bottom: 8px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 6px;
     }
     .recomendacion-text {
       font-size: 0.82rem;
       color: #e2e8f0;
       line-height: 1.5;
+      padding: 8px;
+      border: 1px dashed transparent;
+      border-radius: 6px;
+      outline: none;
+      transition: 0.2s;
     }
+    .recomendacion-text:hover, .recomendacion-text:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
     .recomendacion-persuasivo {
       margin-top: 10px;
       padding-top: 8px;
@@ -399,7 +408,7 @@
       .kpi-card h3, .brand-title h1, .anexo-title, .anexo-signature strong, .card-header-flex h4, .datos-medidos-block strong, .section-longitudinal-header, .recomendacion-title { color: #000 !important; }
       .brand-title p, .anexo-signature span, .val-optimo, .datos-medidos-header, .recomendacion-title { color: #059669 !important; }
       .val-riesgo { color: #dc2626 !important; }
-      .recomendacion-text { color: #000 !important; }
+      .recomendacion-text { color: #000 !important; border: none !important; }
       .recomendacion-persuasivo { color: #0284c7 !important; border-top-color: #ccc !important; }
       input, select { background: #fff !important; color: #000 !important; border: none !important; }
     }
@@ -506,7 +515,6 @@
     </aside>
 
     <main class="panel">
-      <!-- Sección de mediciones directas desglosadas por parámetro individual -->
       <section class="datos-medidos-container">
         <div class="datos-medidos-header">
           <span>📋 Resumen de Datos del Evaluado y Mediciones Directas</span>
@@ -622,19 +630,27 @@
             <div class="chart-wrapper-inner" style="height: 200px;"><canvas id="chartLongPliegues"></canvas></div>
           </div>
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Comparación por Variable</span></div>
+            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Doble Eje de Escala</span></div>
             <div class="chart-wrapper-inner" style="height: 200px;"><canvas id="chartLongPerimetros"></canvas></div>
           </div>
-          <div class="chart-container">
+          <div class="chart-container" id="boxChartLongFuerza">
             <div class="card-header-flex"><h4><span style="color: #a855f7;">🏋️</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Dinamometría Bilateral</span></div>
-            <div class="chart-wrapper-inner" style="height: 200px; display: flex; align-items: center; justify-content: center;"><canvas id="chartLongFuerza"></canvas><div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:0.8rem; text-align:center; font-weight:600;">⚠️ No hay mediciones de dinamometría registradas para el análisis longitudinal.</div></div>
+            <div class="chart-wrapper-inner" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+              <canvas id="chartLongFuerza"></canvas>
+              <div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:0.8rem; text-align:center; font-weight:600; padding:15px; background:rgba(244,63,94,0.08); border-radius:8px;">
+                ⚠️ No hay al menos 3 mediciones de dinamometría registradas para el análisis longitudinal.
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="recomendacion-container">
-        <div class="recomendacion-title">📌 Síntesis Diagnóstica y Recomendación de Evaluación</div>
-        <div id="txtSintesisRecomendacion" class="recomendacion-text">
+        <div class="recomendacion-title">
+          <span>📌 Síntesis Diagnóstica y Recomendación de Evaluación</span>
+          <small style="color: var(--text-muted); font-size: 0.68rem; font-weight: normal; text-transform: none;">✏️ Haz clic para editar o personalizar tu interpretación profesional</small>
+        </div>
+        <div id="txtSintesisRecomendacion" class="recomendacion-text" contenteditable="true">
           Ingresa los datos del evaluado para generar la síntesis diagnóstica...
         </div>
         <div id="txtPersuasivoCliente" class="recomendacion-persuasivo" style="display: none;">
@@ -705,6 +721,7 @@
       document.getElementById('fechaEvaluacionReal').value = hoy;
     }
 
+    // Plugin 1: Para etiquetas en barras
     const barTextPlugin = {
       id: 'barTextPlugin',
       afterDatasetsDraw(chart) {
@@ -717,13 +734,36 @@
             if (val > 0) {
               ctx.save();
               ctx.fillStyle = '#ffffff';
-              ctx.font = 'bold 11px Segoe UI, sans-serif';
+              ctx.font = 'bold 10px Segoe UI, sans-serif';
               ctx.textAlign = 'center';
               ctx.textBaseline = 'bottom';
               ctx.fillText(`${val.toFixed(1)}`, bar.x, bar.y - 2);
               ctx.restore();
             }
           });
+        });
+      }
+    };
+
+    // Plugin 2: Para mostrar valores numéricos sobre los puntos de la línea gruesa de sumatoria de pliegues
+    const lineTextPlugin = {
+      id: 'lineTextPlugin',
+      afterDatasetsDraw(chart) {
+        if (chart.config.type !== 'line') return;
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0); // Dataset de la Sumatoria
+        if (!meta) return;
+        meta.data.forEach((point, index) => {
+          const val = chart.data.datasets[0].data[index];
+          if (val > 0) {
+            ctx.save();
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 11px Segoe UI, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(`${val.toFixed(1)} mm`, point.x, point.y - 6);
+            ctx.restore();
+          }
         });
       }
     };
@@ -1109,7 +1149,7 @@
       }
     }
 
-    // Generador universal de badges con semántica fisiológica estricta
+    // Generador universal de badges con semántica fisiológica
     function generarBadgeDelta(valActual, valAnterior, unidad, tipoMedida = 'neutral') {
       if (valAnterior === undefined || isNaN(valAnterior) || valAnterior === 0 || valActual === 0) return '';
       const diff = valActual - valAnterior;
@@ -1118,8 +1158,6 @@
       const signo = diff > 0 ? '+' : '';
       let esPositivo = false;
 
-      // 'reducir_es_bueno': Bajar es Verde (Grasa, Peso, Pliegues, Cintura, IMC, ICT)
-      // 'aumentar_es_bueno': Subir es Verde (MLG, Fuerza, Tono muscular/Brazo)
       if (tipoMedida === 'reducir_es_bueno') {
         esPositivo = diff < 0;
       } else if (tipoMedida === 'aumentar_es_bueno') {
@@ -1151,7 +1189,7 @@
       const dinoDer = parseFloat(document.getElementById('dinoDer').value) || 0;
       const dinoIzq = parseFloat(document.getElementById('dinoIzq').value) || 0;
 
-      // Resumen visual de mediciones directas desglosado
+      // Resumen de datos
       document.getElementById('res-nombre').innerText = nombre || '-';
       document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} a | ${sexo === 'M' ? 'Masc' : 'Fem'}` : '-';
       document.getElementById('res-talla-val').innerText = talla > 0 ? `${talla} cm` : '-';
@@ -1211,7 +1249,7 @@
         pasAsimetria = pasMaxDino > 0 ? (Math.abs(evalPasada.dinoDer - evalPasada.dinoIzq) / pasMaxDino * 100) : 0;
       }
 
-      // Asignación de Badges Deltas estrictamente INDIVIDUALES
+      // Badges
       document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', 'reducir_es_bueno') : '';
       document.getElementById('delta-biceps').innerHTML = evalPasada ? generarBadgeDelta(biceps, evalPasada.biceps, 'mm', 'reducir_es_bueno') : '';
       document.getElementById('delta-triceps').innerHTML = evalPasada ? generarBadgeDelta(triceps, evalPasada.triceps, 'mm', 'reducir_es_bueno') : '';
@@ -1292,7 +1330,7 @@
         document.getElementById('delta-mlg-badge').innerHTML = '';
       }
 
-      // Sumatoria 4 Pliegues Tarjeta KPI
+      // Sumatoria 4 Pliegues
       if (suma4 > 0) {
         document.getElementById('kpi-suma4-val-card').innerText = `${suma4.toFixed(1)} mm`;
         document.getElementById('kpi-suma4-estado').innerText = '4 Pliegues ISAK';
@@ -1444,6 +1482,7 @@
         document.getElementById('delta-asimetria-badge').innerHTML = '';
       }
 
+      // Redacción borrador inicial de síntesis (se puede editar libremente)
       const txtSintesis = document.getElementById('txtSintesisRecomendacion');
       if (peso > 0 && talla > 0 && suma4 > 0) {
         const generoTxt = sexo === 'M' ? 'El evaluado' : 'La evaluada';
@@ -1522,6 +1561,8 @@
       const caderas = historial.map(item => item.cadera);
       const flexBrazoDeltas = historial.map(item => item.brazoFlex - item.brazoRel);
 
+      // Evaluación de dinamometría real (>= 3 evaluaciones registradas con fuerza > 0)
+      const evaluacionesConDinamometria = historial.filter(item => Math.max(item.dinoDer, item.dinoIzq) > 0);
       const fuerzasDominantes = historial.map(item => Math.max(item.dinoDer, item.dinoIzq));
       const fuerzasRelativas = historial.map((item, i) => item.peso > 0 ? (fuerzasDominantes[i] / item.peso) : 0);
 
@@ -1553,7 +1594,7 @@
         }
       });
 
-      // 2. Tendencia Medidas Antropométricas
+      // 2. Tendencia Medidas Antropométricas (Con plugin para mostrar etiquetas sobre la línea de sumatoria)
       const ctxL2 = document.getElementById('chartLongPliegues').getContext('2d');
       if (chartLong2) chartLong2.destroy();
       chartLong2 = new Chart(ctxL2, {
@@ -1561,13 +1602,14 @@
         data: {
           labels: fechas,
           datasets: [
-            { label: '∑4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 3, pointRadius: 5, pointBackgroundColor: '#10b981' },
+            { label: '∑4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 3.5, pointRadius: 5, pointBackgroundColor: '#10b981' },
             { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 3 },
             { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.5, pointRadius: 3 },
             { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.5, pointRadius: 3 },
             { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.5, pointRadius: 3 }
           ]
         },
+        plugins: [lineTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
@@ -1577,7 +1619,7 @@
         }
       });
 
-      // 3. Evolución Perímetros & Tono Muscular
+      // 3. Evolución Perímetros & Tono Muscular (Con DOBLE EJE Y para escalar Delta Flexión de Brazo)
       const ctxL3 = document.getElementById('chartLongPerimetros').getContext('2d');
       if (chartLong3) chartLong3.destroy();
 
@@ -1599,16 +1641,18 @@
           plugins: {
             legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
           },
-          scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
+          scales: {
+            x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } },
+            y: { ticks: { color: '#94a3b8' }, title: { display: true, text: 'Tronco (cm)', color: '#94a3b8', font: { size: 9 } } }
+          }
         }
       });
 
-      // 4. Perfil de Fuerza & Dinamometría
+      // 4. Perfil de Fuerza & Dinamometría (RESTRICCIÓN: Mínimo 3 mediciones REALES con fuerza > 0)
       const canvasFuerza = document.getElementById('chartLongFuerza');
       const msgNoDino = document.getElementById('msgNoDinamometriaLong');
-      const sumaFuerzaTotal = fuerzasDominantes.reduce((a, b) => a + b, 0);
 
-      if (sumaFuerzaTotal === 0) {
+      if (evaluacionesConDinamometria.length < 3) {
         canvasFuerza.style.display = 'none';
         msgNoDino.style.display = 'block';
         if (chartLong4) chartLong4.destroy();
