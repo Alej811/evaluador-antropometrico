@@ -64,6 +64,7 @@
     .btn-secondary:hover { background: #475569; }
     .btn-disabled { background: #475569; color: #94a3b8; cursor: not-allowed; }
 
+    /* Estructura optimizada para resumen de mediciones directas */
     .datos-medidos-container {
       background: #0f172a;
       border: 1px solid var(--border);
@@ -87,22 +88,33 @@
     .datos-medidos-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 10px;
       font-size: 0.78rem;
     }
     .datos-medidos-block {
       background: rgba(255, 255, 255, 0.02);
-      padding: 8px;
+      padding: 8px 10px;
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 0.68rem; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; }
     .datos-medidos-block strong { color: #fff; font-size: 0.82rem; }
-    .line-item-val { display: flex; align-items: center; justify-content: space-between; margin-top: 3px; }
+    
+    .line-item-sub {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 3px;
+      font-size: 0.75rem;
+    }
+    .line-item-sub span { color: var(--text-muted); font-size: 0.7rem; }
 
     .delta-badge {
       display: inline-block;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       padding: 1px 5px;
       border-radius: 4px;
@@ -494,37 +506,58 @@
     </aside>
 
     <main class="panel">
+      <!-- Sección de mediciones directas desglosadas por parámetro individual -->
       <section class="datos-medidos-container">
         <div class="datos-medidos-header">
           <span>📋 Resumen de Datos del Evaluado y Mediciones Directas</span>
           <span id="label-comparativa-header" style="font-size: 0.72rem; color: #38bdf8; font-weight: 600;"></span>
         </div>
         <div class="datos-medidos-grid">
-          <div class="datos-medidos-block"><small>Nombre / Atleta:</small><strong id="res-nombre">-</strong></div>
-          <div class="datos-medidos-block"><small>Edad / Sexo:</small><strong id="res-edad-sexo">-</strong></div>
           <div class="datos-medidos-block">
-            <small>Talla / Peso Total:</small>
-            <div class="line-item-val"><strong id="res-talla-peso">-</strong><span id="delta-peso"></span></div>
+            <small>Atleta & Perfil:</small>
+            <strong id="res-nombre">-</strong>
+            <div class="line-item-sub"><span id="res-edad-sexo">-</span></div>
           </div>
+          
           <div class="datos-medidos-block">
-            <small>Dinamometría Izq / Der:</small>
-            <div class="line-item-val"><strong id="res-dino-raw">-</strong><span id="delta-dino"></span></div>
+            <small>Talla & Masa Corporal:</small>
+            <div class="line-item-sub"><span>Talla:</span><strong id="res-talla-val">-</strong></div>
+            <div class="line-item-sub"><span>Peso:</span><strong id="res-peso-val">-</strong><span id="delta-peso"></span></div>
           </div>
+
           <div class="datos-medidos-block">
-            <small>Pliegues Bíceps / Tríceps:</small>
-            <div class="line-item-val"><strong id="res-pliegues-1">-</strong><span id="delta-pliegues-1"></span></div>
+            <small>Pliegues (Bíceps / Tríceps):</small>
+            <div class="line-item-sub"><span>Bíceps:</span><strong id="res-biceps-val">-</strong><span id="delta-biceps"></span></div>
+            <div class="line-item-sub"><span>Tríceps:</span><strong id="res-triceps-val">-</strong><span id="delta-triceps"></span></div>
           </div>
+
           <div class="datos-medidos-block">
-            <small>Pliegues Subescap. / Suprail. (∑4):</small>
-            <div class="line-item-val"><strong id="res-pliegues-2">-</strong><span id="delta-suma4"></span></div>
+            <small>Pliegues (Subesc. / Suprail.):</small>
+            <div class="line-item-sub"><span>Subescap.:</span><strong id="res-subesc-val">-</strong><span id="delta-subesc"></span></div>
+            <div class="line-item-sub"><span>Suprail.:</span><strong id="res-suprail-val">-</strong><span id="delta-suprail"></span></div>
           </div>
+
           <div class="datos-medidos-block">
-            <small>Perím. Brazo Rel. / Flex.:</small>
-            <div class="line-item-val"><strong id="res-perim-brazo">-</strong><span id="delta-brazo"></span></div>
+            <small>Sumatoria 4 Pliegues (∑4):</small>
+            <div class="line-item-sub"><span>∑4 ISAK:</span><strong id="res-suma4-val">-</strong><span id="delta-suma4"></span></div>
           </div>
+
           <div class="datos-medidos-block">
-            <small>Perím. Cintura / Cadera:</small>
-            <div class="line-item-val"><strong id="res-perim-cintura-cadera">-</strong><span id="delta-cintura"></span></div>
+            <small>Perímetros de Brazo:</small>
+            <div class="line-item-sub"><span>Relajado:</span><strong id="res-brazorel-val">-</strong><span id="delta-brazorel"></span></div>
+            <div class="line-item-sub"><span>Flexionado:</span><strong id="res-brazoflex-val">-</strong><span id="delta-brazoflex"></span></div>
+          </div>
+
+          <div class="datos-medidos-block">
+            <small>Perímetros de Tronco:</small>
+            <div class="line-item-sub"><span>Cintura:</span><strong id="res-cintura-val">-</strong><span id="delta-cintura"></span></div>
+            <div class="line-item-sub"><span>Cadera:</span><strong id="res-cadera-val">-</strong><span id="delta-cadera"></span></div>
+          </div>
+
+          <div class="datos-medidos-block">
+            <small>Dinamometría Bilateral:</small>
+            <div class="line-item-sub"><span>Mano Izq.:</span><strong id="res-dinoizq-val">-</strong><span id="delta-dinoizq"></span></div>
+            <div class="line-item-sub"><span>Mano Der.:</span><strong id="res-dinoder-val">-</strong><span id="delta-dinoder"></span></div>
           </div>
         </div>
       </section>
@@ -533,7 +566,7 @@
         <div class="kpi-card"><span>ÍNDICE MASA CORP (IMC)</span><h3 id="kpi-imc">-</h3><small id="kpi-imc-estado">-</small><div id="delta-imc-badge"></div></div>
         <div class="kpi-card"><span>PORCENTAJE GRASA</span><h3 id="kpi-grasa">-</h3><small id="kpi-grasa-kg">-</small><div id="delta-grasa-badge"></div></div>
         <div class="kpi-card"><span>MASA LIBRE DE GRASA (MLG)</span><h3 id="kpi-mlg">-</h3><small id="kpi-mlg-kg">-</small><div id="delta-mlg-badge"></div></div>
-        <div class="kpi-card"><span>SUMATORIA 4 PLIEGUES (∑4)</span><h3 id="kpi-suma4-val">-</h3><small id="kpi-suma4-estado">4 Pliegues ISAK</small><div id="delta-suma4-badge"></div></div>
+        <div class="kpi-card"><span>SUMATORIA 4 PLIEGUES (∑4)</span><h3 id="kpi-suma4-val-card">-</h3><small id="kpi-suma4-estado">4 Pliegues ISAK</small><div id="delta-suma4-badge"></div></div>
         <div class="kpi-card" style="border-top-color: #3b82f6;">
           <span>PROYECCIÓN RECOMPOSICIÓN</span>
           <h3 id="kpi-recomp-val">-</h3>
@@ -1076,7 +1109,7 @@
       }
     }
 
-    // Lógica semántica de colores fisiológicos
+    // Generador universal de badges con semántica fisiológica estricta
     function generarBadgeDelta(valActual, valAnterior, unidad, tipoMedida = 'neutral') {
       if (valAnterior === undefined || isNaN(valAnterior) || valAnterior === 0 || valActual === 0) return '';
       const diff = valActual - valAnterior;
@@ -1105,8 +1138,8 @@
       const edad = parseInt(document.getElementById('edad').value) || 0;
       const sexo = document.getElementById('sexo').value;
 
-      const triceps = parseFloat(document.getElementById('triceps').value) || 0;
       const biceps = parseFloat(document.getElementById('biceps').value) || 0;
+      const triceps = parseFloat(document.getElementById('triceps').value) || 0;
       const subescapular = parseFloat(document.getElementById('subescapular').value) || 0;
       const suprailiaco = parseFloat(document.getElementById('suprailiaco').value) || 0;
 
@@ -1118,16 +1151,27 @@
       const dinoDer = parseFloat(document.getElementById('dinoDer').value) || 0;
       const dinoIzq = parseFloat(document.getElementById('dinoIzq').value) || 0;
 
+      // Resumen visual de mediciones directas desglosado
       document.getElementById('res-nombre').innerText = nombre || '-';
-      document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} años | ${sexo === 'M' ? 'Masculino' : 'Femenino'}` : '-';
-      document.getElementById('res-talla-peso').innerText = (talla > 0 || peso > 0) ? `${talla || '-'} cm | ${peso || '-'} kg` : '-';
-      document.getElementById('res-dino-raw').innerText = (dinoDer > 0 || dinoIzq > 0) ? `${dinoIzq.toFixed(1)} kg / ${dinoDer.toFixed(1)} kg` : '-';
-      document.getElementById('res-pliegues-1').innerText = (biceps > 0 || triceps > 0) ? `${biceps.toFixed(1)} mm / ${triceps.toFixed(1)} mm` : '-';
-      
-      const suma4 = triceps + biceps + subescapular + suprailiaco;
-      document.getElementById('res-pliegues-2').innerText = suma4 > 0 ? `${subescapular.toFixed(1)} mm / ${suprailiaco.toFixed(1)} mm (${suma4.toFixed(1)}mm)` : '-';
-      document.getElementById('res-perim-brazo').innerText = (brazoRel > 0 || brazoFlex > 0) ? `${brazoRel.toFixed(1)} cm / ${brazoFlex.toFixed(1)} cm` : '-';
-      document.getElementById('res-perim-cintura-cadera').innerText = (cintura > 0 || cadera > 0) ? `${cintura.toFixed(1)} cm / ${cadera.toFixed(1)} cm` : '-';
+      document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} a | ${sexo === 'M' ? 'Masc' : 'Fem'}` : '-';
+      document.getElementById('res-talla-val').innerText = talla > 0 ? `${talla} cm` : '-';
+      document.getElementById('res-peso-val').innerText = peso > 0 ? `${peso.toFixed(1)} kg` : '-';
+
+      document.getElementById('res-biceps-val').innerText = biceps > 0 ? `${biceps.toFixed(1)} mm` : '-';
+      document.getElementById('res-triceps-val').innerText = triceps > 0 ? `${triceps.toFixed(1)} mm` : '-';
+      document.getElementById('res-subesc-val').innerText = subescapular > 0 ? `${subescapular.toFixed(1)} mm` : '-';
+      document.getElementById('res-suprail-val').innerText = suprailiaco > 0 ? `${suprailiaco.toFixed(1)} mm` : '-';
+
+      const suma4 = biceps + triceps + subescapular + suprailiaco;
+      document.getElementById('res-suma4-val').innerText = suma4 > 0 ? `${suma4.toFixed(1)} mm` : '-';
+
+      document.getElementById('res-brazorel-val').innerText = brazoRel > 0 ? `${brazoRel.toFixed(1)} cm` : '-';
+      document.getElementById('res-brazoflex-val').innerText = brazoFlex > 0 ? `${brazoFlex.toFixed(1)} cm` : '-';
+      document.getElementById('res-cintura-val').innerText = cintura > 0 ? `${cintura.toFixed(1)} cm` : '-';
+      document.getElementById('res-cadera-val').innerText = cadera > 0 ? `${cadera.toFixed(1)} cm` : '-';
+
+      document.getElementById('res-dinoizq-val').innerText = dinoIzq > 0 ? `${dinoIzq.toFixed(1)} kg` : '-';
+      document.getElementById('res-dinoder-val').innerText = dinoDer > 0 ? `${dinoDer.toFixed(1)} kg` : '-';
 
       let evalPasada = null;
       const chkComparar = document.getElementById('chkCompararAnterior').checked;
@@ -1152,7 +1196,7 @@
       if (evalPasada) {
         const pasTallaM = evalPasada.talla / 100;
         pasIMC = pasTallaM > 0 ? (evalPasada.peso / (pasTallaM * pasTallaM)) : 0;
-        pasSuma4 = evalPasada.triceps + evalPasada.biceps + evalPasada.subescapular + evalPasada.suprailiaco;
+        pasSuma4 = evalPasada.biceps + evalPasada.triceps + evalPasada.subescapular + evalPasada.suprailiaco;
         let pasDc = 1.0;
         if (pasSuma4 > 0) {
           const logSumaP = Math.log10(pasSuma4);
@@ -1167,13 +1211,21 @@
         pasAsimetria = pasMaxDino > 0 ? (Math.abs(evalPasada.dinoDer - evalPasada.dinoIzq) / pasMaxDino * 100) : 0;
       }
 
-      // Deltas en sección directas con Lógica Semántica
+      // Asignación de Badges Deltas estrictamente INDIVIDUALES
       document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', 'reducir_es_bueno') : '';
+      document.getElementById('delta-biceps').innerHTML = evalPasada ? generarBadgeDelta(biceps, evalPasada.biceps, 'mm', 'reducir_es_bueno') : '';
+      document.getElementById('delta-triceps').innerHTML = evalPasada ? generarBadgeDelta(triceps, evalPasada.triceps, 'mm', 'reducir_es_bueno') : '';
+      document.getElementById('delta-subesc').innerHTML = evalPasada ? generarBadgeDelta(subescapular, evalPasada.subescapular, 'mm', 'reducir_es_bueno') : '';
+      document.getElementById('delta-suprail').innerHTML = evalPasada ? generarBadgeDelta(suprailiaco, evalPasada.suprailiaco, 'mm', 'reducir_es_bueno') : '';
       document.getElementById('delta-suma4').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', 'reducir_es_bueno') : '';
+
+      document.getElementById('delta-brazorel').innerHTML = evalPasada ? generarBadgeDelta(brazoRel, evalPasada.brazoRel, 'cm', 'aumentar_es_bueno') : '';
+      document.getElementById('delta-brazoflex').innerHTML = evalPasada ? generarBadgeDelta(brazoFlex, evalPasada.brazoFlex, 'cm', 'aumentar_es_bueno') : '';
       document.getElementById('delta-cintura').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', 'reducir_es_bueno') : '';
-      document.getElementById('delta-brazo').innerHTML = evalPasada ? generarBadgeDelta(brazoRel, evalPasada.brazoRel, 'cm', 'aumentar_es_bueno') : '';
-      document.getElementById('delta-pliegues-1').innerHTML = evalPasada ? generarBadgeDelta(biceps + triceps, evalPasada.biceps + evalPasada.triceps, 'mm', 'reducir_es_bueno') : '';
-      document.getElementById('delta-dino').innerHTML = evalPasada ? generarBadgeDelta(Math.max(dinoDer, dinoIzq), Math.max(evalPasada ? evalPasada.dinoDer : 0, evalPasada ? evalPasada.dinoIzq : 0), 'kg', 'aumentar_es_bueno') : '';
+      document.getElementById('delta-cadera').innerHTML = evalPasada ? generarBadgeDelta(cadera, evalPasada.cadera, 'cm', 'neutral') : '';
+
+      document.getElementById('delta-dinoizq').innerHTML = evalPasada ? generarBadgeDelta(dinoIzq, evalPasada.dinoIzq, 'kg', 'aumentar_es_bueno') : '';
+      document.getElementById('delta-dinoder').innerHTML = evalPasada ? generarBadgeDelta(dinoDer, evalPasada.dinoDer, 'kg', 'aumentar_es_bueno') : '';
 
       // IMC
       const tallaM = talla / 100;
@@ -1240,14 +1292,14 @@
         document.getElementById('delta-mlg-badge').innerHTML = '';
       }
 
-      // Sumatoria 4 Pliegues
+      // Sumatoria 4 Pliegues Tarjeta KPI
       if (suma4 > 0) {
-        document.getElementById('kpi-suma4-val').innerText = `${suma4.toFixed(1)} mm`;
+        document.getElementById('kpi-suma4-val-card').innerText = `${suma4.toFixed(1)} mm`;
         document.getElementById('kpi-suma4-estado').innerText = '4 Pliegues ISAK';
         document.getElementById('kpi-suma4-estado').style.color = '#10b981';
         document.getElementById('delta-suma4-badge').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', 'reducir_es_bueno') : '';
       } else {
-        document.getElementById('kpi-suma4-val').innerText = '-';
+        document.getElementById('kpi-suma4-val-card').innerText = '-';
         document.getElementById('kpi-suma4-estado').innerText = 'FALTA PLIEGUES';
         document.getElementById('kpi-suma4-estado').style.color = '#f43f5e';
         document.getElementById('delta-suma4-badge').innerHTML = '';
@@ -1452,7 +1504,7 @@
       
       const pesos = historial.map(item => item.peso);
       const grasasPct = historial.map(item => {
-        const sum = item.triceps + item.biceps + item.subescapular + item.suprailiaco;
+        const sum = item.biceps + item.triceps + item.subescapular + item.suprailiaco;
         if (sum === 0) return 0;
         const logS = Math.log10(sum);
         const dc = item.sexo === 'M' ? (1.1631 - (0.0632 * logS)) : (1.1599 - (0.0717 * logS));
@@ -1460,11 +1512,11 @@
       });
       const mlgs = historial.map((item, i) => item.peso - (item.peso * (grasasPct[i] / 100)));
 
-      const tricepsArr = historial.map(item => item.triceps);
       const bicepsArr = historial.map(item => item.biceps);
+      const tricepsArr = historial.map(item => item.triceps);
       const subescapularArr = historial.map(item => item.subescapular);
       const suprailiacoArr = historial.map(item => item.suprailiaco);
-      const sumatoriasArr = historial.map(item => item.triceps + item.biceps + item.subescapular + item.suprailiaco);
+      const sumatoriasArr = historial.map(item => item.biceps + item.triceps + item.subescapular + item.suprailiaco);
 
       const cinturas = historial.map(item => item.cintura);
       const caderas = historial.map(item => item.cadera);
@@ -1473,10 +1525,9 @@
       const fuerzasDominantes = historial.map(item => Math.max(item.dinoDer, item.dinoIzq));
       const fuerzasRelativas = historial.map((item, i) => item.peso > 0 ? (fuerzasDominantes[i] / item.peso) : 0);
 
-      // Paleta de Colores por Fecha
       const coloresFechas = ['#38bdf8', '#3b82f6', '#10b981', '#a855f7', '#f59e0b', '#f43f5e'];
 
-      // 1. Evolución Composición Corporal (Agrupado por Variable)
+      // 1. Evolución Composición Corporal
       const ctxL1 = document.getElementById('chartLongComposicion').getContext('2d');
       if (chartLong1) chartLong1.destroy();
       
@@ -1502,7 +1553,7 @@
         }
       });
 
-      // 2. Tendencia Medidas Antropométricas (Línea de Tendencia limpia)
+      // 2. Tendencia Medidas Antropométricas
       const ctxL2 = document.getElementById('chartLongPliegues').getContext('2d');
       if (chartLong2) chartLong2.destroy();
       chartLong2 = new Chart(ctxL2, {
@@ -1526,7 +1577,7 @@
         }
       });
 
-      // 3. Evolución Perímetros & Tono Muscular (Agrupado por Variable)
+      // 3. Evolución Perímetros & Tono Muscular
       const ctxL3 = document.getElementById('chartLongPerimetros').getContext('2d');
       if (chartLong3) chartLong3.destroy();
 
@@ -1552,7 +1603,7 @@
         }
       });
 
-      // 4. Perfil de Fuerza & Dinamometría (Con validación de existencia de datos)
+      // 4. Perfil de Fuerza & Dinamometría
       const canvasFuerza = document.getElementById('chartLongFuerza');
       const msgNoDino = document.getElementById('msgNoDinamometriaLong');
       const sumaFuerzaTotal = fuerzasDominantes.reduce((a, b) => a + b, 0);
