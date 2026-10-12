@@ -535,7 +535,7 @@
 
       <h2>Prescripción / Hito Meta</h2>
       <div class="form-group">
-        <label>% Grasa Objetivo Personalizado (%):</label>
+        <label>🎯 % Grasa Objetivo Personalizado (%):</label>
         <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="calcular()">
       </div>
 
@@ -561,33 +561,33 @@
         <input type="date" id="fechaEvaluacionReal">
       </div>
 
-      <button id="btnGuardarEvaluacion" class="btn-action" onclick="ejecutarGuardarHistorial()">Guardar Evaluación</button>
+      <button id="btnGuardarEvaluacion" class="btn-action" onclick="ejecutarGuardarHistorial()">💾 Guardar Evaluación</button>
 
       <h2>Respaldo local</h2>
       <button class="btn-action btn-secondary" style="background: #0284c7;" onclick="exportarBaseDatosJSON()">Descargar copia BD (JSON)</button>
       <input type="file" id="inputImportJSON" accept=".json" style="display: none;" onchange="importarBaseDatosJSON(event)">
-      <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">Importar BD desde JSON</button>
+      <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">📤 Importar BD desde JSON</button>
 
       <div class="form-group" style="margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
         <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">
-          <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> Comparar con Evaluación Anterior
+          <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> 🔄 Comparar con Evaluación Anterior
         </label>
         <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 6px;">
-          <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> Evaluar Todo el Historial (Análisis Longitudinal)
+          <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> 📈 Evaluar Todo el Historial (Análisis Longitudinal)
         </label>
         <label style="cursor: pointer; color: #a855f7; font-weight: 600; display: block;">
-          <input type="checkbox" id="chkPotencialCliente" onchange="calcular()"> Potencial Cliente (Texto Persuasivo)
+          <input type="checkbox" id="chkPotencialCliente" onchange="calcular()"> 🎯 Potencial Cliente (Texto Persuasivo)
         </label>
       </div>
 
-      <button class="btn-action btn-secondary" style="margin-top: 10px;" onclick="abrirModalDirectorio()">Gestión del Directorio</button>
-      <button class="btn-action" style="margin-top: 8px; background: var(--primary);" onclick="window.print()">Imprimir / Guardar PDF del Informe</button>
+      <button class="btn-action btn-secondary" style="margin-top: 10px;" onclick="abrirModalDirectorio()">👥 Gestión del Directorio</button>
+      <button class="btn-action" style="margin-top: 8px; background: var(--primary);" onclick="window.print()">🖨️ Imprimir / Guardar PDF del Informe</button>
     </aside>
 
     <main class="panel">
       <section class="datos-medidos-container">
         <div class="datos-medidos-header">
-          <span>Resumen de Datos del Evaluado y Mediciones Directas</span>
+          <span>📋 Resumen de Datos del Evaluado y Mediciones Directas</span>
           <span id="label-comparativa-header" style="font-size: 0.78rem; color: #38bdf8; font-weight: 600;"></span>
         </div>
         <div class="datos-medidos-grid">
@@ -661,7 +661,7 @@
 
       <div class="charts-grid">
         <div class="chart-container">
-          <div class="card-header-flex"><h4><span style="color: var(--primary);">⚖️</span> Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
+          <div class="card-header-flex"><h4><span style="color: var(--primary);">⚖️</span>⚖️ Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
           <div class="chart-wrapper-inner"><canvas id="chartComposicion"></canvas></div>
           <div class="fraccionamiento-footer">
             <div class="fraccionamiento-item"><small>Masa Grasa Total</small><strong id="footer-kg-grasa" style="color: #f43f5e;">-</strong><div id="delta-kg-grasa-badge"></div></div>
@@ -770,7 +770,7 @@
   <div id="modalDirectorio" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Gestión del Directorio de Perfiles y Evaluaciones</h3>
+        <h3>👥 Gestión del Directorio de Perfiles y Evaluaciones</h3>
         <button class="modal-close" type="button" onclick="cerrarModalDirectorio()" aria-label="Cerrar directorio">Cerrar</button>
       </div>
       <div class="modal-body" id="modal-directorio-list"></div>
@@ -872,12 +872,12 @@
               cont++;
             }
           }
-          alert(`Éxito: Se importaron ${cont} perfiles de atletas a la base de datos.`);
+          alert(`✅ Éxito: Se importaron ${cont} perfiles de atletas a la base de datos.`);
           actualizarDatalistAtletas();
           cargarSelectPerfilesExistentes();
           calcular();
         } catch (err) {
-          alert("Error: El archivo cargado no tiene un formato JSON válido de Ciencia Deportiva.");
+          alert("❌ Error: El archivo cargado no tiene un formato JSON válido de Ciencia Deportiva.");
         }
       };
       reader.readAsText(file);
@@ -955,14 +955,14 @@
       if (tipo === 'existente') {
         groupExistente.style.display = 'block';
         groupFecha.style.display = 'block';
-        btnGuardar.innerText = 'Guardar Evaluación';
+        btnGuardar.innerText = '💾 Guardar Evaluación';
         btnGuardar.className = 'btn-action';
         btnGuardar.onclick = ejecutarGuardarHistorial;
         cargarSelectPerfilesExistentes();
       } else if (tipo === 'nuevo') {
         groupExistente.style.display = 'none';
         groupFecha.style.display = 'block';
-        btnGuardar.innerText = 'Guardar Evaluación';
+        btnGuardar.innerText = '💾 Guardar Evaluación';
         btnGuardar.className = 'btn-action';
         btnGuardar.onclick = ejecutarGuardarHistorial;
       } else {
