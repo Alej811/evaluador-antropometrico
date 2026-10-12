@@ -80,26 +80,34 @@
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 3px;
+      padding-bottom: 4px;
     }
     .datos-medidos-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 12px;
       font-size: 0.78rem;
     }
-    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 0.7rem; }
+    .datos-medidos-block {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 0.68rem; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; }
     .datos-medidos-block strong { color: #fff; font-size: 0.82rem; }
+    .line-item-val { display: flex; align-items: center; justify-content: space-between; margin-top: 3px; }
 
     .delta-badge {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       padding: 1px 5px;
       border-radius: 4px;
       margin-left: 4px;
+      white-space: nowrap;
     }
     .delta-pos { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
     .delta-neg { background: rgba(244, 63, 94, 0.2); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4); }
@@ -113,26 +121,29 @@
     }
     .kpi-card {
       background: #0f172a;
-      padding: 10px 6px;
+      padding: 10px 8px;
       border-radius: 8px;
       text-align: center;
       border: 1px solid var(--border);
       border-top: 3px solid var(--primary);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .kpi-card span { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.1px; display: block; min-height: 26px; line-height: 1.1; }
-    .kpi-card h3 { font-size: 1.15rem; margin: 2px 0; color: #fff; font-weight: 700; }
+    .kpi-card h3 { font-size: 1.15rem; margin: 4px 0; color: #fff; font-weight: 700; }
     .kpi-card small { font-size: 0.72rem; font-weight: 600; display: block; }
     .kpi-card .nota-sub { font-size: 0.6rem; color: var(--text-muted); margin-top: 2px; font-weight: normal; line-height: 1; }
 
     .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-    .chart-container { background: #0f172a; padding: 14px; border-radius: 10px; border: 1px solid var(--border); min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }
+    .chart-container { background: #0f172a; padding: 14px; border-radius: 10px; border: 1px solid var(--border); min-height: 290px; display: flex; flex-direction: column; justify-content: space-between; }
 
     .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .card-header-flex h4 { font-size: 0.88rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .card-header-flex span { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
 
-    .chart-wrapper-inner { position: relative; height: 160px; width: 100%; margin: 0 auto; }
+    .chart-wrapper-inner { position: relative; height: 180px; width: 100%; margin: 0 auto; }
 
     .fraccionamiento-footer {
       border-top: 1px solid var(--border);
@@ -486,17 +497,35 @@
       <section class="datos-medidos-container">
         <div class="datos-medidos-header">
           <span>📋 Resumen de Datos del Evaluado y Mediciones Directas</span>
-          <span id="label-comparativa-header" style="font-size: 0.7rem; color: #38bdf8; font-weight: 600;"></span>
+          <span id="label-comparativa-header" style="font-size: 0.72rem; color: #38bdf8; font-weight: 600;"></span>
         </div>
         <div class="datos-medidos-grid">
           <div class="datos-medidos-block"><small>Nombre / Atleta:</small><strong id="res-nombre">-</strong></div>
           <div class="datos-medidos-block"><small>Edad / Sexo:</small><strong id="res-edad-sexo">-</strong></div>
-          <div class="datos-medidos-block"><small>Talla / Peso Total:</small><strong id="res-talla-peso">-</strong> <span id="delta-peso"></span></div>
-          <div class="datos-medidos-block"><small>Dinamometría Izq / Der:</small><strong id="res-dino-raw">-</strong> <span id="delta-dino"></span></div>
-          <div class="datos-medidos-block"><small>Pliegues Bíceps / Tríceps:</small><strong id="res-pliegues-1">-</strong></div>
-          <div class="datos-medidos-block"><small>Pliegues Subescap. / Suprail. (∑4):</small><strong id="res-pliegues-2">-</strong> <span id="delta-suma4"></span></div>
-          <div class="datos-medidos-block"><small>Perím. Brazo Rel. / Flex.:</small><strong id="res-perim-brazo">-</strong> <span id="delta-brazo"></span></div>
-          <div class="datos-medidos-block"><small>Perím. Cintura / Cadera:</small><strong id="res-perim-cintura-cadera">-</strong> <span id="delta-cintura"></span></div>
+          <div class="datos-medidos-block">
+            <small>Talla / Peso Total:</small>
+            <div class="line-item-val"><strong id="res-talla-peso">-</strong><span id="delta-peso"></span></div>
+          </div>
+          <div class="datos-medidos-block">
+            <small>Dinamometría Izq / Der:</small>
+            <div class="line-item-val"><strong id="res-dino-raw">-</strong><span id="delta-dino"></span></div>
+          </div>
+          <div class="datos-medidos-block">
+            <small>Pliegues Bíceps / Tríceps:</small>
+            <div class="line-item-val"><strong id="res-pliegues-1">-</strong><span id="delta-pliegues-1"></span></div>
+          </div>
+          <div class="datos-medidos-block">
+            <small>Pliegues Subescap. / Suprail. (∑4):</small>
+            <div class="line-item-val"><strong id="res-pliegues-2">-</strong><span id="delta-suma4"></span></div>
+          </div>
+          <div class="datos-medidos-block">
+            <small>Perím. Brazo Rel. / Flex.:</small>
+            <div class="line-item-val"><strong id="res-perim-brazo">-</strong><span id="delta-brazo"></span></div>
+          </div>
+          <div class="datos-medidos-block">
+            <small>Perím. Cintura / Cadera:</small>
+            <div class="line-item-val"><strong id="res-perim-cintura-cadera">-</strong><span id="delta-cintura"></span></div>
+          </div>
         </div>
       </section>
 
@@ -530,7 +559,7 @@
         </div>
         <div class="chart-container">
           <div class="card-header-flex"><h4><span style="color: #3b82f6;">📊</span> Fuerza de Agarre (kg)</h4><span>Dinamometría Manual</span></div>
-          <div class="chart-wrapper-inner" style="height: 100px; margin-top: 5px;"><canvas id="chartDinamometria"></canvas></div>
+          <div class="chart-wrapper-inner" style="height: 110px; margin-top: 5px;"><canvas id="chartDinamometria"></canvas></div>
           <div class="fraccionamiento-footer">
             <div class="fraccionamiento-item"><small>Mano Izquierda</small><strong id="footer-dino-izq" style="color: #38bdf8;">-</strong></div>
             <div class="fraccionamiento-item"><small>Mano Derecha</small><strong id="footer-dino-der" style="color: #3b82f6;">-</strong></div>
@@ -552,20 +581,20 @@
 
         <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #10b981;">📊</span> 1. Evolución Composición Corporal</h4><span>Peso, Grasa & MLG</span></div>
-            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongComposicion"></canvas></div>
+            <div class="card-header-flex"><h4><span style="color: #10b981;">📊</span> 1. Evolución Composición Corporal</h4><span>Comparación por Variable</span></div>
+            <div class="chart-wrapper-inner" style="height: 200px;"><canvas id="chartLongComposicion"></canvas></div>
           </div>
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #f43f5e;">📈</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues & ∑4 Pliegues</span></div>
-            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongPliegues"></canvas></div>
+            <div class="card-header-flex"><h4><span style="color: #f43f5e;">📈</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues Cutáneos</span></div>
+            <div class="chart-wrapper-inner" style="height: 200px;"><canvas id="chartLongPliegues"></canvas></div>
           </div>
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Cintura, Cadera & Flex. Brazo</span></div>
-            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongPerimetros"></canvas></div>
+            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Comparación por Variable</span></div>
+            <div class="chart-wrapper-inner" style="height: 200px;"><canvas id="chartLongPerimetros"></canvas></div>
           </div>
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #a855f7;">🏋️</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Mano Dominante & Fuerza Relativa</span></div>
-            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongFuerza"></canvas></div>
+            <div class="card-header-flex"><h4><span style="color: #a855f7;">🏋️</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Dinamometría Bilateral</span></div>
+            <div class="chart-wrapper-inner" style="height: 200px; display: flex; align-items: center; justify-content: center;"><canvas id="chartLongFuerza"></canvas><div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:0.8rem; text-align:center; font-weight:600;">⚠️ No hay mediciones de dinamometría registradas para el análisis longitudinal.</div></div>
           </div>
         </div>
       </div>
@@ -651,16 +680,14 @@
         chart.data.datasets.forEach((dataset, i) => {
           const meta = chart.getDatasetMeta(i);
           meta.data.forEach((bar) => {
-            const val = dataset.data[0];
+            const val = dataset.data[bar.$context.dataIndex];
             if (val > 0) {
               ctx.save();
               ctx.fillStyle = '#ffffff';
-              ctx.font = 'bold 12px Segoe UI, sans-serif';
+              ctx.font = 'bold 11px Segoe UI, sans-serif';
               ctx.textAlign = 'center';
-              ctx.textBaseline = 'middle';
-              const centerX = bar.x - (bar.width / 2);
-              const centerY = bar.y;
-              ctx.fillText(`${val.toFixed(1)} kg`, centerX, centerY);
+              ctx.textBaseline = 'bottom';
+              ctx.fillText(`${val.toFixed(1)}`, bar.x, bar.y - 2);
               ctx.restore();
             }
           });
@@ -1049,14 +1076,22 @@
       }
     }
 
-    function generarBadgeDelta(valActual, valAnterior, unidad, invertido = false) {
-      if (valAnterior === undefined || isNaN(valAnterior) || valAnterior === 0) return '';
+    // Lógica semántica de colores fisiológicos
+    function generarBadgeDelta(valActual, valAnterior, unidad, tipoMedida = 'neutral') {
+      if (valAnterior === undefined || isNaN(valAnterior) || valAnterior === 0 || valActual === 0) return '';
       const diff = valActual - valAnterior;
       if (Math.abs(diff) < 0.01) return `<span class="delta-badge delta-neutral">= 0.0${unidad}</span>`;
       
       const signo = diff > 0 ? '+' : '';
-      let esPositivo = diff > 0;
-      if (invertido) esPositivo = !esPositivo;
+      let esPositivo = false;
+
+      // 'reducir_es_bueno': Bajar es Verde (Grasa, Peso, Pliegues, Cintura, IMC, ICT)
+      // 'aumentar_es_bueno': Subir es Verde (MLG, Fuerza, Tono muscular/Brazo)
+      if (tipoMedida === 'reducir_es_bueno') {
+        esPositivo = diff < 0;
+      } else if (tipoMedida === 'aumentar_es_bueno') {
+        esPositivo = diff > 0;
+      }
 
       const clase = esPositivo ? 'delta-pos' : 'delta-neg';
       const flecha = diff > 0 ? '▲' : '▼';
@@ -1132,12 +1167,15 @@
         pasAsimetria = pasMaxDino > 0 ? (Math.abs(evalPasada.dinoDer - evalPasada.dinoIzq) / pasMaxDino * 100) : 0;
       }
 
-      document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', true) : '';
-      document.getElementById('delta-suma4').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', true) : '';
-      document.getElementById('delta-cintura').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', true) : '';
-      document.getElementById('delta-brazo').innerHTML = evalPasada ? generarBadgeDelta(brazoRel, evalPasada.brazoRel, 'cm', false) : '';
-      document.getElementById('delta-dino').innerHTML = evalPasada ? generarBadgeDelta(Math.max(dinoDer, dinoIzq), Math.max(evalPasada ? evalPasada.dinoDer : 0, evalPasada ? evalPasada.dinoIzq : 0), 'kg', false) : '';
+      // Deltas en sección directas con Lógica Semántica
+      document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', 'reducir_es_bueno') : '';
+      document.getElementById('delta-suma4').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', 'reducir_es_bueno') : '';
+      document.getElementById('delta-cintura').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', 'reducir_es_bueno') : '';
+      document.getElementById('delta-brazo').innerHTML = evalPasada ? generarBadgeDelta(brazoRel, evalPasada.brazoRel, 'cm', 'aumentar_es_bueno') : '';
+      document.getElementById('delta-pliegues-1').innerHTML = evalPasada ? generarBadgeDelta(biceps + triceps, evalPasada.biceps + evalPasada.triceps, 'mm', 'reducir_es_bueno') : '';
+      document.getElementById('delta-dino').innerHTML = evalPasada ? generarBadgeDelta(Math.max(dinoDer, dinoIzq), Math.max(evalPasada ? evalPasada.dinoDer : 0, evalPasada ? evalPasada.dinoIzq : 0), 'kg', 'aumentar_es_bueno') : '';
 
+      // IMC
       const tallaM = talla / 100;
       if (peso > 0 && talla > 0) {
         const imc = peso / (tallaM * tallaM);
@@ -1149,7 +1187,7 @@
         else if (imc >= 30.0) { estadoIMC = 'Obesidad'; colorIMC = '#ef4444'; }
         const elIMC = document.getElementById('kpi-imc-estado');
         elIMC.innerText = estadoIMC; elIMC.style.color = colorIMC;
-        document.getElementById('delta-imc-badge').innerHTML = evalPasada ? generarBadgeDelta(imc, pasIMC, '', true) : '';
+        document.getElementById('delta-imc-badge').innerHTML = evalPasada ? generarBadgeDelta(imc, pasIMC, '', 'reducir_es_bueno') : '';
       } else {
         document.getElementById('kpi-imc').innerText = '-';
         document.getElementById('kpi-imc-estado').innerText = talla === 0 && peso === 0 ? 'FALTA TALLA Y PESO' : (talla === 0 ? 'FALTA TALLA' : 'FALTA PESO');
@@ -1157,6 +1195,7 @@
         document.getElementById('delta-imc-badge').innerHTML = '';
       }
 
+      // Porcentaje de Grasa & MLG
       let pctGrasa = 0, kgGrasa = 0, pctMLG = 0, kgMLG = 0;
       if (suma4 > 0 && peso > 0) {
         const logSuma = Math.log10(suma4);
@@ -1183,10 +1222,10 @@
         const elGrasaKg = document.getElementById('kpi-grasa-kg');
         elGrasaKg.innerText = `${kgGrasa.toFixed(1)} kg (${estadoGrasa})`; elGrasaKg.style.color = colorGrasa;
 
-        document.getElementById('delta-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(pctGrasa, pasGrasa, '%', true) : '';
-        document.getElementById('delta-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(pctMLG, (100 - pasGrasa), '%', false) : '';
-        document.getElementById('delta-kg-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(kgGrasa, pasKgGrasa, 'kg', true) : '';
-        document.getElementById('delta-kg-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(kgMLG, pasKgMLG, 'kg', false) : '';
+        document.getElementById('delta-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(pctGrasa, pasGrasa, '%', 'reducir_es_bueno') : '';
+        document.getElementById('delta-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(kgMLG, pasKgMLG, 'kg', 'aumentar_es_bueno') : '';
+        document.getElementById('delta-kg-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(kgGrasa, pasKgGrasa, 'kg', 'reducir_es_bueno') : '';
+        document.getElementById('delta-kg-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(kgMLG, pasKgMLG, 'kg', 'aumentar_es_bueno') : '';
       } else {
         const txtFalta = suma4 === 0 && peso === 0 ? 'FALTA PLIEGUES Y PESO' : (suma4 === 0 ? 'FALTA PLIEGUES' : 'FALTA PESO');
         document.getElementById('kpi-grasa').innerText = '-';
@@ -1201,11 +1240,12 @@
         document.getElementById('delta-mlg-badge').innerHTML = '';
       }
 
+      // Sumatoria 4 Pliegues
       if (suma4 > 0) {
         document.getElementById('kpi-suma4-val').innerText = `${suma4.toFixed(1)} mm`;
         document.getElementById('kpi-suma4-estado').innerText = '4 Pliegues ISAK';
         document.getElementById('kpi-suma4-estado').style.color = '#10b981';
-        document.getElementById('delta-suma4-badge').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', true) : '';
+        document.getElementById('delta-suma4-badge').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', 'reducir_es_bueno') : '';
       } else {
         document.getElementById('kpi-suma4-val').innerText = '-';
         document.getElementById('kpi-suma4-estado').innerText = 'FALTA PLIEGUES';
@@ -1213,6 +1253,7 @@
         document.getElementById('delta-suma4-badge').innerHTML = '';
       }
 
+      // Proyección Recomposición
       if (pctGrasa > 0 && peso > 0) {
         let umbralCorteGrasaOptimo = sexo === 'M' ? 15.0 : 23.0;
         const inputGrasaMetaVal = parseFloat(document.getElementById('pctGrasaObjetivo').value);
@@ -1242,6 +1283,7 @@
         document.getElementById('kpi-recomp-estado').style.color = '#f43f5e';
       }
 
+      // Riesgo Cardiometabólico ICT
       if (cintura > 0 && talla > 0) {
         const ict = cintura / talla;
         document.getElementById('kpi-ict').innerText = ict.toFixed(2);
@@ -1251,7 +1293,7 @@
         else if (ict > 0.55) { estadoICT = 'Riesgo Alto'; colorICT = '#ef4444'; }
         const elICT = document.getElementById('kpi-ict-estado');
         elICT.innerText = estadoICT; elICT.style.color = colorICT;
-        document.getElementById('delta-ict-badge').innerHTML = evalPasada ? generarBadgeDelta(ict, pasICT, '', true) : '';
+        document.getElementById('delta-ict-badge').innerHTML = evalPasada ? generarBadgeDelta(ict, pasICT, '', 'reducir_es_bueno') : '';
       } else {
         document.getElementById('kpi-ict').innerText = '-';
         const txtFaltaICT = cintura === 0 && talla === 0 ? 'FALTA CINTURA Y TALLA' : (cintura === 0 ? 'FALTA PERÍMETRO CINTURA' : 'FALTA TALLA');
@@ -1260,13 +1302,14 @@
         document.getElementById('delta-ict-badge').innerHTML = '';
       }
 
+      // Adiposidad Visceral
       if (cintura > 0) {
         document.getElementById('kpi-visceral-val').innerText = `${cintura.toFixed(1)} cm`;
         const umbralCintura = sexo === 'M' ? 102.0 : 88.0;
         let esCinturaAlta = cintura >= umbralCintura;
         document.getElementById('kpi-visceral-estado').innerText = esCinturaAlta ? 'Probable' : 'Poco Probable';
         document.getElementById('kpi-visceral-estado').style.color = esCinturaAlta ? '#ef4444' : '#10b981';
-        document.getElementById('delta-visceral-badge').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', true) : '';
+        document.getElementById('delta-visceral-badge').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', 'reducir_es_bueno') : '';
       } else {
         document.getElementById('kpi-visceral-val').innerText = '-';
         document.getElementById('kpi-visceral-estado').innerText = 'FALTA PERÍMETRO CINTURA';
@@ -1274,6 +1317,7 @@
         document.getElementById('delta-visceral-badge').innerHTML = '';
       }
 
+      // Obesidad Clínica (Rubino 2025)
       const imcVal = (peso > 0 && talla > 0) ? (peso / (tallaM * tallaM)) : 0;
       if (imcVal > 0 && cintura > 0) {
         const umbralCintura = sexo === 'M' ? 102.0 : 88.0;
@@ -1300,6 +1344,7 @@
         document.getElementById('kpi-lancet-estado').style.color = '#f43f5e';
       }
 
+      // Fuerza Relativa & Asimetría
       const maxDino = Math.max(dinoDer, dinoIzq);
       if (maxDino > 0 && peso > 0) {
         const fuerzaRel = maxDino / peso;
@@ -1316,8 +1361,8 @@
         document.getElementById('footer-dino-izq').innerText = `${dinoIzq.toFixed(1)} kg`;
         document.getElementById('footer-dino-der').innerText = `${dinoDer.toFixed(1)} kg`;
 
-        document.getElementById('delta-fuerza-badge').innerHTML = evalPasada ? generarBadgeDelta(fuerzaRel, pasFuerzaRel, 'kg/kg', false) : '';
-        document.getElementById('delta-asimetria-badge').innerHTML = evalPasada ? generarBadgeDelta(asimetria, pasAsimetria, '%', true) : '';
+        document.getElementById('delta-fuerza-badge').innerHTML = evalPasada ? generarBadgeDelta(fuerzaRel, pasFuerzaRel, 'kg/kg', 'aumentar_es_bueno') : '';
+        document.getElementById('delta-asimetria-badge').innerHTML = evalPasada ? generarBadgeDelta(asimetria, pasAsimetria, '%', 'reducir_es_bueno') : '';
 
         const elDominancia = document.getElementById('fuerza-dominancia-label');
         if (dinoDer > dinoIzq) {
@@ -1428,25 +1473,36 @@
       const fuerzasDominantes = historial.map(item => Math.max(item.dinoDer, item.dinoIzq));
       const fuerzasRelativas = historial.map((item, i) => item.peso > 0 ? (fuerzasDominantes[i] / item.peso) : 0);
 
+      // Paleta de Colores por Fecha
+      const coloresFechas = ['#38bdf8', '#3b82f6', '#10b981', '#a855f7', '#f59e0b', '#f43f5e'];
+
+      // 1. Evolución Composición Corporal (Agrupado por Variable)
       const ctxL1 = document.getElementById('chartLongComposicion').getContext('2d');
       if (chartLong1) chartLong1.destroy();
+      
+      const datasetsComp = fechas.map((fecha, idx) => ({
+        label: `Fecha ${fecha}`,
+        data: [pesos[idx], parseFloat(grasasPct[idx].toFixed(1)), parseFloat(mlgs[idx].toFixed(1))],
+        backgroundColor: coloresFechas[idx % coloresFechas.length]
+      }));
+
       chartLong1 = new Chart(ctxL1, {
         type: 'bar',
         data: {
-          labels: fechas,
-          datasets: [
-            { label: 'Peso Total (kg)', data: pesos, backgroundColor: '#3b82f6' },
-            { label: 'Grasa (%)', data: grasasPct.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#f43f5e' },
-            { label: 'MLG (kg)', data: mlgs.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#10b981' }
-          ]
+          labels: ['Peso Total (kg)', '% Grasa', 'MLG (kg)'],
+          datasets: datasetsComp
         },
+        plugins: [barTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
+          },
+          scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
         }
       });
 
+      // 2. Tendencia Medidas Antropométricas (Línea de Tendencia limpia)
       const ctxL2 = document.getElementById('chartLongPliegues').getContext('2d');
       if (chartLong2) chartLong2.destroy();
       chartLong2 = new Chart(ctxL2, {
@@ -1454,7 +1510,7 @@
         data: {
           labels: fechas,
           datasets: [
-            { label: '∑4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 4, pointRadius: 5, pointBackgroundColor: '#10b981' },
+            { label: '∑4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 3, pointRadius: 5, pointBackgroundColor: '#10b981' },
             { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 3 },
             { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.5, pointRadius: 3 },
             { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.5, pointRadius: 3 },
@@ -1463,47 +1519,77 @@
         },
         options: {
           responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 10 } }
+          },
           scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
         }
       });
 
+      // 3. Evolución Perímetros & Tono Muscular (Agrupado por Variable)
       const ctxL3 = document.getElementById('chartLongPerimetros').getContext('2d');
       if (chartLong3) chartLong3.destroy();
+
+      const datasetsPerim = fechas.map((fecha, idx) => ({
+        label: `Fecha ${fecha}`,
+        data: [cinturas[idx], caderas[idx], parseFloat(flexBrazoDeltas[idx].toFixed(1))],
+        backgroundColor: coloresFechas[idx % coloresFechas.length]
+      }));
+
       chartLong3 = new Chart(ctxL3, {
         type: 'bar',
         data: {
-          labels: fechas,
-          datasets: [
-            { label: 'Cintura (cm)', data: cinturas, backgroundColor: '#f43f5e' },
-            { label: 'Cadera (cm)', data: caderas, backgroundColor: '#38bdf8' },
-            { label: 'Flex. Brazo (Δ cm)', data: flexBrazoDeltas.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#10b981' }
-          ]
+          labels: ['Cintura (cm)', 'Cadera (cm)', 'Δ Flex. Brazo (cm)'],
+          datasets: datasetsPerim
         },
+        plugins: [barTextPlugin],
         options: {
-          indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
+          },
+          scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
         }
       });
 
-      const ctxL4 = document.getElementById('chartLongFuerza').getContext('2d');
-      if (chartLong4) chartLong4.destroy();
-      chartLong4 = new Chart(ctxL4, {
-        type: 'bar',
-        data: {
-          labels: fechas,
-          datasets: [
-            { label: 'Fuerza Dominante (kg)', data: fuerzasDominantes, backgroundColor: '#3b82f6' },
-            { label: 'Fuerza Relativa (kg/kg)', data: fuerzasRelativas.map(v => parseFloat(v.toFixed(2))), backgroundColor: '#a855f7' }
-          ]
-        },
-        options: {
-          indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
-        }
-      });
+      // 4. Perfil de Fuerza & Dinamometría (Con validación de existencia de datos)
+      const canvasFuerza = document.getElementById('chartLongFuerza');
+      const msgNoDino = document.getElementById('msgNoDinamometriaLong');
+      const sumaFuerzaTotal = fuerzasDominantes.reduce((a, b) => a + b, 0);
+
+      if (sumaFuerzaTotal === 0) {
+        canvasFuerza.style.display = 'none';
+        msgNoDino.style.display = 'block';
+        if (chartLong4) chartLong4.destroy();
+      } else {
+        canvasFuerza.style.display = 'block';
+        msgNoDino.style.display = 'none';
+
+        const ctxL4 = canvasFuerza.getContext('2d');
+        if (chartLong4) chartLong4.destroy();
+
+        const datasetsFuerza = fechas.map((fecha, idx) => ({
+          label: `Fecha ${fecha}`,
+          data: [fuerzasDominantes[idx], parseFloat(fuerzasRelativas[idx].toFixed(2))],
+          backgroundColor: coloresFechas[idx % coloresFechas.length]
+        }));
+
+        chartLong4 = new Chart(ctxL4, {
+          type: 'bar',
+          data: {
+            labels: ['Fuerza Dominante (kg)', 'Fuerza Relativa (kg/kg)'],
+            datasets: datasetsFuerza
+          },
+          plugins: [barTextPlugin],
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
+            },
+            scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
+          }
+        });
+      }
     }
 
     function actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq) {
@@ -1562,7 +1648,7 @@
           maintainAspectRatio: false,
           scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
           plugins: {
-            legend: { position: 'top', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
           }
         }
       });
