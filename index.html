@@ -1,967 +1,1586 @@
-<script>
-  let chartComp = null;
-  let chartDino = null;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIENCIA DEPORTIVA - Informe Antropométrico y Funcional</title>
+  
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Alej811/Logo-cd/main/Isologo%20de%20Ciencia%20Deportivapng_.png">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Alej811/Logo-cd/main/Isologo%20de%20Ciencia%20Deportivapng_.png">
 
-  let chartLong1 = null;
-  let chartLong2 = null;
-  let chartLong3 = null;
-  let chartLong4 = null;
-
-  function fijarFechaHoyInput() {
-    const hoy = new Date().toISOString().split('T')[0];
-    document.getElementById('fechaEvaluacionReal').value = hoy;
-  }
-
-  const barTextPlugin = {
-    id: 'barTextPlugin',
-    afterDatasetsDraw(chart) {
-      if (chart.config.type !== 'bar') return;
-      const { ctx } = chart;
-      chart.data.datasets.forEach((dataset, i) => {
-        const meta = chart.getDatasetMeta(i);
-        meta.data.forEach((bar) => {
-          const val = dataset.data[0];
-          if (val > 0) {
-            ctx.save();
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 12px Segoe UI, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            const centerX = bar.x - (bar.width / 2);
-            const centerY = bar.y;
-            ctx.fillText(`${val.toFixed(1)} kg`, centerX, centerY);
-            ctx.restore();
-          }
-        });
-      });
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --input-bg: #0f172a;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
     }
-  };
 
-  function exportarBaseDatosJSON() {
-    const baseDatos = {};
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith('cd_perfil_')) {
-        baseDatos[key] = JSON.parse(localStorage.getItem(key) || '[]');
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-light); padding: 15px; line-height: 1.4; }
+
+    .header-branding {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background: var(--card-bg);
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border);
+    }
+
+    .brand-logo-container { display: flex; align-items: center; gap: 14px; }
+    .brand-logo-container img { width: 55px; height: 55px; object-fit: contain; border-radius: 8px; }
+    .brand-title h1 { font-size: 1.4rem; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
+    .brand-title p { font-size: 0.8rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 15px; }
+
+    .panel { background: var(--card-bg); padding: 16px; border-radius: 12px; border: 1px solid var(--border); }
+    .panel h2 { font-size: 0.9rem; margin-top: 12px; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .panel h2:first-of-type { margin-top: 0; }
+
+    .form-group { margin-bottom: 8px; }
+    .form-group label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; font-weight: 500; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--input-bg); color: #fff; font-size: 0.85rem; outline: none; transition: 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+
+    .btn-action {
+      width: 100%; padding: 10px; border: none; border-radius: 8px;
+      background: var(--primary); color: #0f172a; font-weight: 700;
+      cursor: pointer; margin-top: 8px; transition: 0.2s; font-size: 0.85rem;
+    }
+    .btn-action:hover { background: var(--primary-dark); color: #fff; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-secondary:hover { background: #475569; }
+    .btn-disabled { background: #475569; color: #94a3b8; cursor: not-allowed; }
+
+    .datos-medidos-container {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+    }
+    .datos-medidos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3px;
+    }
+    .datos-medidos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      font-size: 0.78rem;
+    }
+    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 0.7rem; }
+    .datos-medidos-block strong { color: #fff; font-size: 0.82rem; }
+
+    .delta-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-left: 4px;
+    }
+    .delta-pos { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .delta-neg { background: rgba(244, 63, 94, 0.2); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4); }
+    .delta-neutral { background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4); }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .kpi-card {
+      background: #0f172a;
+      padding: 10px 6px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--primary);
+      position: relative;
+    }
+    .kpi-card span { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.1px; display: block; min-height: 26px; line-height: 1.1; }
+    .kpi-card h3 { font-size: 1.15rem; margin: 2px 0; color: #fff; font-weight: 700; }
+    .kpi-card small { font-size: 0.72rem; font-weight: 600; display: block; }
+    .kpi-card .nota-sub { font-size: 0.6rem; color: var(--text-muted); margin-top: 2px; font-weight: normal; line-height: 1; }
+
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+    .chart-container { background: #0f172a; padding: 14px; border-radius: 10px; border: 1px solid var(--border); min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }
+
+    .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .card-header-flex h4 { font-size: 0.88rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .card-header-flex span { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+
+    .chart-wrapper-inner { position: relative; height: 160px; width: 100%; margin: 0 auto; }
+
+    .fraccionamiento-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+      padding-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+    }
+    .fraccionamiento-item small { display: block; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 2px; }
+    .fraccionamiento-item strong { font-size: 0.95rem; font-weight: 700; }
+
+    .fuerza-dominancia-label {
+      text-align: center;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .section-longitudinal {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 15px;
+    }
+    .section-longitudinal-header {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .aviso-datos-insuficientes {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px dashed rgba(244, 63, 94, 0.4);
+      color: #f43f5e;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .recomendacion-container {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 15px;
+    }
+    .recomendacion-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .recomendacion-text {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .recomendacion-persuasivo {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(16, 185, 129, 0.3);
+      color: #38bdf8;
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+
+    .anexo-container {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
+    .anexo-title { color: var(--primary); font-size: 0.88rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .anexo-subtitle { color: var(--text-muted); font-size: 0.7rem; font-family: monospace; }
+    
+    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; }
+    .anexo-card { background: var(--card-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+    .anexo-card h4 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+    
+    .baremo-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; text-align: left; }
+    .baremo-table th, .baremo-table td { padding: 4px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .baremo-table th { color: var(--text-muted); font-weight: 600; }
+    .val-optimo { color: var(--primary); font-weight: 700; }
+    .val-riesgo { color: #f43f5e; font-weight: 700; }
+
+    .anexo-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .anexo-signature { text-align: right; }
+    .anexo-signature strong { color: var(--text-light); display: block; font-size: 0.8rem; }
+    .anexo-signature span { color: var(--primary); font-size: 0.75rem; }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 580px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .modal-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 { color: var(--primary); font-size: 1rem; }
+    .modal-close {
+      background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-body {
+      padding: 16px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .dir-perfil-card {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+    }
+    .dir-perfil-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .dir-perfil-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .dir-eval-sublist {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      display: none;
+    }
+    .dir-eval-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 0.78rem;
+    }
+    .btn-sm-action {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+    .btn-sm-load { background: #0284c7; color: #fff; }
+    .btn-sm-load:hover { background: #0369a1; }
+    .btn-sm-edit { background: #3b82f6; color: #fff; }
+    .btn-sm-edit:hover { background: #2563eb; }
+    .btn-sm-del { background: #ef4444; color: #fff; }
+    .btn-sm-del:hover { background: #dc2626; }
+
+    @page {
+      size: A4 portrait;
+      margin: 6mm;
+    }
+
+    @media print {
+      html, body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        zoom: 80%;
       }
+      .main-grid { display: block !important; }
+      .panel-controls, .btn-action, .modal-overlay { display: none !important; }
+      .panel {
+        background: #fff !important;
+        border: none !important;
+        padding: 0 !important;
+        color: #000 !important;
+      }
+      .header-branding, .kpi-card, .chart-container, .anexo-container, .anexo-card, .datos-medidos-container, .section-longitudinal, .recomendacion-container {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+        page-break-inside: avoid;
+      }
+      .kpi-card h3, .brand-title h1, .anexo-title, .anexo-signature strong, .card-header-flex h4, .datos-medidos-block strong, .section-longitudinal-header, .recomendacion-title { color: #000 !important; }
+      .brand-title p, .anexo-signature span, .val-optimo, .datos-medidos-header, .recomendacion-title { color: #059669 !important; }
+      .val-riesgo { color: #dc2626 !important; }
+      .recomendacion-text { color: #000 !important; }
+      .recomendacion-persuasivo { color: #0284c7 !important; border-top-color: #ccc !important; }
+      input, select { background: #fff !important; color: #000 !important; border: none !important; }
     }
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(baseDatos, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `BD_CienciaDeportiva_${new Date().toISOString().split('T')[0]}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }
+  </style>
+</head>
+<body>
 
-  function importarBaseDatosJSON(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const data = JSON.parse(e.target.result);
-        let cont = 0;
-        for (const key in data) {
-          if (key.startsWith('cd_perfil_')) {
-            localStorage.setItem(key, JSON.stringify(data[key]));
-            cont++;
+  <header class="header-branding">
+    <div class="brand-logo-container">
+      <img id="img-logo-brand" src="https://raw.githubusercontent.com/Alej811/Logo-cd/main/Isologo%20de%20Ciencia%20Deportivapng_.png" alt="Logo Ciencia Deportiva">
+      <div class="brand-title">
+        <h1>CIENCIA DEPORTIVA</h1>
+        <p>Informe Técnico de Evaluación Antropométrica & Funcional</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-grid">
+    <aside class="panel panel-controls">
+      <button class="btn-action btn-secondary" style="background: #3b82f6; margin-bottom: 12px;" onclick="nuevaEvaluacion()">➕ Nueva Evaluación (Limpiar Campos)</button>
+
+      <h2>Datos del Evaluado</h2>
+      <div class="form-group">
+        <label>Nombre del Cliente / Atleta:</label>
+        <input type="text" id="nombre" list="listAtletasDirectorio" placeholder="Escribe para buscar..." oninput="onInputNombreAtleta();">
+        <datalist id="listAtletasDirectorio"></datalist>
+      </div>
+      <div class="form-group"><label>Edad (años):</label><input type="number" id="edad" placeholder="Ej. 30" oninput="calcular()"></div>
+      <div class="form-group">
+        <label>Sexo Biológico:</label>
+        <select id="sexo" onchange="calcular()">
+          <option value="M" selected>Masculino</option>
+          <option value="F">Femenino</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Talla (cm):</label><input type="number" id="talla" placeholder="Ej. 170" oninput="calcular()"></div>
+      <div class="form-group"><label>Masa Corporal Total (kg):</label><input type="number" id="peso" placeholder="Ej. 70.0" step="0.1" oninput="calcular()"></div>
+
+      <h2>Pliegues Cutáneos (mm)</h2>
+      <div class="form-group"><label>Bíceps:</label><input type="number" id="biceps" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Tríceps:</label><input type="number" id="triceps" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Subescapular:</label><input type="number" id="subescapular" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Suprailíaco:</label><input type="number" id="suprailiaco" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+
+      <h2>Perímetros (cm)</h2>
+      <div class="form-group"><label>Brazo Relajado:</label><input type="number" id="brazoRelajado" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Brazo Flexionado:</label><input type="number" id="brazoFlexionado" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Cintura Abdominal:</label><input type="number" id="cintura" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Cadera Maximum:</label><input type="number" id="cadera" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+
+      <h2>Dinamometría de Agarre (kg)</h2>
+      <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+
+      <h2>Prescripción / Hito Meta</h2>
+      <div class="form-group">
+        <label>🎯 % Grasa Objetivo Personalizado (%):</label>
+        <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="calcular()">
+      </div>
+
+      <h2>Gestión de Historial</h2>
+      <div class="form-group">
+        <label>Tipo de Guardado:</label>
+        <select id="tipoGuardado" onchange="toggleModoGuardado()">
+          <option value="nuevo">Crear Nuevo Perfil de Atleta</option>
+          <option value="existente">Guardar en Perfil Existente...</option>
+          <option value="ninguno">🚫 No Guardar (Medición Rápida)</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="groupPerfilExistente" style="display: none;">
+        <label>Seleccionar Perfil Guardado:</label>
+        <select id="selectPerfilExistente">
+          <option value="">Cargando Perfiles...</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="groupFechaEvaluacion">
+        <label>Fecha Real de Evaluación:</label>
+        <input type="date" id="fechaEvaluacionReal">
+      </div>
+
+      <button id="btnGuardarEvaluacion" class="btn-action" onclick="ejecutarGuardarHistorial()">💾 Guardar Evaluación</button>
+
+      <h2>☁️ Memoria Online & Respaldo</h2>
+      <button class="btn-action btn-secondary" style="background: #0284c7;" onclick="exportarBaseDatosJSON()">📤 Descargar Copia BD (JSON)</button>
+      <input type="file" id="inputImportJSON" accept=".json" style="display: none;" onchange="importarBaseDatosJSON(event)">
+      <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">📥 Importar BD desde JSON</button>
+
+      <div class="form-group" style="margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
+        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">
+          <input type="checkbox" id="chkCompararAnterior" onchange="calcular()"> 📊 Comparar con Evaluación Anterior
+        </label>
+        <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 6px;">
+          <input type="checkbox" id="chkEvaluarHistorial" onchange="calcular()"> 📈 Evaluar Todo el Historial (Análisis Longitudinal)
+        </label>
+        <label style="cursor: pointer; color: #a855f7; font-weight: 600; display: block;">
+          <input type="checkbox" id="chkPotencialCliente" onchange="calcular()"> 🎯 Potencial Cliente (Texto Persuasivo)
+        </label>
+      </div>
+
+      <button class="btn-action btn-secondary" style="margin-top: 10px;" onclick="abrirModalDirectorio()">📂 Gestión del Directorio</button>
+      <button class="btn-action" style="margin-top: 8px; background: var(--primary);" onclick="window.print()">🖨️ Imprimir / Guardar PDF del Informe</button>
+    </aside>
+
+    <main class="panel">
+      <section class="datos-medidos-container">
+        <div class="datos-medidos-header">
+          <span>📋 Resumen de Datos del Evaluado y Mediciones Directas</span>
+          <span id="label-comparativa-header" style="font-size: 0.7rem; color: #38bdf8; font-weight: 600;"></span>
+        </div>
+        <div class="datos-medidos-grid">
+          <div class="datos-medidos-block"><small>Nombre / Atleta:</small><strong id="res-nombre">-</strong></div>
+          <div class="datos-medidos-block"><small>Edad / Sexo:</small><strong id="res-edad-sexo">-</strong></div>
+          <div class="datos-medidos-block"><small>Talla / Peso Total:</small><strong id="res-talla-peso">-</strong> <span id="delta-peso"></span></div>
+          <div class="datos-medidos-block"><small>Dinamometría Izq / Der:</small><strong id="res-dino-raw">-</strong> <span id="delta-dino"></span></div>
+          <div class="datos-medidos-block"><small>Pliegues Bíceps / Tríceps:</small><strong id="res-pliegues-1">-</strong></div>
+          <div class="datos-medidos-block"><small>Pliegues Subescap. / Suprail. (∑4):</small><strong id="res-pliegues-2">-</strong> <span id="delta-suma4"></span></div>
+          <div class="datos-medidos-block"><small>Perím. Brazo Rel. / Flex.:</small><strong id="res-perim-brazo">-</strong> <span id="delta-brazo"></span></div>
+          <div class="datos-medidos-block"><small>Perím. Cintura / Cadera:</small><strong id="res-perim-cintura-cadera">-</strong> <span id="delta-cintura"></span></div>
+        </div>
+      </section>
+
+      <div class="dashboard-grid">
+        <div class="kpi-card"><span>ÍNDICE MASA CORP (IMC)</span><h3 id="kpi-imc">-</h3><small id="kpi-imc-estado">-</small><div id="delta-imc-badge"></div></div>
+        <div class="kpi-card"><span>PORCENTAJE GRASA</span><h3 id="kpi-grasa">-</h3><small id="kpi-grasa-kg">-</small><div id="delta-grasa-badge"></div></div>
+        <div class="kpi-card"><span>MASA LIBRE DE GRASA (MLG)</span><h3 id="kpi-mlg">-</h3><small id="kpi-mlg-kg">-</small><div id="delta-mlg-badge"></div></div>
+        <div class="kpi-card"><span>SUMATORIA 4 PLIEGUES (∑4)</span><h3 id="kpi-suma4-val">-</h3><small id="kpi-suma4-estado">4 Pliegues ISAK</small><div id="delta-suma4-badge"></div></div>
+        <div class="kpi-card" style="border-top-color: #3b82f6;">
+          <span>PROYECCIÓN RECOMPOSICIÓN</span>
+          <h3 id="kpi-recomp-val">-</h3>
+          <small id="kpi-recomp-estado">-</small>
+          <div class="nota-sub">*Suponiendo MLG constante</div>
+        </div>
+
+        <div class="kpi-card"><span>RIESGO CARDIOMETABÓLICO (ICT)</span><h3 id="kpi-ict">-</h3><small id="kpi-ict-estado">-</small><div id="delta-ict-badge"></div></div>
+        <div class="kpi-card"><span>ADIPOSIDAD VISCERAL (ADA 2026)</span><h3 id="kpi-visceral-val">-</h3><small id="kpi-visceral-estado">-</small><div id="delta-visceral-badge"></div></div>
+        <div class="kpi-card"><span>DIAGNÓSTICO OBESIDAD CLÍNICA (RUBINO 2025)</span><h3 id="kpi-lancet-val">-</h3><small id="kpi-lancet-estado">-</small></div>
+        <div class="kpi-card"><span>FUERZA RELATIVA AGARRE</span><h3 id="kpi-fuerza-rel">-</h3><small id="kpi-fuerza-estado">-</small><div id="delta-fuerza-badge"></div></div>
+        <div class="kpi-card"><span>ASIMETRÍA BILATERAL</span><h3 id="kpi-asimetria">-</h3><small id="kpi-asimetria-estado">-</small><div id="delta-asimetria-badge"></div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-container">
+          <div class="card-header-flex"><h4><span style="color: var(--primary);">◔</span> Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
+          <div class="chart-wrapper-inner"><canvas id="chartComposicion"></canvas></div>
+          <div class="fraccionamiento-footer">
+            <div class="fraccionamiento-item"><small>Masa Grasa Total</small><strong id="footer-kg-grasa" style="color: #f43f5e;">-</strong><div id="delta-kg-grasa-badge"></div></div>
+            <div class="fraccionamiento-item"><small>Masa Libre de Grasa</small><strong id="footer-kg-mlg" style="color: #10b981;">-</strong><div id="delta-kg-mlg-badge"></div></div>
+          </div>
+        </div>
+        <div class="chart-container">
+          <div class="card-header-flex"><h4><span style="color: #3b82f6;">📊</span> Fuerza de Agarre (kg)</h4><span>Dinamometría Manual</span></div>
+          <div class="chart-wrapper-inner" style="height: 100px; margin-top: 5px;"><canvas id="chartDinamometria"></canvas></div>
+          <div class="fraccionamiento-footer">
+            <div class="fraccionamiento-item"><small>Mano Izquierda</small><strong id="footer-dino-izq" style="color: #38bdf8;">-</strong></div>
+            <div class="fraccionamiento-item"><small>Mano Derecha</small><strong id="footer-dino-der" style="color: #3b82f6;">-</strong></div>
+          </div>
+          <div id="fuerza-dominancia-label" class="fuerza-dominancia-label">-</div>
+        </div>
+      </div>
+
+      <div id="contenedorLongitudinal" class="section-longitudinal" style="display: none;">
+        <div class="section-longitudinal-header">
+          <span>📈 Análisis de Evolución Longitudinal del Historial</span>
+          <small style="color: var(--text-muted); font-size: 0.72rem;">Mínimo 3 Evaluaciones Registradas</small>
+        </div>
+
+        <div id="avisoDatosInsuficientes" class="aviso-datos-insuficientes" style="display: none;">
+          ⚠️ No se tienen los datos suficientes para la evaluación longitudinal.
+          <br><small style="font-weight: normal; color: var(--text-muted); font-size: 0.75rem;">Se requieren al menos 3 evaluaciones registradas en el historial del perfil seleccionado para generar estos gráficos de seguimiento.</small>
+        </div>
+
+        <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div class="chart-container">
+            <div class="card-header-flex"><h4><span style="color: #10b981;">📊</span> 1. Evolución Composición Corporal</h4><span>Peso, Grasa & MLG</span></div>
+            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongComposicion"></canvas></div>
+          </div>
+          <div class="chart-container">
+            <div class="card-header-flex"><h4><span style="color: #f43f5e;">📈</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues & ∑4 Pliegues</span></div>
+            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongPliegues"></canvas></div>
+          </div>
+          <div class="chart-container">
+            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Cintura, Cadera & Flex. Brazo</span></div>
+            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongPerimetros"></canvas></div>
+          </div>
+          <div class="chart-container">
+            <div class="card-header-flex"><h4><span style="color: #a855f7;">🏋️</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Mano Dominante & Fuerza Relativa</span></div>
+            <div class="chart-wrapper-inner" style="height: 190px;"><canvas id="chartLongFuerza"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recomendacion-container">
+        <div class="recomendacion-title">📌 Síntesis Diagnóstica y Recomendación de Evaluación</div>
+        <div id="txtSintesisRecomendacion" class="recomendacion-text">
+          Ingresa los datos del evaluado para generar la síntesis diagnóstica...
+        </div>
+        <div id="txtPersuasivoCliente" class="recomendacion-persuasivo" style="display: none;">
+          🚀 Este es tu punto de partida. A partir de esta evaluación, puedo estructurar un plan de entrenamiento y recomposición corporal personalizado que evite el estancamiento y garantice tus resultados de forma segura.
+        </div>
+      </div>
+
+      <div class="anexo-container">
+        <div class="anexo-header">
+          <div class="anexo-title">📊 Anexo Normativo de Referencias y Baremos Metodológicos</div>
+          <div class="anexo-subtitle">OMS (2000) / Lee & Nieman (2003) / ADA (2026) / Rubino F. (2025)</div>
+        </div>
+        <div class="anexo-grid">
+          <div class="anexo-card">
+            <h4>1. Baremo Porcentaje de Grasa (Lee & Nieman, 2003)</h4>
+            <table class="baremo-table">
+              <thead><tr><th>Nivel / Categoría</th><th>Hombres (18+ a)</th><th>Mujeres (18+ a)</th></tr></thead>
+              <tbody>
+                <tr><td>Muy Bajo (No Saludable)</td><td style="color: #f59e0b;">&le; 5%</td><td style="color: #f59e0b;">&le; 8%</td></tr>
+                <tr><td>Aceptable / Óptimo</td><td class="val-optimo">6% - 15%</td><td class="val-optimo">9% - 23%</td></tr>
+                <tr><td>Moderado</td><td style="color: #f59e0b;">16% - 24%</td><td style="color: #f59e0b;">24% - 31%</td></tr>
+                <tr><td>Alto (Riesgo)</td><td class="val-riesgo">&ge; 25%</td><td class="val-riesgo">&ge; 32%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="anexo-card">
+              <h4>2. Adiposidad Visceral & ICT (Estratificado)</h4>
+              <div style="font-size: 0.72rem; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura Visceral Probable:</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
+              <div style="font-size: 0.72rem; display: flex; justify-content: space-between;"><span>ICT Riesgo Leve / Mod / Alto:</span><strong class="val-optimo">0.50-0.52 (Leve) | 0.53-0.55 (Mod) | &gt;0.55 (Alto)</strong></div>
+            </div>
+            <div class="anexo-card">
+              <h4>3. Dinamometría y Metodología Fuerza Relativa</h4>
+              <div style="font-size: 0.72rem; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Fuerza Relativa Óptima ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
+              <div style="font-size: 0.72rem; color: var(--text-muted); font-style: italic;">* Se utiliza el valor máximo registrado entre ambas manos (Mano Dominante).</div>
+            </div>
+          </div>
+        </div>
+        <div class="anexo-footer">
+          <div>Metodología: Durnin & Womersley + Siri + MLG + ADA 2026 + Rubino F. 2025.<br><strong>CIENCIA DEPORTIVA © 2026 - Informe Técnico de Evaluación.</strong></div>
+          <div class="anexo-signature"><strong>Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="modalDirectorio" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📂 Gestión del Directorio de Perfiles y Evaluaciones</h3>
+        <button class="modal-close" onclick="cerrarModalDirectorio()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-directorio-list"></div>
+    </div>
+  </div>
+
+  <script>
+    let chartComp = null;
+    let chartDino = null;
+
+    let chartLong1 = null;
+    let chartLong2 = null;
+    let chartLong3 = null;
+    let chartLong4 = null;
+
+    function fijarFechaHoyInput() {
+      const hoy = new Date().toISOString().split('T')[0];
+      document.getElementById('fechaEvaluacionReal').value = hoy;
+    }
+
+    const barTextPlugin = {
+      id: 'barTextPlugin',
+      afterDatasetsDraw(chart) {
+        if (chart.config.type !== 'bar') return;
+        const { ctx } = chart;
+        chart.data.datasets.forEach((dataset, i) => {
+          const meta = chart.getDatasetMeta(i);
+          meta.data.forEach((bar) => {
+            const val = dataset.data[0];
+            if (val > 0) {
+              ctx.save();
+              ctx.fillStyle = '#ffffff';
+              ctx.font = 'bold 12px Segoe UI, sans-serif';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              const centerX = bar.x - (bar.width / 2);
+              const centerY = bar.y;
+              ctx.fillText(`${val.toFixed(1)} kg`, centerX, centerY);
+              ctx.restore();
+            }
+          });
+        });
+      }
+    };
+
+    function exportarBaseDatosJSON() {
+      const baseDatos = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('cd_perfil_')) {
+          baseDatos[key] = JSON.parse(localStorage.getItem(key) || '[]');
+        }
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(baseDatos, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `BD_CienciaDeportiva_${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importarBaseDatosJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          let cont = 0;
+          for (const key in data) {
+            if (key.startsWith('cd_perfil_')) {
+              localStorage.setItem(key, JSON.stringify(data[key]));
+              cont++;
+            }
+          }
+          alert(`✅ Éxito: Se importaron ${cont} perfiles de atletas a la base de datos.`);
+          actualizarDatalistAtletas();
+          cargarSelectPerfilesExistentes();
+          calcular();
+        } catch (err) {
+          alert("❌ Error: El archivo cargado no tiene un formato JSON válido de Ciencia Deportiva.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function actualizarDatalistAtletas() {
+      const datalist = document.getElementById('listAtletasDirectorio');
+      datalist.innerHTML = '';
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('cd_perfil_')) {
+          const historial = JSON.parse(localStorage.getItem(key) || '[]');
+          if (historial.length > 0) {
+            const nombreAtleta = historial[0].nombre;
+            const opt = document.createElement('option');
+            opt.value = nombreAtleta;
+            datalist.appendChild(opt);
           }
         }
-        alert(`✅ Éxito: Se importaron ${cont} perfiles de atletas a la base de datos.`);
+      }
+    }
+
+    function onInputNombreAtleta() {
+      const inputNombre = document.getElementById('nombre').value.trim();
+      if (!inputNombre) {
+        calcular();
+        return;
+      }
+
+      const clave = obtenerClavePerfil(inputNombre);
+      const historial = JSON.parse(localStorage.getItem(clave) || '[]');
+
+      if (historial.length > 0) {
+        const ultimaEval = historial[historial.length - 1];
+        if (ultimaEval.edad) document.getElementById('edad').value = ultimaEval.edad;
+        if (ultimaEval.sexo) document.getElementById('sexo').value = ultimaEval.sexo;
+        if (ultimaEval.talla) document.getElementById('talla').value = ultimaEval.talla;
+      }
+      calcular();
+    }
+
+    function nuevaEvaluacion() {
+      document.getElementById('nombre').value = '';
+      document.getElementById('edad').value = '';
+      document.getElementById('talla').value = '';
+      document.getElementById('peso').value = '';
+      document.getElementById('triceps').value = '';
+      document.getElementById('biceps').value = '';
+      document.getElementById('subescapular').value = '';
+      document.getElementById('suprailiaco').value = '';
+      document.getElementById('brazoRelajado').value = '';
+      document.getElementById('brazoFlexionado').value = '';
+      document.getElementById('cintura').value = '';
+      document.getElementById('cadera').value = '';
+      document.getElementById('dinoDer').value = '';
+      document.getElementById('dinoIzq').value = '';
+      document.getElementById('pctGrasaObjetivo').value = '';
+      document.getElementById('chkCompararAnterior').checked = false;
+      document.getElementById('chkEvaluarHistorial').checked = false;
+      document.getElementById('chkPotencialCliente').checked = false;
+      fijarFechaHoyInput();
+      calcular();
+    }
+
+    function obtenerClavePerfil(nombre) {
+      return 'cd_perfil_' + nombre.trim().toUpperCase().replace(/\s+/g, '_');
+    }
+
+    function toggleModoGuardado() {
+      const tipo = document.getElementById('tipoGuardado').value;
+      const groupExistente = document.getElementById('groupPerfilExistente');
+      const btnGuardar = document.getElementById('btnGuardarEvaluacion');
+      const groupFecha = document.getElementById('groupFechaEvaluacion');
+
+      if (tipo === 'existente') {
+        groupExistente.style.display = 'block';
+        groupFecha.style.display = 'block';
+        btnGuardar.innerText = '💾 Guardar Evaluación';
+        btnGuardar.className = 'btn-action';
+        btnGuardar.onclick = ejecutarGuardarHistorial;
+        cargarSelectPerfilesExistentes();
+      } else if (tipo === 'nuevo') {
+        groupExistente.style.display = 'none';
+        groupFecha.style.display = 'block';
+        btnGuardar.innerText = '💾 Guardar Evaluación';
+        btnGuardar.className = 'btn-action';
+        btnGuardar.onclick = ejecutarGuardarHistorial;
+      } else {
+        groupExistente.style.display = 'none';
+        groupFecha.style.display = 'none';
+        btnGuardar.innerText = '🔒 Medición Rápida (Sin Guardar)';
+        btnGuardar.className = 'btn-action btn-disabled';
+        btnGuardar.onclick = function() {
+          alert('ℹ️ Modo Medición Rápida Activo: Los datos calculados se muestran en pantalla pero no se almacenarán en la base de datos.');
+        };
+      }
+    }
+
+    function cargarSelectPerfilesExistentes() {
+      const select = document.getElementById('selectPerfilExistente');
+      select.innerHTML = '';
+      let hayPerfiles = false;
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('cd_perfil_')) {
+          hayPerfiles = true;
+          const historial = JSON.parse(localStorage.getItem(key) || '[]');
+          if (historial.length > 0) {
+            const nombreAtleta = historial[0].nombre;
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.innerText = `${nombreAtleta} (${historial.length} Eval.)`;
+            select.appendChild(opt);
+          }
+        }
+      }
+
+      if (!hayPerfiles) {
+        select.innerHTML = '<option value="">No hay perfiles creados aún</option>';
+      }
+    }
+
+    function prepararCargaRetroactiva(key) {
+      const historial = JSON.parse(localStorage.getItem(key) || '[]');
+      if (historial.length === 0) return;
+
+      const nombreAtleta = historial[0].nombre;
+      
+      nuevaEvaluacion();
+      
+      document.getElementById('nombre').value = nombreAtleta;
+      document.getElementById('tipoGuardado').value = 'existente';
+      toggleModoGuardado();
+      
+      const select = document.getElementById('selectPerfilExistente');
+      select.value = key;
+
+      cerrarModalDirectorio();
+      alert(`📥 Modo Carga de Evaluación Pasada Activo para [${nombreAtleta}].\nTipea los datos de esa medición en los campos y ajusta la "Fecha Real de Evaluación" en el panel izquierdo antes de guardar.`);
+    }
+
+    function ejecutarGuardarHistorial() {
+      const tipo = document.getElementById('tipoGuardado').value;
+      if (tipo === 'ninguno') return;
+
+      let nombrePerfil = '';
+      let clave = '';
+
+      if (tipo === 'nuevo') {
+        nombrePerfil = document.getElementById('nombre').value.trim().toUpperCase();
+        if (!nombrePerfil) {
+          alert('Por favor escribe el Nombre del Cliente / Atleta para crear el perfil.');
+          return;
+        }
+        clave = obtenerClavePerfil(nombrePerfil);
+      } else {
+        const selectKey = document.getElementById('selectPerfilExistente').value;
+        if (!selectKey) {
+          alert('Selecciona un perfil existente de la lista.');
+          return;
+        }
+        clave = selectKey;
+        const historialExistente = JSON.parse(localStorage.getItem(clave) || '[]');
+        nombrePerfil = historialExistente[0].nombre;
+        document.getElementById('nombre').value = nombrePerfil;
+      }
+
+      const inputFechaVal = document.getElementById('fechaEvaluacionReal').value;
+      let fechaObj = inputFechaVal ? new Date(inputFechaVal + 'T12:00:00') : new Date();
+
+      const fechaDDMMAA = fechaObj.toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: '2-digit'});
+      const etiquetaEvaluacion = `${nombrePerfil} + FECHA DE EVALUACIÓN ${fechaDDMMAA}`;
+
+      const evaluacion = {
+        nombre: nombrePerfil,
+        etiqueta: etiquetaEvaluacion,
+        fechaStr: fechaDDMMAA,
+        timestamp: fechaObj.getTime(),
+        peso: parseFloat(document.getElementById('peso').value) || 0,
+        talla: parseFloat(document.getElementById('talla').value) || 0,
+        edad: parseInt(document.getElementById('edad').value) || 0,
+        sexo: document.getElementById('sexo').value,
+        triceps: parseFloat(document.getElementById('triceps').value) || 0,
+        biceps: parseFloat(document.getElementById('biceps').value) || 0,
+        subescapular: parseFloat(document.getElementById('subescapular').value) || 0,
+        suprailiaco: parseFloat(document.getElementById('suprailiaco').value) || 0,
+        brazoRel: parseFloat(document.getElementById('brazoRelajado').value) || 0,
+        brazoFlex: parseFloat(document.getElementById('brazoFlexionado').value) || 0,
+        cintura: parseFloat(document.getElementById('cintura').value) || 0,
+        cadera: parseFloat(document.getElementById('cadera').value) || 0,
+        dinoDer: parseFloat(document.getElementById('dinoDer').value) || 0,
+        dinoIzq: parseFloat(document.getElementById('dinoIzq').value) || 0
+      };
+
+      let historial = JSON.parse(localStorage.getItem(clave) || '[]');
+      
+      const indexExistente = historial.findIndex(item => item.fechaStr === fechaDDMMAA);
+      if (indexExistente !== -1) {
+        historial[indexExistente] = evaluacion;
+      } else {
+        historial.push(evaluacion);
+      }
+
+      historial.sort((a, b) => a.timestamp - b.timestamp);
+      localStorage.setItem(clave, JSON.stringify(historial));
+
+      alert(`✅ Evaluación guardada exitosamente en el Perfil de [${nombrePerfil}].\nEtiqueta asignada: ${etiquetaEvaluacion}`);
+      actualizarDatalistAtletas();
+      cargarSelectPerfilesExistentes();
+      calcular();
+    }
+
+    function abrirModalDirectorio() {
+      renderizarModalDirectorio();
+      document.getElementById('modalDirectorio').style.display = 'flex';
+    }
+
+    function cerrarModalDirectorio() {
+      document.getElementById('modalDirectorio').style.display = 'none';
+    }
+
+    function renderizarModalDirectorio() {
+      const container = document.getElementById('modal-directorio-list');
+      container.innerHTML = '';
+      let hayPerfiles = false;
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('cd_perfil_')) {
+          hayPerfiles = true;
+          const historial = JSON.parse(localStorage.getItem(key) || '[]');
+          if (historial.length === 0) continue;
+
+          const nombreAtleta = historial[0].nombre;
+
+          const card = document.createElement('div');
+          card.className = 'dir-perfil-card';
+
+          let html = `
+            <div class="dir-perfil-header">
+              <span class="dir-perfil-title" onclick="toggleSublistaDirectorio('${key}')">👤 ${nombreAtleta} (${historial.length} Eval.)</span>
+              <div>
+                <button class="btn-sm-action btn-sm-load" onclick="prepararCargaRetroactiva('${key}')">📥 Cargar Eval. Pasada</button>
+                <button class="btn-sm-action btn-sm-del" onclick="eliminarPerfilCompleto('${key}', '${nombreAtleta}')">🗑️ Eliminar Perfil</button>
+              </div>
+            </div>
+            <div id="sublist-${key}" class="dir-eval-sublist">
+          `;
+
+          historial.forEach((item, index) => {
+            html += `
+              <div class="dir-eval-item">
+                <span>📅 ${item.fechaStr} (${item.peso} kg)</span>
+                <div>
+                  <button class="btn-sm-action btn-sm-edit" onclick="verEditarEvaluacion('${key}', ${index})">👁️ Ver/Editar</button>
+                  <button class="btn-sm-action btn-sm-del" onclick="borrarEvaluacionEspecifica('${key}', ${index})">🗑️ Borrar</button>
+                </div>
+              </div>
+            `;
+          });
+
+          html += `</div>`;
+          card.innerHTML = html;
+          container.appendChild(card);
+        }
+      }
+
+      if (!hayPerfiles) {
+        container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 20px;">No hay perfiles creados en la base de datos.</div>';
+      }
+    }
+
+    function toggleSublistaDirectorio(key) {
+      const el = document.getElementById(`sublist-${key}`);
+      if (el) {
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    function verEditarEvaluacion(key, index) {
+      const historial = JSON.parse(localStorage.getItem(key) || '[]');
+      const evalSel = historial[index];
+      if (!evalSel) return;
+
+      document.getElementById('nombre').value = evalSel.nombre || '';
+      document.getElementById('edad').value = evalSel.edad || '';
+      document.getElementById('sexo').value = evalSel.sexo || 'M';
+      document.getElementById('talla').value = evalSel.talla || '';
+      document.getElementById('peso').value = evalSel.peso || '';
+
+      document.getElementById('triceps').value = evalSel.triceps || '';
+      document.getElementById('biceps').value = evalSel.biceps || '';
+      document.getElementById('subescapular').value = evalSel.subescapular || '';
+      document.getElementById('suprailiaco').value = evalSel.suprailiaco || '';
+
+      document.getElementById('brazoRelajado').value = evalSel.brazoRel || '';
+      document.getElementById('brazoFlexionado').value = evalSel.brazoFlex || '';
+      document.getElementById('cintura').value = evalSel.cintura || '';
+      document.getElementById('cadera').value = evalSel.cadera || '';
+
+      document.getElementById('dinoDer').value = evalSel.dinoDer || '';
+      document.getElementById('dinoIzq').value = evalSel.dinoIzq || '';
+
+      if (evalSel.timestamp) {
+        const f = new Date(evalSel.timestamp);
+        document.getElementById('fechaEvaluacionReal').value = f.toISOString().split('T')[0];
+      }
+
+      calcular();
+      cerrarModalDirectorio();
+      alert(`📋 Cargada evaluación del ${evalSel.fechaStr} de ${evalSel.nombre}.\nPuedes hacer cambios en los campos si lo deseas.`);
+    }
+
+    function borrarEvaluacionEspecifica(key, index) {
+      const historial = JSON.parse(localStorage.getItem(key) || '[]');
+      const evalSel = historial[index];
+      if (confirm(`¿Seguro que deseas eliminar la evaluación del ${evalSel.fechaStr}?`)) {
+        historial.splice(index, 1);
+        if (historial.length === 0) {
+          localStorage.removeItem(key);
+          alert(`El perfil se quedó sin evaluaciones y fue eliminado automáticamente.`);
+        } else {
+          localStorage.setItem(key, JSON.stringify(historial));
+          alert(`Evaluación eliminada correctamente.`);
+        }
+        renderizarModalDirectorio();
         actualizarDatalistAtletas();
         cargarSelectPerfilesExistentes();
         calcular();
-      } catch (err) {
-        alert("❌ Error: El archivo cargado no tiene un formato JSON válido de Ciencia Deportiva.");
-      }
-    };
-    reader.readAsText(file);
-  }
-
-  function actualizarDatalistAtletas() {
-    const datalist = document.getElementById('listAtletasDirectorio');
-    datalist.innerHTML = '';
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith('cd_perfil_')) {
-        const historial = JSON.parse(localStorage.getItem(key) || '[]');
-        if (historial.length > 0) {
-          const nombreAtleta = historial[0].nombre;
-          const opt = document.createElement('option');
-          opt.value = nombreAtleta;
-          datalist.appendChild(opt);
-        }
-      }
-    }
-  }
-
-  function onInputNombreAtleta() {
-    const inputNombre = document.getElementById('nombre').value.trim();
-    if (!inputNombre) {
-      calcular();
-      return;
-    }
-
-    const clave = obtenerClavePerfil(inputNombre);
-    const historial = JSON.parse(localStorage.getItem(clave) || '[]');
-
-    if (historial.length > 0) {
-      const ultimaEval = historial[historial.length - 1];
-      if (ultimaEval.edad) document.getElementById('edad').value = ultimaEval.edad;
-      if (ultimaEval.sexo) document.getElementById('sexo').value = ultimaEval.sexo;
-      if (ultimaEval.talla) document.getElementById('talla').value = ultimaEval.talla;
-    }
-    calcular();
-  }
-
-  function nuevaEvaluacion() {
-    document.getElementById('nombre').value = '';
-    document.getElementById('edad').value = '';
-    document.getElementById('talla').value = '';
-    document.getElementById('peso').value = '';
-    document.getElementById('triceps').value = '';
-    document.getElementById('biceps').value = '';
-    document.getElementById('subescapular').value = '';
-    document.getElementById('suprailiaco').value = '';
-    document.getElementById('brazoRelajado').value = '';
-    document.getElementById('brazoFlexionado').value = '';
-    document.getElementById('cintura').value = '';
-    document.getElementById('cadera').value = '';
-    document.getElementById('dinoDer').value = '';
-    document.getElementById('dinoIzq').value = '';
-    document.getElementById('pctGrasaObjetivo').value = '';
-    document.getElementById('chkCompararAnterior').checked = false;
-    document.getElementById('chkEvaluarHistorial').checked = false;
-    document.getElementById('chkPotencialCliente').checked = false;
-    fijarFechaHoyInput();
-    calcular();
-  }
-
-  function obtenerClavePerfil(nombre) {
-    return 'cd_perfil_' + nombre.trim().toUpperCase().replace(/\s+/g, '_');
-  }
-
-  function toggleModoGuardado() {
-    const tipo = document.getElementById('tipoGuardado').value;
-    const groupExistente = document.getElementById('groupPerfilExistente');
-    const btnGuardar = document.getElementById('btnGuardarEvaluacion');
-    const groupFecha = document.getElementById('groupFechaEvaluacion');
-
-    if (tipo === 'existente') {
-      groupExistente.style.display = 'block';
-      groupFecha.style.display = 'block';
-      btnGuardar.innerText = '💾 Guardar Evaluación';
-      btnGuardar.className = 'btn-action';
-      btnGuardar.onclick = ejecutarGuardarHistorial;
-      cargarSelectPerfilesExistentes();
-    } else if (tipo === 'nuevo') {
-      groupExistente.style.display = 'none';
-      groupFecha.style.display = 'block';
-      btnGuardar.innerText = '💾 Guardar Evaluación';
-      btnGuardar.className = 'btn-action';
-      btnGuardar.onclick = ejecutarGuardarHistorial;
-    } else {
-      groupExistente.style.display = 'none';
-      groupFecha.style.display = 'none';
-      btnGuardar.innerText = '🔒 Medición Rápida (Sin Guardar)';
-      btnGuardar.className = 'btn-action btn-disabled';
-      btnGuardar.onclick = function() {
-        alert('ℹ️ Modo Medición Rápida Activo: Los datos calculados se muestran en pantalla pero no se almacenarán en la base de datos.');
-      };
-    }
-  }
-
-  function cargarSelectPerfilesExistentes() {
-    const select = document.getElementById('selectPerfilExistente');
-    select.innerHTML = '';
-    let hayPerfiles = false;
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith('cd_perfil_')) {
-        hayPerfiles = true;
-        const historial = JSON.parse(localStorage.getItem(key) || '[]');
-        if (historial.length > 0) {
-          const nombreAtleta = historial[0].nombre;
-          const opt = document.createElement('option');
-          opt.value = key;
-          opt.innerText = `${nombreAtleta} (${historial.length} Eval.)`;
-          select.appendChild(opt);
-        }
       }
     }
 
-    if (!hayPerfiles) {
-      select.innerHTML = '<option value="">No hay perfiles creados aún</option>';
-    }
-  }
-
-  function prepararCargaRetroactiva(key) {
-    const historial = JSON.parse(localStorage.getItem(key) || '[]');
-    if (historial.length === 0) return;
-
-    const nombreAtleta = historial[0].nombre;
-    
-    nuevaEvaluacion();
-    
-    document.getElementById('nombre').value = nombreAtleta;
-    document.getElementById('tipoGuardado').value = 'existente';
-    toggleModoGuardado();
-    
-    const select = document.getElementById('selectPerfilExistente');
-    select.value = key;
-
-    cerrarModalDirectorio();
-    alert(`📥 Modo Carga de Evaluación Pasada Activo para [${nombreAtleta}].\nTipea los datos de esa medición en los campos y ajusta la "Fecha Real de Evaluación" en el panel izquierdo antes de guardar.`);
-  }
-
-  function ejecutarGuardarHistorial() {
-    const tipo = document.getElementById('tipoGuardado').value;
-    if (tipo === 'ninguno') return;
-
-    let nombrePerfil = '';
-    let clave = '';
-
-    if (tipo === 'nuevo') {
-      nombrePerfil = document.getElementById('nombre').value.trim().toUpperCase();
-      if (!nombrePerfil) {
-        alert('Por favor escribe el Nombre del Cliente / Atleta para crear el perfil.');
-        return;
-      }
-      clave = obtenerClavePerfil(nombrePerfil);
-    } else {
-      const selectKey = document.getElementById('selectPerfilExistente').value;
-      if (!selectKey) {
-        alert('Selecciona un perfil existente de la lista.');
-        return;
-      }
-      clave = selectKey;
-      const historialExistente = JSON.parse(localStorage.getItem(clave) || '[]');
-      nombrePerfil = historialExistente[0].nombre;
-      document.getElementById('nombre').value = nombrePerfil;
-    }
-
-    const inputFechaVal = document.getElementById('fechaEvaluacionReal').value;
-    let fechaObj = inputFechaVal ? new Date(inputFechaVal + 'T12:00:00') : new Date();
-
-    const fechaDDMMAA = fechaObj.toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: '2-digit'});
-    const etiquetaEvaluacion = `${nombrePerfil} + FECHA DE EVALUACIÓN ${fechaDDMMAA}`;
-
-    const evaluacion = {
-      nombre: nombrePerfil,
-      etiqueta: etiquetaEvaluacion,
-      fechaStr: fechaDDMMAA,
-      timestamp: fechaObj.getTime(),
-      peso: parseFloat(document.getElementById('peso').value) || 0,
-      talla: parseFloat(document.getElementById('talla').value) || 0,
-      edad: parseInt(document.getElementById('edad').value) || 0,
-      sexo: document.getElementById('sexo').value,
-      triceps: parseFloat(document.getElementById('triceps').value) || 0,
-      biceps: parseFloat(document.getElementById('biceps').value) || 0,
-      subescapular: parseFloat(document.getElementById('subescapular').value) || 0,
-      suprailiaco: parseFloat(document.getElementById('suprailiaco').value) || 0,
-      brazoRel: parseFloat(document.getElementById('brazoRelajado').value) || 0,
-      brazoFlex: parseFloat(document.getElementById('brazoFlexionado').value) || 0,
-      cintura: parseFloat(document.getElementById('cintura').value) || 0,
-      cadera: parseFloat(document.getElementById('cadera').value) || 0,
-      dinoDer: parseFloat(document.getElementById('dinoDer').value) || 0,
-      dinoIzq: parseFloat(document.getElementById('dinoIzq').value) || 0
-    };
-
-    let historial = JSON.parse(localStorage.getItem(clave) || '[]');
-    
-    // Si ya existe una evaluación guardada en la misma fecha exacta, la actualiza en vez de duplicarla
-    const indexExistente = historial.findIndex(item => item.fechaStr === fechaDDMMAA);
-    if (indexExistente !== -1) {
-      historial[indexExistente] = evaluacion;
-    } else {
-      historial.push(evaluacion);
-    }
-
-    historial.sort((a, b) => a.timestamp - b.timestamp);
-    localStorage.setItem(clave, JSON.stringify(historial));
-
-    alert(`✅ Evaluación guardada exitosamente en el Perfil de [${nombrePerfil}].\nEtiqueta asignada: ${etiquetaEvaluacion}`);
-    actualizarDatalistAtletas();
-    cargarSelectPerfilesExistentes();
-    calcular();
-  }
-
-  function abrirModalDirectorio() {
-    renderizarModalDirectorio();
-    document.getElementById('modalDirectorio').style.display = 'flex';
-  }
-
-  function cerrarModalDirectorio() {
-    document.getElementById('modalDirectorio').style.display = 'none';
-  }
-
-  function renderizarModalDirectorio() {
-    const container = document.getElementById('modal-directorio-list');
-    container.innerHTML = '';
-    let hayPerfiles = false;
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith('cd_perfil_')) {
-        hayPerfiles = true;
-        const historial = JSON.parse(localStorage.getItem(key) || '[]');
-        if (historial.length === 0) continue;
-
-        const nombreAtleta = historial[0].nombre;
-
-        const card = document.createElement('div');
-        card.className = 'dir-perfil-card';
-
-        let html = `
-          <div class="dir-perfil-header">
-            <span class="dir-perfil-title" onclick="toggleSublistaDirectorio('${key}')">👤 ${nombreAtleta} (${historial.length} Eval.)</span>
-            <div>
-              <button class="btn-sm-action btn-sm-load" onclick="prepararCargaRetroactiva('${key}')">📥 Cargar Eval. Pasada</button>
-              <button class="btn-sm-action btn-sm-del" onclick="eliminarPerfilCompleto('${key}', '${nombreAtleta}')">🗑️ Eliminar Perfil</button>
-            </div>
-          </div>
-          <div id="sublist-${key}" class="dir-eval-sublist">
-        `;
-
-        historial.forEach((item, index) => {
-          html += `
-            <div class="dir-eval-item">
-              <span>📅 ${item.fechaStr} (${item.peso} kg)</span>
-              <div>
-                <button class="btn-sm-action btn-sm-edit" onclick="verEditarEvaluacion('${key}', ${index})">👁️ Ver/Editar</button>
-                <button class="btn-sm-action btn-sm-del" onclick="borrarEvaluacionEspecifica('${key}', ${index})">🗑️ Borrar</button>
-              </div>
-            </div>
-          `;
-        });
-
-        html += `</div>`;
-        card.innerHTML = html;
-        container.appendChild(card);
-      }
-    }
-
-    if (!hayPerfiles) {
-      container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 20px;">No hay perfiles creados en la base de datos.</div>';
-    }
-  }
-
-  function toggleSublistaDirectorio(key) {
-    const el = document.getElementById(`sublist-${key}`);
-    if (el) {
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-  }
-
-  function verEditarEvaluacion(key, index) {
-    const historial = JSON.parse(localStorage.getItem(key) || '[]');
-    const evalSel = historial[index];
-    if (!evalSel) return;
-
-    document.getElementById('nombre').value = evalSel.nombre || '';
-    document.getElementById('edad').value = evalSel.edad || '';
-    document.getElementById('sexo').value = evalSel.sexo || 'M';
-    document.getElementById('talla').value = evalSel.talla || '';
-    document.getElementById('peso').value = evalSel.peso || '';
-
-    document.getElementById('triceps').value = evalSel.triceps || '';
-    document.getElementById('biceps').value = evalSel.biceps || '';
-    document.getElementById('subescapular').value = evalSel.subescapular || '';
-    document.getElementById('suprailiaco').value = evalSel.suprailiaco || '';
-
-    document.getElementById('brazoRelajado').value = evalSel.brazoRel || '';
-    document.getElementById('brazoFlexionado').value = evalSel.brazoFlex || '';
-    document.getElementById('cintura').value = evalSel.cintura || '';
-    document.getElementById('cadera').value = evalSel.cadera || '';
-
-    document.getElementById('dinoDer').value = evalSel.dinoDer || '';
-    document.getElementById('dinoIzq').value = evalSel.dinoIzq || '';
-
-    if (evalSel.timestamp) {
-      const f = new Date(evalSel.timestamp);
-      document.getElementById('fechaEvaluacionReal').value = f.toISOString().split('T')[0];
-    }
-
-    calcular();
-    cerrarModalDirectorio();
-    alert(`📋 Cargada evaluación del ${evalSel.fechaStr} de ${evalSel.nombre}.\nPuedes hacer cambios en los campos si lo deseas.`);
-  }
-
-  function borrarEvaluacionEspecifica(key, index) {
-    const historial = JSON.parse(localStorage.getItem(key) || '[]');
-    const evalSel = historial[index];
-    if (confirm(`¿Seguro que deseas eliminar la evaluación del ${evalSel.fechaStr}?`)) {
-      historial.splice(index, 1);
-      if (historial.length === 0) {
+    function eliminarPerfilCompleto(key, nombreAtleta) {
+      if (confirm(`⚠️ ¿Seguro que deseas eliminar a [${nombreAtleta}] con TODAS sus evaluaciones guardadas?`)) {
         localStorage.removeItem(key);
-        alert(`El perfil se quedó sin evaluaciones y fue eliminado automáticamente.`);
-      } else {
-        localStorage.setItem(key, JSON.stringify(historial));
-        alert(`Evaluación eliminada correctamente.`);
+        renderizarModalDirectorio();
+        actualizarDatalistAtletas();
+        cargarSelectPerfilesExistentes();
+        calcular();
+        alert(`Perfil de [${nombreAtleta}] eliminado.`);
       }
-      renderizarModalDirectorio();
-      actualizarDatalistAtletas();
-      cargarSelectPerfilesExistentes();
-      calcular();
     }
-  }
 
-  function eliminarPerfilCompleto(key, nombreAtleta) {
-    if (confirm(`⚠️ ¿Seguro que deseas eliminar a [${nombreAtleta}] con TODAS sus evaluaciones guardadas?`)) {
-      localStorage.removeItem(key);
-      renderizarModalDirectorio();
-      actualizarDatalistAtletas();
-      cargarSelectPerfilesExistentes();
-      calcular();
-      alert(`Perfil de [${nombreAtleta}] eliminado.`);
+    function generarBadgeDelta(valActual, valAnterior, unidad, invertido = false) {
+      if (valAnterior === undefined || isNaN(valAnterior) || valAnterior === 0) return '';
+      const diff = valActual - valAnterior;
+      if (Math.abs(diff) < 0.01) return `<span class="delta-badge delta-neutral">= 0.0${unidad}</span>`;
+      
+      const signo = diff > 0 ? '+' : '';
+      let esPositivo = diff > 0;
+      if (invertido) esPositivo = !esPositivo;
+
+      const clase = esPositivo ? 'delta-pos' : 'delta-neg';
+      const flecha = diff > 0 ? '▲' : '▼';
+      return `<span class="delta-badge ${clase}">${flecha} ${signo}${diff.toFixed(1)}${unidad}</span>`;
     }
-  }
 
-  function generarBadgeDelta(valActual, valAnterior, unidad, invertido = false) {
-    if (valAnterior === undefined || isNaN(valAnterior) || valAnterior === 0) return '';
-    const diff = valActual - valAnterior;
-    if (Math.abs(diff) < 0.01) return `<span class="delta-badge delta-neutral">= 0.0${unidad}</span>`;
-    
-    const signo = diff > 0 ? '+' : '';
-    let esPositivo = diff > 0;
-    if (invertido) esPositivo = !esPositivo;
+    function calcular() {
+      const nombre = document.getElementById('nombre').value || '';
+      const peso = parseFloat(document.getElementById('peso').value) || 0;
+      const talla = parseFloat(document.getElementById('talla').value) || 0;
+      const edad = parseInt(document.getElementById('edad').value) || 0;
+      const sexo = document.getElementById('sexo').value;
 
-    const clase = esPositivo ? 'delta-pos' : 'delta-neg';
-    const flecha = diff > 0 ? '▲' : '▼';
-    return `<span class="delta-badge ${clase}">${flecha} ${signo}${diff.toFixed(1)}${unidad}</span>`;
-  }
+      const triceps = parseFloat(document.getElementById('triceps').value) || 0;
+      const biceps = parseFloat(document.getElementById('biceps').value) || 0;
+      const subescapular = parseFloat(document.getElementById('subescapular').value) || 0;
+      const suprailiaco = parseFloat(document.getElementById('suprailiaco').value) || 0;
 
-  function calcular() {
-    const nombre = document.getElementById('nombre').value || '';
-    const peso = parseFloat(document.getElementById('peso').value) || 0;
-    const talla = parseFloat(document.getElementById('talla').value) || 0;
-    const edad = parseInt(document.getElementById('edad').value) || 0;
-    const sexo = document.getElementById('sexo').value;
+      const brazoRel = parseFloat(document.getElementById('brazoRelajado').value) || 0;
+      const brazoFlex = parseFloat(document.getElementById('brazoFlexionado').value) || 0;
+      const cintura = parseFloat(document.getElementById('cintura').value) || 0;
+      const cadera = parseFloat(document.getElementById('cadera').value) || 0;
 
-    const triceps = parseFloat(document.getElementById('triceps').value) || 0;
-    const biceps = parseFloat(document.getElementById('biceps').value) || 0;
-    const subescapular = parseFloat(document.getElementById('subescapular').value) || 0;
-    const suprailiaco = parseFloat(document.getElementById('suprailiaco').value) || 0;
+      const dinoDer = parseFloat(document.getElementById('dinoDer').value) || 0;
+      const dinoIzq = parseFloat(document.getElementById('dinoIzq').value) || 0;
 
-    const brazoRel = parseFloat(document.getElementById('brazoRelajado').value) || 0;
-    const brazoFlex = parseFloat(document.getElementById('brazoFlexionado').value) || 0;
-    const cintura = parseFloat(document.getElementById('cintura').value) || 0;
-    const cadera = parseFloat(document.getElementById('cadera').value) || 0;
+      document.getElementById('res-nombre').innerText = nombre || '-';
+      document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} años | ${sexo === 'M' ? 'Masculino' : 'Femenino'}` : '-';
+      document.getElementById('res-talla-peso').innerText = (talla > 0 || peso > 0) ? `${talla || '-'} cm | ${peso || '-'} kg` : '-';
+      document.getElementById('res-dino-raw').innerText = (dinoDer > 0 || dinoIzq > 0) ? `${dinoIzq.toFixed(1)} kg / ${dinoDer.toFixed(1)} kg` : '-';
+      document.getElementById('res-pliegues-1').innerText = (biceps > 0 || triceps > 0) ? `${biceps.toFixed(1)} mm / ${triceps.toFixed(1)} mm` : '-';
+      
+      const suma4 = triceps + biceps + subescapular + suprailiaco;
+      document.getElementById('res-pliegues-2').innerText = suma4 > 0 ? `${subescapular.toFixed(1)} mm / ${suprailiaco.toFixed(1)} mm (${suma4.toFixed(1)}mm)` : '-';
+      document.getElementById('res-perim-brazo').innerText = (brazoRel > 0 || brazoFlex > 0) ? `${brazoRel.toFixed(1)} cm / ${brazoFlex.toFixed(1)} cm` : '-';
+      document.getElementById('res-perim-cintura-cadera').innerText = (cintura > 0 || cadera > 0) ? `${cintura.toFixed(1)} cm / ${cadera.toFixed(1)} cm` : '-';
 
-    const dinoDer = parseFloat(document.getElementById('dinoDer').value) || 0;
-    const dinoIzq = parseFloat(document.getElementById('dinoIzq').value) || 0;
+      let evalPasada = null;
+      const chkComparar = document.getElementById('chkCompararAnterior').checked;
+      
+      if (chkComparar && nombre.trim() !== '') {
+        const clave = obtenerClavePerfil(nombre);
+        const historial = JSON.parse(localStorage.getItem(clave) || '[]');
+        const fechaActualInput = document.getElementById('fechaEvaluacionReal').value;
+        let timestampActual = fechaActualInput ? new Date(fechaActualInput + 'T12:00:00').getTime() : new Date().getTime();
 
-    document.getElementById('res-nombre').innerText = nombre || '-';
-    document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} años | ${sexo === 'M' ? 'Masculino' : 'Femenino'}` : '-';
-    document.getElementById('res-talla-peso').innerText = (talla > 0 || peso > 0) ? `${talla || '-'} cm | ${peso || '-'} kg` : '-';
-    document.getElementById('res-dino-raw').innerText = (dinoDer > 0 || dinoIzq > 0) ? `${dinoIzq.toFixed(1)} kg / ${dinoDer.toFixed(1)} kg` : '-';
-    document.getElementById('res-pliegues-1').innerText = (biceps > 0 || triceps > 0) ? `${biceps.toFixed(1)} mm / ${triceps.toFixed(1)} mm` : '-';
-    
-    const suma4 = triceps + biceps + subescapular + suprailiaco;
-    document.getElementById('res-pliegues-2').innerText = suma4 > 0 ? `${subescapular.toFixed(1)} mm / ${suprailiaco.toFixed(1)} mm (${suma4.toFixed(1)}mm)` : '-';
-    document.getElementById('res-perim-brazo').innerText = (brazoRel > 0 || brazoFlex > 0) ? `${brazoRel.toFixed(1)} cm / ${brazoFlex.toFixed(1)} cm` : '-';
-    document.getElementById('res-perim-cintura-cadera').innerText = (cintura > 0 || cadera > 0) ? `${cintura.toFixed(1)} cm / ${cadera.toFixed(1)} cm` : '-';
+        const previas = historial.filter(item => item.timestamp < timestampActual);
+        if (previas.length > 0) {
+          evalPasada = previas[previas.length - 1];
+        } else if (historial.length > 1) {
+          evalPasada = historial[historial.length - 2];
+        }
+      }
 
-    let evalPasada = null;
-    const chkComparar = document.getElementById('chkCompararAnterior').checked;
-    
-    if (chkComparar && nombre.trim() !== '') {
+      document.getElementById('label-comparativa-header').innerText = evalPasada ? `🔄 Comparando vs (${evalPasada.fechaStr})` : '';
+
+      let pasGrasa = 0, pasKgGrasa = 0, pasKgMLG = 0, pasIMC = 0, pasICT = 0, pasSuma4 = 0, pasFuerzaRel = 0, pasAsimetria = 0;
+      if (evalPasada) {
+        const pasTallaM = evalPasada.talla / 100;
+        pasIMC = pasTallaM > 0 ? (evalPasada.peso / (pasTallaM * pasTallaM)) : 0;
+        pasSuma4 = evalPasada.triceps + evalPasada.biceps + evalPasada.subescapular + evalPasada.suprailiaco;
+        let pasDc = 1.0;
+        if (pasSuma4 > 0) {
+          const logSumaP = Math.log10(pasSuma4);
+          pasDc = evalPasada.sexo === 'M' ? (1.1631 - (0.0632 * logSumaP)) : (1.1599 - (0.0717 * logSumaP));
+        }
+        pasGrasa = pasDc > 0 ? Math.max(0, ((4.95 / pasDc) - 4.50) * 100) : 0;
+        pasKgGrasa = evalPasada.peso * (pasGrasa / 100);
+        pasKgMLG = evalPasada.peso - pasKgGrasa;
+        pasICT = evalPasada.talla > 0 ? (evalPasada.cintura / evalPasada.talla) : 0;
+        const pasMaxDino = Math.max(evalPasada.dinoDer, evalPasada.dinoIzq);
+        pasFuerzaRel = evalPasada.peso > 0 ? (pasMaxDino / evalPasada.peso) : 0;
+        pasAsimetria = pasMaxDino > 0 ? (Math.abs(evalPasada.dinoDer - evalPasada.dinoIzq) / pasMaxDino * 100) : 0;
+      }
+
+      document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', true) : '';
+      document.getElementById('delta-suma4').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', true) : '';
+      document.getElementById('delta-cintura').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', true) : '';
+      document.getElementById('delta-brazo').innerHTML = evalPasada ? generarBadgeDelta(brazoRel, evalPasada.brazoRel, 'cm', false) : '';
+      document.getElementById('delta-dino').innerHTML = evalPasada ? generarBadgeDelta(Math.max(dinoDer, dinoIzq), Math.max(evalPasada ? evalPasada.dinoDer : 0, evalPasada ? evalPasada.dinoIzq : 0), 'kg', false) : '';
+
+      const tallaM = talla / 100;
+      if (peso > 0 && talla > 0) {
+        const imc = peso / (tallaM * tallaM);
+        document.getElementById('kpi-imc').innerText = `${imc.toFixed(1)} kg/m²`;
+        let estadoIMC = 'Normopeso', colorIMC = '#10b981';
+        if (imc < 18.5) { estadoIMC = 'Bajo Peso'; colorIMC = '#f59e0b'; }
+        else if (imc >= 18.5 && imc < 25.0) { estadoIMC = 'Normopeso'; colorIMC = '#10b981'; }
+        else if (imc >= 25.0 && imc < 30.0) { estadoIMC = 'Sobrepeso'; colorIMC = '#f59e0b'; }
+        else if (imc >= 30.0) { estadoIMC = 'Obesidad'; colorIMC = '#ef4444'; }
+        const elIMC = document.getElementById('kpi-imc-estado');
+        elIMC.innerText = estadoIMC; elIMC.style.color = colorIMC;
+        document.getElementById('delta-imc-badge').innerHTML = evalPasada ? generarBadgeDelta(imc, pasIMC, '', true) : '';
+      } else {
+        document.getElementById('kpi-imc').innerText = '-';
+        document.getElementById('kpi-imc-estado').innerText = talla === 0 && peso === 0 ? 'FALTA TALLA Y PESO' : (talla === 0 ? 'FALTA TALLA' : 'FALTA PESO');
+        document.getElementById('kpi-imc-estado').style.color = '#f43f5e';
+        document.getElementById('delta-imc-badge').innerHTML = '';
+      }
+
+      let pctGrasa = 0, kgGrasa = 0, pctMLG = 0, kgMLG = 0;
+      if (suma4 > 0 && peso > 0) {
+        const logSuma = Math.log10(suma4);
+        const dc = sexo === 'M' ? (1.1631 - (0.0632 * logSuma)) : (1.1599 - (0.0717 * logSuma));
+        pctGrasa = dc > 0 ? Math.max(0, ((4.95 / dc) - 4.50) * 100) : 0;
+        kgGrasa = peso * (pctGrasa / 100);
+        pctMLG = 100 - pctGrasa;
+        kgMLG = peso - kgGrasa;
+
+        document.getElementById('kpi-grasa').innerText = `${pctGrasa.toFixed(1)}%`;
+        document.getElementById('kpi-mlg').innerText = `${pctMLG.toFixed(1)}%`;
+        document.getElementById('kpi-mlg-kg').innerText = `${kgMLG.toFixed(1)} kg MLG`;
+        document.getElementById('footer-kg-grasa').innerText = `${kgGrasa.toFixed(1)} kg`;
+        document.getElementById('footer-kg-mlg').innerText = `${kgMLG.toFixed(1)} kg`;
+
+        let estadoGrasa = 'Aceptable', colorGrasa = '#10b981';
+        if (sexo === 'M') {
+          if (pctGrasa > 24) { estadoGrasa = 'Alto'; colorGrasa = '#ef4444'; }
+          else if (pctGrasa > 15) { estadoGrasa = 'Moderado'; colorGrasa = '#f59e0b'; }
+        } else {
+          if (pctGrasa > 31) { estadoGrasa = 'Alto'; colorGrasa = '#ef4444'; }
+          else if (pctGrasa > 23) { estadoGrasa = 'Moderado'; colorGrasa = '#f59e0b'; }
+        }
+        const elGrasaKg = document.getElementById('kpi-grasa-kg');
+        elGrasaKg.innerText = `${kgGrasa.toFixed(1)} kg (${estadoGrasa})`; elGrasaKg.style.color = colorGrasa;
+
+        document.getElementById('delta-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(pctGrasa, pasGrasa, '%', true) : '';
+        document.getElementById('delta-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(pctMLG, (100 - pasGrasa), '%', false) : '';
+        document.getElementById('delta-kg-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(kgGrasa, pasKgGrasa, 'kg', true) : '';
+        document.getElementById('delta-kg-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(kgMLG, pasKgMLG, 'kg', false) : '';
+      } else {
+        const txtFalta = suma4 === 0 && peso === 0 ? 'FALTA PLIEGUES Y PESO' : (suma4 === 0 ? 'FALTA PLIEGUES' : 'FALTA PESO');
+        document.getElementById('kpi-grasa').innerText = '-';
+        document.getElementById('kpi-grasa-kg').innerText = txtFalta;
+        document.getElementById('kpi-grasa-kg').style.color = '#f43f5e';
+        document.getElementById('kpi-mlg').innerText = '-';
+        document.getElementById('kpi-mlg-kg').innerText = txtFalta;
+        document.getElementById('kpi-mlg-kg').style.color = '#f43f5e';
+        document.getElementById('footer-kg-grasa').innerText = '-';
+        document.getElementById('footer-kg-mlg').innerText = '-';
+        document.getElementById('delta-grasa-badge').innerHTML = '';
+        document.getElementById('delta-mlg-badge').innerHTML = '';
+      }
+
+      if (suma4 > 0) {
+        document.getElementById('kpi-suma4-val').innerText = `${suma4.toFixed(1)} mm`;
+        document.getElementById('kpi-suma4-estado').innerText = '4 Pliegues ISAK';
+        document.getElementById('kpi-suma4-estado').style.color = '#10b981';
+        document.getElementById('delta-suma4-badge').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', true) : '';
+      } else {
+        document.getElementById('kpi-suma4-val').innerText = '-';
+        document.getElementById('kpi-suma4-estado').innerText = 'FALTA PLIEGUES';
+        document.getElementById('kpi-suma4-estado').style.color = '#f43f5e';
+        document.getElementById('delta-suma4-badge').innerHTML = '';
+      }
+
+      if (pctGrasa > 0 && peso > 0) {
+        let umbralCorteGrasaOptimo = sexo === 'M' ? 15.0 : 23.0;
+        const inputGrasaMetaVal = parseFloat(document.getElementById('pctGrasaObjetivo').value);
+        let pctGrasaMeta = !isNaN(inputGrasaMetaVal) && inputGrasaMetaVal > 0 ? inputGrasaMetaVal : umbralCorteGrasaOptimo;
+
+        const elRecompVal = document.getElementById('kpi-recomp-val');
+        const elRecompEstado = document.getElementById('kpi-recomp-estado');
+
+        if (pctGrasa > pctGrasaMeta) {
+          const pctObjDecimal = pctGrasaMeta / 100.0;
+          const pesoObjetivo = kgMLG / (1.0 - pctObjDecimal);
+          const deltaPesoProyectado = peso - pesoObjetivo;
+
+          elRecompVal.innerText = `≈ -${deltaPesoProyectado.toFixed(1)} kg*`;
+          elRecompVal.style.color = '#38bdf8';
+          elRecompEstado.innerText = `Meta: ${pctGrasaMeta.toFixed(1)}% GC`;
+          elRecompEstado.style.color = '#f59e0b';
+        } else {
+          elRecompVal.innerText = `Aumentar MLG`;
+          elRecompVal.style.color = '#10b981';
+          elRecompEstado.innerText = `Priorizar Hipertrofia/Fuerza`;
+          elRecompEstado.style.color = '#10b981';
+        }
+      } else {
+        document.getElementById('kpi-recomp-val').innerText = '-';
+        document.getElementById('kpi-recomp-estado').innerText = 'FALTA DATOS GRASA';
+        document.getElementById('kpi-recomp-estado').style.color = '#f43f5e';
+      }
+
+      if (cintura > 0 && talla > 0) {
+        const ict = cintura / talla;
+        document.getElementById('kpi-ict').innerText = ict.toFixed(2);
+        let estadoICT = 'Riesgo Bajo', colorICT = '#10b981';
+        if (ict >= 0.50 && ict <= 0.52) { estadoICT = 'Riesgo Leve'; colorICT = '#f59e0b'; }
+        else if (ict > 0.52 && ict <= 0.55) { estadoICT = 'Riesgo Moderado'; colorICT = '#f97316'; }
+        else if (ict > 0.55) { estadoICT = 'Riesgo Alto'; colorICT = '#ef4444'; }
+        const elICT = document.getElementById('kpi-ict-estado');
+        elICT.innerText = estadoICT; elICT.style.color = colorICT;
+        document.getElementById('delta-ict-badge').innerHTML = evalPasada ? generarBadgeDelta(ict, pasICT, '', true) : '';
+      } else {
+        document.getElementById('kpi-ict').innerText = '-';
+        const txtFaltaICT = cintura === 0 && talla === 0 ? 'FALTA CINTURA Y TALLA' : (cintura === 0 ? 'FALTA PERÍMETRO CINTURA' : 'FALTA TALLA');
+        document.getElementById('kpi-ict-estado').innerText = txtFaltaICT;
+        document.getElementById('kpi-ict-estado').style.color = '#f43f5e';
+        document.getElementById('delta-ict-badge').innerHTML = '';
+      }
+
+      if (cintura > 0) {
+        document.getElementById('kpi-visceral-val').innerText = `${cintura.toFixed(1)} cm`;
+        const umbralCintura = sexo === 'M' ? 102.0 : 88.0;
+        let esCinturaAlta = cintura >= umbralCintura;
+        document.getElementById('kpi-visceral-estado').innerText = esCinturaAlta ? 'Probable' : 'Poco Probable';
+        document.getElementById('kpi-visceral-estado').style.color = esCinturaAlta ? '#ef4444' : '#10b981';
+        document.getElementById('delta-visceral-badge').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', true) : '';
+      } else {
+        document.getElementById('kpi-visceral-val').innerText = '-';
+        document.getElementById('kpi-visceral-estado').innerText = 'FALTA PERÍMETRO CINTURA';
+        document.getElementById('kpi-visceral-estado').style.color = '#f43f5e';
+        document.getElementById('delta-visceral-badge').innerHTML = '';
+      }
+
+      const imcVal = (peso > 0 && talla > 0) ? (peso / (tallaM * tallaM)) : 0;
+      if (imcVal > 0 && cintura > 0) {
+        const umbralCintura = sexo === 'M' ? 102.0 : 88.0;
+        const esCinturaAlta = cintura >= umbralCintura;
+        const ictVal = cintura / talla;
+        const iccVal = cadera > 0 ? (cintura / cadera) : 0;
+        const umbralICC = sexo === 'M' ? 0.90 : 0.85;
+
+        let medicionesExcedidas = 0;
+        if (esCinturaAlta) medicionesExcedidas++;
+        if (ictVal >= 0.50) medicionesExcedidas++;
+        if (iccVal >= umbralICC) medicionesExcedidas++;
+
+        let diagnosticoLancet = 'No Cumple Criterios', subLancet = 'Sin Exceso Clínico', colorLancet = '#10b981';
+        if (imcVal > 40.0 || (medicionesExcedidas >= 1 && imcVal > 32.4) || medicionesExcedidas >= 2 || (pctGrasa > (sexo==='M'?24:31))) {
+          diagnosticoLancet = 'Exceso Confirmado'; subLancet = 'Exceso Grasa / Adiposidad'; colorLancet = '#ef4444';
+        }
+        document.getElementById('kpi-lancet-val').innerText = diagnosticoLancet;
+        document.getElementById('kpi-lancet-estado').innerText = subLancet;
+        document.getElementById('kpi-lancet-estado').style.color = colorLancet;
+      } else {
+        document.getElementById('kpi-lancet-val').innerText = '-';
+        document.getElementById('kpi-lancet-estado').innerText = 'FALTA CINTURA / DATOS';
+        document.getElementById('kpi-lancet-estado').style.color = '#f43f5e';
+      }
+
+      const maxDino = Math.max(dinoDer, dinoIzq);
+      if (maxDino > 0 && peso > 0) {
+        const fuerzaRel = maxDino / peso;
+        const asimetria = Math.abs(dinoDer - dinoIzq) / maxDino * 100;
+
+        document.getElementById('kpi-fuerza-rel').innerText = `${fuerzaRel.toFixed(2)} kg/kg`;
+        document.getElementById('kpi-fuerza-estado').innerText = fuerzaRel >= (sexo==='M'?0.55:0.40) ? 'Fuerza Óptima' : 'Fuerza A Mejorar';
+        document.getElementById('kpi-fuerza-estado').style.color = fuerzaRel >= (sexo==='M'?0.55:0.40) ? '#10b981' : '#f59e0b';
+
+        document.getElementById('kpi-asimetria').innerText = `${asimetria.toFixed(1)}%`;
+        document.getElementById('kpi-asimetria-estado').innerText = asimetria <= 10 ? 'Balance Simétrico' : 'Asimetría Significativa';
+        document.getElementById('kpi-asimetria-estado').style.color = asimetria <= 10 ? '#10b981' : '#ef4444';
+
+        document.getElementById('footer-dino-izq').innerText = `${dinoIzq.toFixed(1)} kg`;
+        document.getElementById('footer-dino-der').innerText = `${dinoDer.toFixed(1)} kg`;
+
+        document.getElementById('delta-fuerza-badge').innerHTML = evalPasada ? generarBadgeDelta(fuerzaRel, pasFuerzaRel, 'kg/kg', false) : '';
+        document.getElementById('delta-asimetria-badge').innerHTML = evalPasada ? generarBadgeDelta(asimetria, pasAsimetria, '%', true) : '';
+
+        const elDominancia = document.getElementById('fuerza-dominancia-label');
+        if (dinoDer > dinoIzq) {
+          elDominancia.innerText = `Mano Derecha Dominante (+${(dinoDer - dinoIzq).toFixed(1)} kg)`;
+          elDominancia.style.color = '#3b82f6';
+        } else if (dinoIzq > dinoDer) {
+          elDominancia.innerText = `Mano Izquierda Dominante (+${(dinoIzq - dinoDer).toFixed(1)} kg)`;
+          elDominancia.style.color = '#38bdf8';
+        } else {
+          elDominancia.innerText = `Simetría Perfecta en Ambas Manos`;
+          elDominancia.style.color = '#10b981';
+        }
+      } else {
+        const txtFaltaDino = maxDino === 0 && peso === 0 ? 'FALTA DINAMOMETRÍA Y PESO' : (maxDino === 0 ? 'FALTA DINAMOMETRÍA' : 'FALTA PESO');
+        document.getElementById('kpi-fuerza-rel').innerText = '-';
+        document.getElementById('kpi-fuerza-estado').innerText = txtFaltaDino;
+        document.getElementById('kpi-fuerza-estado').style.color = '#f43f5e';
+
+        document.getElementById('kpi-asimetria').innerText = '-';
+        document.getElementById('kpi-asimetria-estado').innerText = maxDino === 0 ? 'FALTA DINAMOMETRÍA' : '-';
+        document.getElementById('kpi-asimetria-estado').style.color = '#f43f5e';
+
+        document.getElementById('footer-dino-izq').innerText = '-';
+        document.getElementById('footer-dino-der').innerText = '-';
+        document.getElementById('fuerza-dominancia-label').innerText = '-';
+        document.getElementById('delta-fuerza-badge').innerHTML = '';
+        document.getElementById('delta-asimetria-badge').innerHTML = '';
+      }
+
+      const txtSintesis = document.getElementById('txtSintesisRecomendacion');
+      if (peso > 0 && talla > 0 && suma4 > 0) {
+        const generoTxt = sexo === 'M' ? 'El evaluado' : 'La evaluada';
+        const fuerzaRelVal = maxDino > 0 ? (maxDino / peso) : 0;
+        const asimetriaVal = maxDino > 0 ? (Math.abs(dinoDer - dinoIzq) / maxDino * 100) : 0;
+        const simetriaTxt = asimetriaVal <= 10 ? 'se encuentra dentro del rango considerado simétrico' : 'evidencia una asimetría que requiere atención correctiva';
+        const esCinturaAlta = cintura >= (sexo === 'M' ? 102.0 : 88.0);
+        const visceralTxt = cintura > 0 ? (esCinturaAlta ? 'se encuentra por ENCIMA del punto de corte utilizado para adiposidad visceral probable' : 'se encuentra por debajo del punto de corte utilizado para adiposidad visceral probable') : 'no cuenta con registro de perímetro de cintura';
+        const ictVal = (cintura > 0 && talla > 0) ? (cintura / talla) : 0;
+        
+        let estadoGrasaTxt = 'aceptable';
+        if (sexo === 'M') { if (pctGrasa > 24) estadoGrasaTxt = 'alto'; else if (pctGrasa > 15) estadoGrasaTxt = 'moderado'; }
+        else { if (pctGrasa > 31) estadoGrasaTxt = 'alto'; else if (pctGrasa > 23) estadoGrasaTxt = 'moderado'; }
+
+        txtSintesis.innerHTML = `${generoTxt} <strong>${nombre || 'Atleta'}</strong> presenta una composición corporal con un porcentaje de grasa en rango <strong>${estadoGrasaTxt} (${pctGrasa.toFixed(1)}%)</strong>, una masa libre de grasa de <strong>${kgMLG.toFixed(1)} kg</strong> y un desempeño de fuerza de agarre relativa de <strong>${fuerzaRelVal > 0 ? fuerzaRelVal.toFixed(2) + ' kg/kg' : 'sin datos'}</strong>. La diferencia bilateral entre extremidades (${asimetriaVal.toFixed(1)}%) ${simetriaTxt}. La circunferencia de cintura (${cintura > 0 ? cintura.toFixed(1) + ' cm' : 'N/A'}) ${visceralTxt}. El Índice Cintura-Talla (ICT = <strong>${ictVal > 0 ? ictVal.toFixed(2) : 'N/A'}</strong>) complementa la evaluación de riesgo cardiometabólico.`;
+      } else {
+        txtSintesis.innerHTML = 'Ingresa los datos del evaluado (al menos Peso, Talla y Pliegues) para generar la síntesis diagnóstica...';
+      }
+
+      const chkCliente = document.getElementById('chkPotencialCliente').checked;
+      document.getElementById('txtPersuasivoCliente').style.display = chkCliente ? 'block' : 'none';
+
+      actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq);
+      evaluarHistorialLongitudinal();
+    }
+
+    function evaluarHistorialLongitudinal() {
+      const chk = document.getElementById('chkEvaluarHistorial').checked;
+      const contenedor = document.getElementById('contenedorLongitudinal');
+      const aviso = document.getElementById('avisoDatosInsuficientes');
+      const gridGraficos = document.getElementById('gridGraficosLongitudinales');
+
+      if (!chk) {
+        contenedor.style.display = 'none';
+        return;
+      }
+
+      contenedor.style.display = 'block';
+
+      const nombre = document.getElementById('nombre').value || '';
       const clave = obtenerClavePerfil(nombre);
       const historial = JSON.parse(localStorage.getItem(clave) || '[]');
-      const fechaActualInput = document.getElementById('fechaEvaluacionReal').value;
-      let timestampActual = fechaActualInput ? new Date(fechaActualInput + 'T12:00:00').getTime() : new Date().getTime();
 
-      // Busca una evaluación estrictamente ANTERIOR a la fecha actual
-      const previas = historial.filter(item => item.timestamp < timestampActual);
-      if (previas.length > 0) {
-        evalPasada = previas[previas.length - 1];
-      } else if (historial.length > 1) {
-        // Si se cargó desde la interfaz una evaluación de las guardadas, toma la penúltima del historial
-        evalPasada = historial[historial.length - 2];
-      }
-    }
-
-    document.getElementById('label-comparativa-header').innerText = evalPasada ? `🔄 Comparando vs (${evalPasada.fechaStr})` : '';
-
-    // Cálculos de Deltas e Indicadores
-    let pasGrasa = 0, pasKgGrasa = 0, pasKgMLG = 0, pasIMC = 0, pasICT = 0, pasSuma4 = 0, pasFuerzaRel = 0, pasAsimetria = 0;
-    if (evalPasada) {
-      const pasTallaM = evalPasada.talla / 100;
-      pasIMC = pasTallaM > 0 ? (evalPasada.peso / (pasTallaM * pasTallaM)) : 0;
-      pasSuma4 = evalPasada.triceps + evalPasada.biceps + evalPasada.subescapular + evalPasada.suprailiaco;
-      let pasDc = 1.0;
-      if (pasSuma4 > 0) {
-        const logSumaP = Math.log10(pasSuma4);
-        pasDc = evalPasada.sexo === 'M' ? (1.1631 - (0.0632 * logSumaP)) : (1.1599 - (0.0717 * logSumaP));
-      }
-      pasGrasa = pasDc > 0 ? Math.max(0, ((4.95 / pasDc) - 4.50) * 100) : 0;
-      pasKgGrasa = evalPasada.peso * (pasGrasa / 100);
-      pasKgMLG = evalPasada.peso - pasKgGrasa;
-      pasICT = evalPasada.talla > 0 ? (evalPasada.cintura / evalPasada.talla) : 0;
-      const pasMaxDino = Math.max(evalPasada.dinoDer, evalPasada.dinoIzq);
-      pasFuerzaRel = evalPasada.peso > 0 ? (pasMaxDino / evalPasada.peso) : 0;
-      pasAsimetria = pasMaxDino > 0 ? (Math.abs(evalPasada.dinoDer - evalPasada.dinoIzq) / pasMaxDino * 100) : 0;
-    }
-
-    // Deltas de Mediciones Directas
-    document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', true) : '';
-    document.getElementById('delta-suma4').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', true) : '';
-    document.getElementById('delta-cintura').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', true) : '';
-    document.getElementById('delta-brazo').innerHTML = evalPasada ? generarBadgeDelta(brazoRel, evalPasada.brazoRel, 'cm', false) : '';
-    document.getElementById('delta-dino').innerHTML = evalPasada ? generarBadgeDelta(Math.max(dinoDer, dinoIzq), Math.max(evalPasada ? evalPasada.dinoDer : 0, evalPasada ? evalPasada.dinoIzq : 0), 'kg', false) : '';
-
-    // IMC
-    const tallaM = talla / 100;
-    if (peso > 0 && talla > 0) {
-      const imc = peso / (tallaM * tallaM);
-      document.getElementById('kpi-imc').innerText = `${imc.toFixed(1)} kg/m²`;
-      let estadoIMC = 'Normopeso', colorIMC = '#10b981';
-      if (imc < 18.5) { estadoIMC = 'Bajo Peso'; colorIMC = '#f59e0b'; }
-      else if (imc >= 18.5 && imc < 25.0) { estadoIMC = 'Normopeso'; colorIMC = '#10b981'; }
-      else if (imc >= 25.0 && imc < 30.0) { estadoIMC = 'Sobrepeso'; colorIMC = '#f59e0b'; }
-      else if (imc >= 30.0) { estadoIMC = 'Obesidad'; colorIMC = '#ef4444'; }
-      const elIMC = document.getElementById('kpi-imc-estado');
-      elIMC.innerText = estadoIMC; elIMC.style.color = colorIMC;
-      document.getElementById('delta-imc-badge').innerHTML = evalPasada ? generarBadgeDelta(imc, pasIMC, '', true) : '';
-    } else {
-      document.getElementById('kpi-imc').innerText = '-';
-      document.getElementById('kpi-imc-estado').innerText = talla === 0 && peso === 0 ? 'FALTA TALLA Y PESO' : (talla === 0 ? 'FALTA TALLA' : 'FALTA PESO');
-      document.getElementById('kpi-imc-estado').style.color = '#f43f5e';
-      document.getElementById('delta-imc-badge').innerHTML = '';
-    }
-
-    // Porcentaje de Grasa & MLG
-    let pctGrasa = 0, kgGrasa = 0, pctMLG = 0, kgMLG = 0;
-    if (suma4 > 0 && peso > 0) {
-      const logSuma = Math.log10(suma4);
-      const dc = sexo === 'M' ? (1.1631 - (0.0632 * logSuma)) : (1.1599 - (0.0717 * logSuma));
-      pctGrasa = dc > 0 ? Math.max(0, ((4.95 / dc) - 4.50) * 100) : 0;
-      kgGrasa = peso * (pctGrasa / 100);
-      pctMLG = 100 - pctGrasa;
-      kgMLG = peso - kgGrasa;
-
-      document.getElementById('kpi-grasa').innerText = `${pctGrasa.toFixed(1)}%`;
-      document.getElementById('kpi-mlg').innerText = `${pctMLG.toFixed(1)}%`;
-      document.getElementById('kpi-mlg-kg').innerText = `${kgMLG.toFixed(1)} kg MLG`;
-      document.getElementById('footer-kg-grasa').innerText = `${kgGrasa.toFixed(1)} kg`;
-      document.getElementById('footer-kg-mlg').innerText = `${kgMLG.toFixed(1)} kg`;
-
-      let estadoGrasa = 'Aceptable', colorGrasa = '#10b981';
-      if (sexo === 'M') {
-        if (pctGrasa > 24) { estadoGrasa = 'Alto'; colorGrasa = '#ef4444'; }
-        else if (pctGrasa > 15) { estadoGrasa = 'Moderado'; colorGrasa = '#f59e0b'; }
+      if (historial.length < 3) {
+        aviso.style.display = 'block';
+        gridGraficos.style.display = 'none';
       } else {
-        if (pctGrasa > 31) { estadoGrasa = 'Alto'; colorGrasa = '#ef4444'; }
-        else if (pctGrasa > 23) { estadoGrasa = 'Moderado'; colorGrasa = '#f59e0b'; }
+        aviso.style.display = 'none';
+        gridGraficos.style.display = 'grid';
+        renderizarGraficosLongitudinales(historial);
       }
-      const elGrasaKg = document.getElementById('kpi-grasa-kg');
-      elGrasaKg.innerText = `${kgGrasa.toFixed(1)} kg (${estadoGrasa})`; elGrasaKg.style.color = colorGrasa;
-
-      document.getElementById('delta-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(pctGrasa, pasGrasa, '%', true) : '';
-      document.getElementById('delta-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(pctMLG, (100 - pasGrasa), '%', false) : '';
-      document.getElementById('delta-kg-grasa-badge').innerHTML = evalPasada ? generarBadgeDelta(kgGrasa, pasKgGrasa, 'kg', true) : '';
-      document.getElementById('delta-kg-mlg-badge').innerHTML = evalPasada ? generarBadgeDelta(kgMLG, pasKgMLG, 'kg', false) : '';
-    } else {
-      const txtFalta = suma4 === 0 && peso === 0 ? 'FALTA PLIEGUES Y PESO' : (suma4 === 0 ? 'FALTA PLIEGUES' : 'FALTA PESO');
-      document.getElementById('kpi-grasa').innerText = '-';
-      document.getElementById('kpi-grasa-kg').innerText = txtFalta;
-      document.getElementById('kpi-grasa-kg').style.color = '#f43f5e';
-      document.getElementById('kpi-mlg').innerText = '-';
-      document.getElementById('kpi-mlg-kg').innerText = txtFalta;
-      document.getElementById('kpi-mlg-kg').style.color = '#f43f5e';
-      document.getElementById('footer-kg-grasa').innerText = '-';
-      document.getElementById('footer-kg-mlg').innerText = '-';
-      document.getElementById('delta-grasa-badge').innerHTML = '';
-      document.getElementById('delta-mlg-badge').innerHTML = '';
     }
 
-    // Sumatoria 4 Pliegues
-    if (suma4 > 0) {
-      document.getElementById('kpi-suma4-val').innerText = `${suma4.toFixed(1)} mm`;
-      document.getElementById('kpi-suma4-estado').innerText = '4 Pliegues ISAK';
-      document.getElementById('kpi-suma4-estado').style.color = '#10b981';
-      document.getElementById('delta-suma4-badge').innerHTML = evalPasada ? generarBadgeDelta(suma4, pasSuma4, 'mm', true) : '';
-    } else {
-      document.getElementById('kpi-suma4-val').innerText = '-';
-      document.getElementById('kpi-suma4-estado').innerText = 'FALTA PLIEGUES';
-      document.getElementById('kpi-suma4-estado').style.color = '#f43f5e';
-      document.getElementById('delta-suma4-badge').innerHTML = '';
-    }
+    function renderizarGraficosLongitudinales(historial) {
+      if (typeof Chart === 'undefined') return;
 
-    // Proyección Recomposición
-    if (pctGrasa > 0 && peso > 0) {
-      let umbralCorteGrasaOptimo = sexo === 'M' ? 15.0 : 23.0;
-      const inputGrasaMetaVal = parseFloat(document.getElementById('pctGrasaObjetivo').value);
-      let pctGrasaMeta = !isNaN(inputGrasaMetaVal) && inputGrasaMetaVal > 0 ? inputGrasaMetaVal : umbralCorteGrasaOptimo;
-
-      const elRecompVal = document.getElementById('kpi-recomp-val');
-      const elRecompEstado = document.getElementById('kpi-recomp-estado');
-
-      if (pctGrasa > pctGrasaMeta) {
-        const pctObjDecimal = pctGrasaMeta / 100.0;
-        const pesoObjetivo = kgMLG / (1.0 - pctObjDecimal);
-        const deltaPesoProyectado = peso - pesoObjetivo;
-
-        elRecompVal.innerText = `≈ -${deltaPesoProyectado.toFixed(1)} kg*`;
-        elRecompVal.style.color = '#38bdf8';
-        elRecompEstado.innerText = `Meta: ${pctGrasaMeta.toFixed(1)}% GC`;
-        elRecompEstado.style.color = '#f59e0b';
-      } else {
-        elRecompVal.innerText = `Aumentar MLG`;
-        elRecompVal.style.color = '#10b981';
-        elRecompEstado.innerText = `Priorizar Hipertrofia/Fuerza`;
-        elRecompEstado.style.color = '#10b981';
-      }
-    } else {
-      document.getElementById('kpi-recomp-val').innerText = '-';
-      document.getElementById('kpi-recomp-estado').innerText = 'FALTA DATOS GRASA';
-      document.getElementById('kpi-recomp-estado').style.color = '#f43f5e';
-    }
-
-    // Riesgo Cardiometabólico ICT
-    if (cintura > 0 && talla > 0) {
-      const ict = cintura / talla;
-      document.getElementById('kpi-ict').innerText = ict.toFixed(2);
-      let estadoICT = 'Riesgo Bajo', colorICT = '#10b981';
-      if (ict >= 0.50 && ict <= 0.52) { estadoICT = 'Riesgo Leve'; colorICT = '#f59e0b'; }
-      else if (ict > 0.52 && ict <= 0.55) { estadoICT = 'Riesgo Moderado'; colorICT = '#f97316'; }
-      else if (ict > 0.55) { estadoICT = 'Riesgo Alto'; colorICT = '#ef4444'; }
-      const elICT = document.getElementById('kpi-ict-estado');
-      elICT.innerText = estadoICT; elICT.style.color = colorICT;
-      document.getElementById('delta-ict-badge').innerHTML = evalPasada ? generarBadgeDelta(ict, pasICT, '', true) : '';
-    } else {
-      document.getElementById('kpi-ict').innerText = '-';
-      const txtFaltaICT = cintura === 0 && talla === 0 ? 'FALTA CINTURA Y TALLA' : (cintura === 0 ? 'FALTA PERÍMETRO CINTURA' : 'FALTA TALLA');
-      document.getElementById('kpi-ict-estado').innerText = txtFaltaICT;
-      document.getElementById('kpi-ict-estado').style.color = '#f43f5e';
-      document.getElementById('delta-ict-badge').innerHTML = '';
-    }
-
-    // Adiposidad Visceral
-    if (cintura > 0) {
-      document.getElementById('kpi-visceral-val').innerText = `${cintura.toFixed(1)} cm`;
-      const umbralCintura = sexo === 'M' ? 102.0 : 88.0;
-      let esCinturaAlta = cintura >= umbralCintura;
-      document.getElementById('kpi-visceral-estado').innerText = esCinturaAlta ? 'Probable' : 'Poco Probable';
-      document.getElementById('kpi-visceral-estado').style.color = esCinturaAlta ? '#ef4444' : '#10b981';
-      document.getElementById('delta-visceral-badge').innerHTML = evalPasada ? generarBadgeDelta(cintura, evalPasada.cintura, 'cm', true) : '';
-    } else {
-      document.getElementById('kpi-visceral-val').innerText = '-';
-      document.getElementById('kpi-visceral-estado').innerText = 'FALTA PERÍMETRO CINTURA';
-      document.getElementById('kpi-visceral-estado').style.color = '#f43f5e';
-      document.getElementById('delta-visceral-badge').innerHTML = '';
-    }
-
-    // Obesidad Clínica (Rubino 2025)
-    const imcVal = (peso > 0 && talla > 0) ? (peso / (tallaM * tallaM)) : 0;
-    if (imcVal > 0 && cintura > 0) {
-      const umbralCintura = sexo === 'M' ? 102.0 : 88.0;
-      const esCinturaAlta = cintura >= umbralCintura;
-      const ictVal = cintura / talla;
-      const iccVal = cadera > 0 ? (cintura / cadera) : 0;
-      const umbralICC = sexo === 'M' ? 0.90 : 0.85;
-
-      let medicionesExcedidas = 0;
-      if (esCinturaAlta) medicionesExcedidas++;
-      if (ictVal >= 0.50) medicionesExcedidas++;
-      if (iccVal >= umbralICC) medicionesExcedidas++;
-
-      let diagnosticoLancet = 'No Cumple Criterios', subLancet = 'Sin Exceso Clínico', colorLancet = '#10b981';
-      if (imcVal > 40.0 || (medicionesExcedidas >= 1 && imcVal > 32.4) || medicionesExcedidas >= 2 || (pctGrasa > (sexo==='M'?24:31))) {
-        diagnosticoLancet = 'Exceso Confirmado'; subLancet = 'Exceso Grasa / Adiposidad'; colorLancet = '#ef4444';
-      }
-      document.getElementById('kpi-lancet-val').innerText = diagnosticoLancet;
-      document.getElementById('kpi-lancet-estado').innerText = subLancet;
-      document.getElementById('kpi-lancet-estado').style.color = colorLancet;
-    } else {
-      document.getElementById('kpi-lancet-val').innerText = '-';
-      document.getElementById('kpi-lancet-estado').innerText = 'FALTA CINTURA / DATOS';
-      document.getElementById('kpi-lancet-estado').style.color = '#f43f5e';
-    }
-
-    // Fuerza Relativa & Asimetría
-    const maxDino = Math.max(dinoDer, dinoIzq);
-    if (maxDino > 0 && peso > 0) {
-      const fuerzaRel = maxDino / peso;
-      const asimetria = Math.abs(dinoDer - dinoIzq) / maxDino * 100;
-
-      document.getElementById('kpi-fuerza-rel').innerText = `${fuerzaRel.toFixed(2)} kg/kg`;
-      document.getElementById('kpi-fuerza-estado').innerText = fuerzaRel >= (sexo==='M'?0.55:0.40) ? 'Fuerza Óptima' : 'Fuerza A Mejorar';
-      document.getElementById('kpi-fuerza-estado').style.color = fuerzaRel >= (sexo==='M'?0.55:0.40) ? '#10b981' : '#f59e0b';
-
-      document.getElementById('kpi-asimetria').innerText = `${asimetria.toFixed(1)}%`;
-      document.getElementById('kpi-asimetria-estado').innerText = asimetria <= 10 ? 'Balance Simétrico' : 'Asimetría Significativa';
-      document.getElementById('kpi-asimetria-estado').style.color = asimetria <= 10 ? '#10b981' : '#ef4444';
-
-      document.getElementById('footer-dino-izq').innerText = `${dinoIzq.toFixed(1)} kg`;
-      document.getElementById('footer-dino-der').innerText = `${dinoDer.toFixed(1)} kg`;
-
-      document.getElementById('delta-fuerza-badge').innerHTML = evalPasada ? generarBadgeDelta(fuerzaRel, pasFuerzaRel, 'kg/kg', false) : '';
-      document.getElementById('delta-asimetria-badge').innerHTML = evalPasada ? generarBadgeDelta(asimetria, pasAsimetria, '%', true) : '';
-
-      const elDominancia = document.getElementById('fuerza-dominancia-label');
-      if (dinoDer > dinoIzq) {
-        elDominancia.innerText = `Mano Derecha Dominante (+${(dinoDer - dinoIzq).toFixed(1)} kg)`;
-        elDominancia.style.color = '#3b82f6';
-      } else if (dinoIzq > dinoDer) {
-        elDominancia.innerText = `Mano Izquierda Dominante (+${(dinoIzq - dinoDer).toFixed(1)} kg)`;
-        elDominancia.style.color = '#38bdf8';
-      } else {
-        elDominancia.innerText = `Simetría Perfecta en Ambas Manos`;
-        elDominancia.style.color = '#10b981';
-      }
-    } else {
-      const txtFaltaDino = maxDino === 0 && peso === 0 ? 'FALTA DINAMOMETRÍA Y PESO' : (maxDino === 0 ? 'FALTA DINAMOMETRÍA' : 'FALTA PESO');
-      document.getElementById('kpi-fuerza-rel').innerText = '-';
-      document.getElementById('kpi-fuerza-estado').innerText = txtFaltaDino;
-      document.getElementById('kpi-fuerza-estado').style.color = '#f43f5e';
-
-      document.getElementById('kpi-asimetria').innerText = '-';
-      document.getElementById('kpi-asimetria-estado').innerText = maxDino === 0 ? 'FALTA DINAMOMETRÍA' : '-';
-      document.getElementById('kpi-asimetria-estado').style.color = '#f43f5e';
-
-      document.getElementById('footer-dino-izq').innerText = '-';
-      document.getElementById('footer-dino-der').innerText = '-';
-      document.getElementById('fuerza-dominancia-label').innerText = '-';
-      document.getElementById('delta-fuerza-badge').innerHTML = '';
-      document.getElementById('delta-asimetria-badge').innerHTML = '';
-    }
-
-    // Síntesis Textual Diagnóstica
-    const txtSintesis = document.getElementById('txtSintesisRecomendacion');
-    if (peso > 0 && talla > 0 && suma4 > 0) {
-      const generoTxt = sexo === 'M' ? 'El evaluado' : 'La evaluada';
-      const fuerzaRelVal = maxDino > 0 ? (maxDino / peso) : 0;
-      const asimetriaVal = maxDino > 0 ? (Math.abs(dinoDer - dinoIzq) / maxDino * 100) : 0;
-      const simetriaTxt = asimetriaVal <= 10 ? 'se encuentra dentro del rango considerado simétrico' : 'evidencia una asimetría que requiere atención correctiva';
-      const esCinturaAlta = cintura >= (sexo === 'M' ? 102.0 : 88.0);
-      const visceralTxt = cintura > 0 ? (esCinturaAlta ? 'se encuentra por ENCIMA del punto de corte utilizado para adiposidad visceral probable' : 'se encuentra por debajo del punto de corte utilizado para adiposidad visceral probable') : 'no cuenta con registro de perímetro de cintura';
-      const ictVal = (cintura > 0 && talla > 0) ? (cintura / talla) : 0;
+      const fechas = historial.map(item => item.fechaStr);
       
-      let estadoGrasaTxt = 'aceptable';
-      if (sexo === 'M') { if (pctGrasa > 24) estadoGrasaTxt = 'alto'; else if (pctGrasa > 15) estadoGrasaTxt = 'moderado'; }
-      else { if (pctGrasa > 31) estadoGrasaTxt = 'alto'; else if (pctGrasa > 23) estadoGrasaTxt = 'moderado'; }
+      const pesos = historial.map(item => item.peso);
+      const grasasPct = historial.map(item => {
+        const sum = item.triceps + item.biceps + item.subescapular + item.suprailiaco;
+        if (sum === 0) return 0;
+        const logS = Math.log10(sum);
+        const dc = item.sexo === 'M' ? (1.1631 - (0.0632 * logS)) : (1.1599 - (0.0717 * logS));
+        return dc > 0 ? Math.max(0, ((4.95 / dc) - 4.50) * 100) : 0;
+      });
+      const mlgs = historial.map((item, i) => item.peso - (item.peso * (grasasPct[i] / 100)));
 
-      txtSintesis.innerHTML = `${generoTxt} <strong>${nombre || 'Atleta'}</strong> presenta una composición corporal con un porcentaje de grasa en rango <strong>${estadoGrasaTxt} (${pctGrasa.toFixed(1)}%)</strong>, una masa libre de grasa de <strong>${kgMLG.toFixed(1)} kg</strong> y un desempeño de fuerza de agarre relativa de <strong>${fuerzaRelVal > 0 ? fuerzaRelVal.toFixed(2) + ' kg/kg' : 'sin datos'}</strong>. La diferencia bilateral entre extremidades (${asimetriaVal.toFixed(1)}%) ${simetriaTxt}. La circunferencia de cintura (${cintura > 0 ? cintura.toFixed(1) + ' cm' : 'N/A'}) ${visceralTxt}. El Índice Cintura-Talla (ICT = <strong>${ictVal > 0 ? ictVal.toFixed(2) : 'N/A'}</strong>) complementa la evaluación de riesgo cardiometabólico.`;
-    } else {
-      txtSintesis.innerHTML = 'Ingresa los datos del evaluado (al menos Peso, Talla y Pliegues) para generar la síntesis diagnóstica...';
+      const tricepsArr = historial.map(item => item.triceps);
+      const bicepsArr = historial.map(item => item.biceps);
+      const subescapularArr = historial.map(item => item.subescapular);
+      const suprailiacoArr = historial.map(item => item.suprailiaco);
+      const sumatoriasArr = historial.map(item => item.triceps + item.biceps + item.subescapular + item.suprailiaco);
+
+      const cinturas = historial.map(item => item.cintura);
+      const caderas = historial.map(item => item.cadera);
+      const flexBrazoDeltas = historial.map(item => item.brazoFlex - item.brazoRel);
+
+      const fuerzasDominantes = historial.map(item => Math.max(item.dinoDer, item.dinoIzq));
+      const fuerzasRelativas = historial.map((item, i) => item.peso > 0 ? (fuerzasDominantes[i] / item.peso) : 0);
+
+      const ctxL1 = document.getElementById('chartLongComposicion').getContext('2d');
+      if (chartLong1) chartLong1.destroy();
+      chartLong1 = new Chart(ctxL1, {
+        type: 'bar',
+        data: {
+          labels: fechas,
+          datasets: [
+            { label: 'Peso Total (kg)', data: pesos, backgroundColor: '#3b82f6' },
+            { label: 'Grasa (%)', data: grasasPct.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#f43f5e' },
+            { label: 'MLG (kg)', data: mlgs.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#10b981' }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+        }
+      });
+
+      const ctxL2 = document.getElementById('chartLongPliegues').getContext('2d');
+      if (chartLong2) chartLong2.destroy();
+      chartLong2 = new Chart(ctxL2, {
+        type: 'line',
+        data: {
+          labels: fechas,
+          datasets: [
+            { label: '∑4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 4, pointRadius: 5, pointBackgroundColor: '#10b981' },
+            { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 3 },
+            { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.5, pointRadius: 3 },
+            { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.5, pointRadius: 3 },
+            { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.5, pointRadius: 3 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+        }
+      });
+
+      const ctxL3 = document.getElementById('chartLongPerimetros').getContext('2d');
+      if (chartLong3) chartLong3.destroy();
+      chartLong3 = new Chart(ctxL3, {
+        type: 'bar',
+        data: {
+          labels: fechas,
+          datasets: [
+            { label: 'Cintura (cm)', data: cinturas, backgroundColor: '#f43f5e' },
+            { label: 'Cadera (cm)', data: caderas, backgroundColor: '#38bdf8' },
+            { label: 'Flex. Brazo (Δ cm)', data: flexBrazoDeltas.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#10b981' }
+          ]
+        },
+        options: {
+          indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+        }
+      });
+
+      const ctxL4 = document.getElementById('chartLongFuerza').getContext('2d');
+      if (chartLong4) chartLong4.destroy();
+      chartLong4 = new Chart(ctxL4, {
+        type: 'bar',
+        data: {
+          labels: fechas,
+          datasets: [
+            { label: 'Fuerza Dominante (kg)', data: fuerzasDominantes, backgroundColor: '#3b82f6' },
+            { label: 'Fuerza Relativa (kg/kg)', data: fuerzasRelativas.map(v => parseFloat(v.toFixed(2))), backgroundColor: '#a855f7' }
+          ]
+        },
+        options: {
+          indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+          scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+        }
+      });
     }
 
-    const chkCliente = document.getElementById('chkPotencialCliente').checked;
-    document.getElementById('txtPersuasivoCliente').style.display = chkCliente ? 'block' : 'none';
-
-    actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq);
-    evaluarHistorialLongitudinal();
-  }
-
-  function evaluarHistorialLongitudinal() {
-    const chk = document.getElementById('chkEvaluarHistorial').checked;
-    const contenedor = document.getElementById('contenedorLongitudinal');
-    const aviso = document.getElementById('avisoDatosInsuficientes');
-    const gridGraficos = document.getElementById('gridGraficosLongitudinales');
-
-    if (!chk) {
-      contenedor.style.display = 'none';
-      return;
-    }
-
-    contenedor.style.display = 'block';
-
-    const nombre = document.getElementById('nombre').value || '';
-    const clave = obtenerClavePerfil(nombre);
-    const historial = JSON.parse(localStorage.getItem(clave) || '[]');
-
-    if (historial.length < 3) {
-      aviso.style.display = 'block';
-      gridGraficos.style.display = 'none';
-    } else {
-      aviso.style.display = 'none';
-      gridGraficos.style.display = 'grid';
-      renderizarGraficosLongitudinales(historial);
-    }
-  }
-
-  function renderizarGraficosLongitudinales(historial) {
-    if (typeof Chart === 'undefined') return;
-
-    const fechas = historial.map(item => item.fechaStr);
-    
-    const pesos = historial.map(item => item.peso);
-    const grasasPct = historial.map(item => {
-      const sum = item.triceps + item.biceps + item.subescapular + item.suprailiaco;
-      if (sum === 0) return 0;
-      const logS = Math.log10(sum);
-      const dc = item.sexo === 'M' ? (1.1631 - (0.0632 * logS)) : (1.1599 - (0.0717 * logS));
-      return dc > 0 ? Math.max(0, ((4.95 / dc) - 4.50) * 100) : 0;
-    });
-    const mlgs = historial.map((item, i) => item.peso - (item.peso * (grasasPct[i] / 100)));
-
-    const tricepsArr = historial.map(item => item.triceps);
-    const bicepsArr = historial.map(item => item.biceps);
-    const subescapularArr = historial.map(item => item.subescapular);
-    const suprailiacoArr = historial.map(item => item.suprailiaco);
-    const sumatoriasArr = historial.map(item => item.triceps + item.biceps + item.subescapular + item.suprailiaco);
-
-    const cinturas = historial.map(item => item.cintura);
-    const caderas = historial.map(item => item.cadera);
-    const flexBrazoDeltas = historial.map(item => item.brazoFlex - item.brazoRel);
-
-    const fuerzasDominantes = historial.map(item => Math.max(item.dinoDer, item.dinoIzq));
-    const fuerzasRelativas = historial.map((item, i) => item.peso > 0 ? (fuerzasDominantes[i] / item.peso) : 0);
-
-    const ctxL1 = document.getElementById('chartLongComposicion').getContext('2d');
-    if (chartLong1) chartLong1.destroy();
-    chartLong1 = new Chart(ctxL1, {
-      type: 'bar',
-      data: {
-        labels: fechas,
-        datasets: [
-          { label: 'Peso Total (kg)', data: pesos, backgroundColor: '#3b82f6' },
-          { label: 'Grasa (%)', data: grasasPct.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#f43f5e' },
-          { label: 'MLG (kg)', data: mlgs.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#10b981' }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-        scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
+    function actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq) {
+      if (typeof Chart === 'undefined') {
+        setTimeout(() => actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq), 250);
+        return;
       }
-    });
 
-    const ctxL2 = document.getElementById('chartLongPliegues').getContext('2d');
-    if (chartLong2) chartLong2.destroy();
-    chartLong2 = new Chart(ctxL2, {
-      type: 'line',
-      data: {
-        labels: fechas,
-        datasets: [
-          { label: '∑4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 4, pointRadius: 5, pointBackgroundColor: '#10b981' },
-          { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 3 },
-          { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.5, pointRadius: 3 },
-          { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.5, pointRadius: 3 },
-          { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.5, pointRadius: 3 }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-        scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
-      }
-    });
+      const c1 = document.getElementById('chartComposicion');
+      const c2 = document.getElementById('chartDinamometria');
 
-    const ctxL3 = document.getElementById('chartLongPerimetros').getContext('2d');
-    if (chartLong3) chartLong3.destroy();
-    chartLong3 = new Chart(ctxL3, {
-      type: 'bar',
-      data: {
-        labels: fechas,
-        datasets: [
-          { label: 'Cintura (cm)', data: cinturas, backgroundColor: '#f43f5e' },
-          { label: 'Cadera (cm)', data: caderas, backgroundColor: '#38bdf8' },
-          { label: 'Flex. Brazo (Δ cm)', data: flexBrazoDeltas.map(v => parseFloat(v.toFixed(1))), backgroundColor: '#10b981' }
-        ]
-      },
-      options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-        scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
-      }
-    });
+      if (!c1 || !c2) return;
 
-    const ctxL4 = document.getElementById('chartLongFuerza').getContext('2d');
-    if (chartLong4) chartLong4.destroy();
-    chartLong4 = new Chart(ctxL4, {
-      type: 'bar',
-      data: {
-        labels: fechas,
-        datasets: [
-          { label: 'Fuerza Dominante (kg)', data: fuerzasDominantes, backgroundColor: '#3b82f6' },
-          { label: 'Fuerza Relativa (kg/kg)', data: fuerzasRelativas.map(v => parseFloat(v.toFixed(2))), backgroundColor: '#a855f7' }
-        ]
-      },
-      options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
-        scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
-      }
-    });
-  }
+      if (chartComp) chartComp.destroy();
+      if (chartDino) chartDino.destroy();
 
-  function actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq) {
-    if (typeof Chart === 'undefined') {
-      setTimeout(() => actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq), 250);
-      return;
-    }
-
-    const c1 = document.getElementById('chartComposicion');
-    const c2 = document.getElementById('chartDinamometria');
-
-    if (!c1 || !c2) return;
-
-    if (chartComp) chartComp.destroy();
-    if (chartDino) chartDino.destroy();
-
-    const ctx1 = c1.getContext('2d');
-    chartComp = new Chart(ctx1, {
-      type: 'doughnut',
-      data: {
-        labels: ['Masa Grasa (kg)', 'Masa Libre de Grasa (kg)'],
-        datasets: [{
-          data: [kgGrasa.toFixed(1), kgMLG.toFixed(1)],
-          backgroundColor: ['#f43f5e', '#10b981'],
-          borderWidth: 0,
-          hoverOffset: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '70%',
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
+      const ctx1 = c1.getContext('2d');
+      chartComp = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+          labels: ['Masa Grasa (kg)', 'Masa Libre de Grasa (kg)'],
+          datasets: [{
+            data: [kgGrasa.toFixed(1), kgMLG.toFixed(1)],
+            backgroundColor: ['#f43f5e', '#10b981'],
+            borderWidth: 0,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '70%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
+            }
           }
         }
-      }
-    });
+      });
 
-    const ctx2 = c2.getContext('2d');
-    chartDino = new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['Fuerza Bilateral'],
-        datasets: [
-          { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
-          { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
-        ]
-      },
-      plugins: [barTextPlugin],
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
-        plugins: {
-          legend: { position: 'top', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
+      const ctx2 = c2.getContext('2d');
+      chartDino = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['Fuerza Bilateral'],
+          datasets: [
+            { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
+            { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
+          ]
+        },
+        plugins: [barTextPlugin],
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
+          plugins: {
+            legend: { position: 'top', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
+          }
         }
-      }
-    });
-  }
+      });
+    }
 
-  if (document.readyState === 'complete') {
-    fijarFechaHoyInput();
-    actualizarDatalistAtletas();
-    cargarSelectPerfilesExistentes();
-    calcular();
-  } else {
-    window.addEventListener('load', () => {
+    if (document.readyState === 'complete') {
       fijarFechaHoyInput();
       actualizarDatalistAtletas();
       cargarSelectPerfilesExistentes();
       calcular();
-    });
-  }
-</script>
+    } else {
+      window.addEventListener('load', () => {
+        fijarFechaHoyInput();
+        actualizarDatalistAtletas();
+        cargarSelectPerfilesExistentes();
+        calcular();
+      });
+    }
+  </script>
+</body>
+</html>
