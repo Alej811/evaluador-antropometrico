@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Auditoría de maquetación de impresión (1 página exacta): 2026-10-14 -->
+  <!-- Auditoría de maquetación de impresión (2 páginas estructuradas): 2026-10-14 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CIENCIA DEPORTIVA - Informe Antropométrico y Funcional</title>
   
@@ -30,16 +30,16 @@
       align-items: center;
       justify-content: flex-start;
       background: var(--card-bg);
-      padding: 10px 16px;
+      padding: 16px 20px;
       border-radius: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       border: 1px solid var(--border);
     }
 
-    .brand-logo-container { display: flex; align-items: center; gap: 12px; }
-    .brand-logo-container img { width: 48px; height: 48px; object-fit: contain; border-radius: 6px; }
-    .brand-title h1 { font-size: 15px; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
-    .brand-title p { font-size: 10px; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+    .brand-logo-container { display: flex; align-items: center; gap: 16px; }
+    .brand-logo-container img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; }
+    .brand-title h1 { font-size: 22px; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
+    .brand-title p { font-size: 12px; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
 
     .main-grid { display: grid; grid-template-columns: 300px 1fr; gap: 12px; }
 
@@ -154,7 +154,7 @@
       padding: 10px;
       border-radius: 8px;
       border: 1px solid var(--border);
-      min-height: 220px;
+      min-height: 230px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -165,7 +165,7 @@
     .card-header-flex h4 { font-size: 11px; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 4px; }
     .card-header-flex span { font-size: 9px; color: var(--text-muted); font-weight: 500; }
 
-    .chart-wrapper-inner { position: relative; height: 140px; width: 100%; display: flex; align-items: center; justify-content: center; }
+    .chart-wrapper-inner { position: relative; height: 130px; width: 100%; display: flex; align-items: center; justify-content: center; }
 
     .fraccionamiento-footer {
       width: 100%;
@@ -307,19 +307,19 @@
       background: #0f172a;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 10px;
+      padding: 12px;
       margin-top: 8px;
     }
-    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 8px; }
-    .anexo-title { color: var(--primary); font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-    .anexo-subtitle { color: var(--text-muted); font-size: 9px; font-family: monospace; }
+    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
+    .anexo-title { color: var(--primary); font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+    .anexo-subtitle { color: var(--text-muted); font-size: 9.5px; font-family: monospace; }
     
-    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; }
-    .anexo-card { background: var(--card-bg); padding: 8px; border-radius: 6px; border: 1px solid var(--border); }
-    .anexo-card h4 { font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; }
+    .anexo-card { background: var(--card-bg); padding: 10px; border-radius: 6px; border: 1px solid var(--border); }
+    .anexo-card h4 { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
     
-    .baremo-table { width: 100%; border-collapse: collapse; font-size: 9px; text-align: left; }
-    .baremo-table th, .baremo-table td { padding: 3px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .baremo-table { width: 100%; border-collapse: collapse; font-size: 9.5px; text-align: left; }
+    .baremo-table th, .baremo-table td { padding: 4px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .baremo-table th { color: var(--text-muted); font-weight: 600; }
     .val-optimo { color: var(--primary); font-weight: 700; }
     .val-riesgo { color: #f43f5e; font-weight: 700; }
@@ -328,15 +328,15 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 8px;
-      padding-top: 6px;
+      margin-top: 12px;
+      padding-top: 8px;
       border-top: 1px dashed var(--border);
-      font-size: 9px;
+      font-size: 10px;
       color: var(--text-muted);
     }
     .anexo-signature { text-align: right; }
-    .anexo-signature strong { color: var(--text-light); display: block; font-size: 11px; }
-    .anexo-signature span { color: var(--primary); font-size: 9.5px; }
+    .anexo-signature strong { color: var(--text-light); display: block; font-size: 12px; }
+    .anexo-signature span { color: var(--primary); font-size: 10px; }
 
     .modal-overlay {
       position: fixed;
@@ -464,10 +464,10 @@
 
     @page {
       size: A4 portrait;
-      margin: 5mm 5mm 5mm 5mm;
+      margin: 6mm 6mm 6mm 6mm;
     }
 
-    /* REGLAS DE IMPRESIÓN COMPACTAS PARA 1 SOLA PÁGINA EXACTA Y TIPOGRAFÍA AUMENTADA */
+    /* IMPRESIÓN LIMPIA DE 2 PÁGINAS ORGANIZADAS */
     @media print {
       html, body {
         background: #fff !important;
@@ -475,7 +475,7 @@
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        font-size: 11pt !important; /* Escala base aumentada (14px - 16px) */
+        font-size: 10pt !important;
         line-height: 1.2 !important;
       }
       .main-grid { display: block !important; }
@@ -493,49 +493,58 @@
         box-shadow: none !important;
       }
       
-      .header-branding { padding: 4px 8px !important; margin-bottom: 5px !important; }
-      .brand-logo-container img { width: 36px !important; height: 36px !important; }
-      .brand-title h1 { font-size: 13.5pt !important; color: #000 !important; } /* Encabezado principal (17px - 19px) */
-      .brand-title p { font-size: 9pt !important; color: #059669 !important; }
+      /* ENCABEZADO TRIPLICADO DE TAMAÑO */
+      .header-branding { padding: 14px 20px !important; margin-bottom: 10px !important; }
+      .brand-logo-container { gap: 20px !important; }
+      .brand-logo-container img { width: 96px !important; height: 96px !important; }
+      .brand-title h1 { font-size: 24pt !important; color: #000 !important; line-height: 1.1 !important; }
+      .brand-title p { font-size: 12pt !important; color: #059669 !important; font-weight: 800 !important; }
 
-      .datos-medidos-container { padding: 5px 8px !important; margin-bottom: 5px !important; }
-      .datos-medidos-header { font-size: 10.5pt !important; margin-bottom: 4px !important; color: #059669 !important; }
-      .datos-medidos-block { padding: 3px 5px !important; }
+      .datos-medidos-container { padding: 6px 10px !important; margin-bottom: 8px !important; }
+      .datos-medidos-header { font-size: 10pt !important; margin-bottom: 4px !important; color: #059669 !important; }
+      .datos-medidos-block { padding: 4px 6px !important; }
       .datos-medidos-block small { font-size: 8pt !important; }
-      .datos-medidos-block strong, .line-item-sub span, .line-item-sub strong { font-size: 9.5pt !important; color: #000 !important; }
+      .datos-medidos-block strong, .line-item-sub span, .line-item-sub strong { font-size: 9pt !important; color: #000 !important; }
 
-      .dashboard-grid { gap: 4px !important; margin-bottom: 5px !important; }
-      .kpi-card { padding: 4px 3px !important; }
-      .kpi-card span { font-size: 8pt !important; min-height: 18px !important; color: #4b5563 !important; }
-      .kpi-card h3 { font-size: 15pt !important; color: #000 !important; margin: 1px 0 !important; } /* Números grandes KPIs (19px - 21px) */
+      .dashboard-grid { gap: 6px !important; margin-bottom: 8px !important; }
+      .kpi-card { padding: 5px 4px !important; }
+      .kpi-card span { font-size: 8pt !important; min-height: 20px !important; color: #4b5563 !important; }
+      .kpi-card h3 { font-size: 14pt !important; color: #000 !important; margin: 1px 0 !important; }
       .kpi-card small { font-size: 8.5pt !important; }
 
       .charts-grid {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        page-break-before: auto !important;
-        gap: 5px !important;
-        margin-bottom: 5px !important;
+        gap: 8px !important;
+        margin-bottom: 8px !important;
       }
-      .chart-container { min-height: 125px !important; padding: 5px !important; }
-      .chart-wrapper-inner { height: 75px !important; }
-      .card-header-flex h4 { font-size: 10.5pt !important; color: #000 !important; }
+      .chart-container { min-height: 150px !important; padding: 6px !important; }
+      .chart-wrapper-inner { height: 95px !important; }
+      .card-header-flex h4 { font-size: 9.5pt !important; color: #000 !important; }
 
-      .recomendacion-container { padding: 5px 8px !important; margin-bottom: 5px !important; }
-      .recomendacion-title { font-size: 10.5pt !important; color: #059669 !important; margin-bottom: 3px !important; }
-      .recomendacion-text { font-size: 9.5pt !important; color: #000 !important; line-height: 1.2 !important; padding: 0 !important; }
+      .recomendacion-container { padding: 6px 10px !important; margin-bottom: 8px !important; }
+      .recomendacion-title { font-size: 10pt !important; color: #059669 !important; margin-bottom: 4px !important; }
+      .recomendacion-text { font-size: 9pt !important; color: #000 !important; line-height: 1.25 !important; padding: 0 !important; }
       
-      .pilares-intervencion-grid { gap: 4px !important; margin-top: 4px !important; padding-top: 4px !important; }
-      .pilar-card { padding: 4px !important; }
-      .pilar-card h5 { font-size: 9.5pt !important; color: #059669 !important; }
-      .pilar-card p { font-size: 9pt !important; color: #1f2937 !important; }
+      .pilares-intervencion-grid { gap: 6px !important; margin-top: 6px !important; padding-top: 6px !important; }
+      .pilar-card { padding: 5px !important; }
+      .pilar-card h5 { font-size: 9pt !important; color: #059669 !important; }
+      .pilar-card p { font-size: 8.5pt !important; color: #1f2937 !important; }
 
-      .anexo-container { padding: 5px !important; margin-top: 4px !important; }
-      .anexo-title { font-size: 10.5pt !important; color: #059669 !important; }
-      .anexo-card h4 { font-size: 8.5pt !important; }
-      .baremo-table { font-size: 8.5pt !important; }
-      .anexo-signature strong { font-size: 11pt !important; color: #000 !important; }
-      .anexo-signature span { font-size: 9pt !important; color: #059669 !important; }
+      /* HOJA 2: ANEXO NORMATIVO EXCLUSIVO EN PÁGINA 2 */
+      .anexo-container {
+        page-break-before: always !important;
+        padding: 14px !important;
+        margin-top: 0 !important;
+      }
+      .anexo-title { font-size: 13pt !important; color: #059669 !important; }
+      .anexo-subtitle { font-size: 10pt !important; }
+      .anexo-card { padding: 12px !important; }
+      .anexo-card h4 { font-size: 10.5pt !important; }
+      .baremo-table { font-size: 10pt !important; }
+      .baremo-table th, .baremo-table td { padding: 6px 8px !important; }
+      .anexo-signature strong { font-size: 12pt !important; color: #000 !important; }
+      .anexo-signature span { font-size: 10pt !important; color: #059669 !important; }
 
       input, select { background: #fff !important; color: #000 !important; border: none !important; }
     }
@@ -750,19 +759,19 @@
         <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #10b981;">📈</span> 1. Evolución Composición Corporal</h4><span>Comparación por Variable</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongComposicion"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 140px;"><canvas id="chartLongComposicion"></canvas></div>
           </div>
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #f43f5e;">📉</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues Cutáneos</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongPliegues"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 140px;"><canvas id="chartLongPliegues"></canvas></div>
           </div>
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Doble Eje de Escala</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongPerimetros"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 140px;"><canvas id="chartLongPerimetros"></canvas></div>
           </div>
           <div class="chart-container" id="boxChartLongFuerza">
             <div class="card-header-flex"><h4><span style="color: #a855f7;">💪</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Dinamometría Bilateral</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px; display: flex; align-items: center; justify-content: center;">
+            <div class="chart-wrapper-inner" style="height: 140px; display: flex; align-items: center; justify-content: center;">
               <canvas id="chartLongFuerza"></canvas>
               <div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:9.5px; text-align:center; font-weight:600; padding:10px; background:rgba(244,63,94,0.08); border-radius:6px;">
                 📊 No hay al menos 3 mediciones de dinamometría registradas para el análisis longitudinal.
@@ -819,22 +828,22 @@
               </tbody>
             </table>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
             <div class="anexo-card">
               <h4>2. Adiposidad central e Índice Cintura-Talla (ICT)</h4>
-              <div style="font-size: 9px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura elevada (adultos no asiáticos):</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
-              <div style="font-size: 9px; display: flex; justify-content: space-between;"><span>ICT - punto de corte adiposidad central:</span><strong class="val-optimo">&ge; 0.50 (aumentado)</strong></div>
+              <div style="font-size: 9.5px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura elevada (adultos no asiáticos):</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
+              <div style="font-size: 9.5px; display: flex; justify-content: space-between;"><span>ICT - punto de corte adiposidad central:</span><strong class="val-optimo">&ge; 0.50 (aumentado)</strong></div>
             </div>
             <div class="anexo-card">
               <h4>3. Dinamometría y Metodología Fuerza Relativa</h4>
-              <div style="font-size: 9px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Corte operativo provisional ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
-              <div style="font-size: 8.5px; color: var(--text-muted); font-style: italic;">* Corte operativo provisional del informe; conservar hasta incorporar referencia normativa por edad/sexo.</div>
+              <div style="font-size: 9.5px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Corte operativo provisional ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
+              <div style="font-size: 9px; color: var(--text-muted); font-style: italic;">* Corte operativo provisional del informe; conservar hasta incorporar referencia normativa por edad/sexo.</div>
             </div>
           </div>
         </div>
         <div class="anexo-footer">
           <div><strong>CIENCIA DEPORTIVA © 2026 - Informe Técnico de Evaluación.</strong></div>
-          <div class="anexo-signature"><strong style="font-size: 11px;">Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
+          <div class="anexo-signature"><strong style="font-size: 12px;">Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
         </div>
       </div>
     </main>
@@ -1960,11 +1969,11 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          cutout: '70%',
+          cutout: '65%',
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#94a3b8', font: { size: 9, weight: '500' }, padding: 6, usePointStyle: true }
+              labels: { color: '#94a3b8', font: { size: 9, weight: '500' }, padding: 4, usePointStyle: true }
             }
           }
         }
