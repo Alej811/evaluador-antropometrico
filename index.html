@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Auditoría metodológica y optimización gráfica aplicada: 2026-10-14 -->
+  <!-- Auditoría de maquetación de impresión (2 páginas exactas): 2026-10-14 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CIENCIA DEPORTIVA - Informe Antropométrico y Funcional</title>
   
@@ -23,42 +23,42 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-light); padding: 15px; line-height: 1.4; font-size: 10px; }
+    body { background-color: var(--bg-dark); color: var(--text-light); padding: 12px; line-height: 1.35; font-size: 11px; }
 
     .header-branding {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       background: var(--card-bg);
-      padding: 14px 22px;
-      border-radius: 12px;
-      margin-bottom: 15px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      margin-bottom: 10px;
       border: 1px solid var(--border);
     }
 
-    .brand-logo-container { display: flex; align-items: center; gap: 16px; }
-    .brand-logo-container img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; }
-    .brand-title h1 { font-size: 16px; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
-    .brand-title p { font-size: 10px; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .brand-logo-container { display: flex; align-items: center; gap: 12px; }
+    .brand-logo-container img { width: 48px; height: 48px; object-fit: contain; border-radius: 6px; }
+    .brand-title h1 { font-size: 15px; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
+    .brand-title p { font-size: 10px; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
 
-    .main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 15px; }
+    .main-grid { display: grid; grid-template-columns: 300px 1fr; gap: 12px; }
 
-    .panel { background: var(--card-bg); padding: 18px; border-radius: 12px; border: 1px solid var(--border); }
-    .panel h2 { font-size: 16px; margin-top: 14px; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .panel { background: var(--card-bg); padding: 14px; border-radius: 10px; border: 1px solid var(--border); }
+    .panel h2 { font-size: 12px; margin-top: 10px; margin-bottom: 8px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
     .panel h2:first-of-type { margin-top: 0; }
 
-    .form-group { margin-bottom: 10px; }
-    .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 3px; font-weight: 600; }
+    .form-group { margin-bottom: 8px; }
+    .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
     .form-group input, .form-group select {
-      width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border);
+      width: 100%; padding: 6px 8px; border-radius: 5px; border: 1px solid var(--border);
       background: var(--input-bg); color: #fff; font-size: 10px; outline: none; transition: 0.2s;
     }
     .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
 
     .btn-action {
-      width: 100%; padding: 11px; border: none; border-radius: 8px;
+      width: 100%; padding: 9px; border: none; border-radius: 6px;
       background: var(--primary); color: #0f172a; font-weight: 700;
-      cursor: pointer; margin-top: 8px; transition: 0.2s; font-size: 10px;
+      cursor: pointer; margin-top: 6px; transition: 0.2s; font-size: 10px;
     }
     .btn-action:hover { background: var(--primary-dark); color: #fff; }
     .btn-secondary { background: #334155; color: #fff; }
@@ -68,57 +68,57 @@
     .datos-medidos-container {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 15px;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
     }
     .datos-medidos-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
+      padding-bottom: 4px;
     }
     .datos-medidos-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 8px;
       font-size: 10px;
     }
     .datos-medidos-block {
       background: rgba(255, 255, 255, 0.02);
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.04);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 10px; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
+    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 9px; margin-bottom: 3px; font-weight: 700; text-transform: uppercase; }
     .datos-medidos-block strong { color: #fff; font-size: 10px; }
     
     .line-item-sub {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 4px;
+      margin-top: 2px;
       font-size: 10px;
     }
-    .line-item-sub span { color: var(--text-muted); font-size: 10px; }
+    .line-item-sub span { color: var(--text-muted); font-size: 9px; }
 
     .delta-badge {
       display: inline-block;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-left: 4px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-left: 3px;
       white-space: nowrap;
     }
     .delta-pos { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
@@ -128,64 +128,64 @@
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-bottom: 15px;
+      gap: 8px;
+      margin-bottom: 10px;
     }
     .kpi-card {
       background: #0f172a;
-      padding: 12px 10px;
-      border-radius: 8px;
+      padding: 8px 6px;
+      border-radius: 6px;
       text-align: center;
       border: 1px solid var(--border);
-      border-top: 3px solid var(--primary);
+      border-top: 2px solid var(--primary);
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .kpi-card span { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.2px; display: block; min-height: 28px; line-height: 1.1; }
-    .kpi-card h3 { font-size: 14px; margin: 4px 0; color: #fff; font-weight: 800; }
-    .kpi-card small { font-size: 10px; font-weight: 600; display: block; }
-    .kpi-card .nota-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; font-weight: normal; line-height: 1; }
+    .kpi-card span { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.2px; display: block; min-height: 22px; line-height: 1.1; }
+    .kpi-card h3 { font-size: 13px; margin: 2px 0; color: #fff; font-weight: 800; }
+    .kpi-card small { font-size: 9.5px; font-weight: 600; display: block; }
+    .kpi-card .nota-sub { font-size: 8.5px; color: var(--text-muted); margin-top: 1px; font-weight: normal; line-height: 1; }
 
-    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .chart-container {
       background: #0f172a;
-      padding: 16px;
-      border-radius: 10px;
+      padding: 10px;
+      border-radius: 8px;
       border: 1px solid var(--border);
-      min-height: 310px;
+      min-height: 220px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
     }
 
-    .card-header-flex { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .card-header-flex h4 { font-size: 16px; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-    .card-header-flex span { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+    .card-header-flex { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .card-header-flex h4 { font-size: 11px; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+    .card-header-flex span { font-size: 9px; color: var(--text-muted); font-weight: 500; }
 
-    .chart-wrapper-inner { position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; }
+    .chart-wrapper-inner { position: relative; height: 140px; width: 100%; display: flex; align-items: center; justify-content: center; }
 
     .fraccionamiento-footer {
       width: 100%;
       border-top: 1px solid var(--border);
-      margin-top: 8px;
-      padding-top: 8px;
+      margin-top: 4px;
+      padding-top: 4px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       text-align: center;
     }
-    .fraccionamiento-item small { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
-    .fraccionamiento-item strong { font-size: 14px; font-weight: 700; }
+    .fraccionamiento-item small { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 1px; }
+    .fraccionamiento-item strong { font-size: 11px; font-weight: 700; }
 
     .fuerza-dominancia-label {
       width: 100%;
       text-align: center;
-      margin-top: 8px;
-      padding-top: 6px;
+      margin-top: 4px;
+      padding-top: 4px;
       border-top: 1px solid var(--border);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       color: #3b82f6;
     }
@@ -193,18 +193,18 @@
     .section-longitudinal {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 15px;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
     }
     .section-longitudinal-header {
       color: var(--primary);
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
-      margin-bottom: 12px;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -214,8 +214,8 @@
       background: rgba(244, 63, 94, 0.1);
       border: 1px dashed rgba(244, 63, 94, 0.4);
       color: #f43f5e;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 6px;
       text-align: center;
       font-size: 10px;
       font-weight: 600;
@@ -224,18 +224,18 @@
     .recomendacion-container {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-left: 4px solid var(--primary);
-      border-radius: 10px;
-      padding: 16px 18px;
-      margin-bottom: 15px;
+      border-left: 3px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
     }
     .recomendacion-title {
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -243,10 +243,10 @@
     .recomendacion-text {
       font-size: 10px;
       color: #e2e8f0;
-      line-height: 1.55;
-      padding: 8px;
+      line-height: 1.4;
+      padding: 4px;
       border: 1px dashed transparent;
-      border-radius: 6px;
+      border-radius: 4px;
       outline: none;
       transition: 0.2s;
     }
@@ -258,56 +258,56 @@
     .pilares-intervencion-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 12px;
-      padding-top: 10px;
+      gap: 8px;
+      margin-top: 8px;
+      padding-top: 8px;
       border-top: 1px dashed rgba(16, 185, 129, 0.3);
     }
     .pilar-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
+      border-radius: 6px;
+      padding: 8px;
     }
     .pilar-card h5 {
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--primary);
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       text-transform: uppercase;
     }
     .pilar-card p {
-      font-size: 10px;
+      font-size: 9px;
       color: #cbd5e1;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     .recomendacion-persuasivo {
-      margin-top: 10px;
-      padding-top: 8px;
+      margin-top: 8px;
+      padding-top: 6px;
       border-top: 1px dashed rgba(16, 185, 129, 0.3);
       color: #38bdf8;
       font-weight: 600;
-      font-size: 10px;
+      font-size: 9.5px;
     }
 
     .anexo-container {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      margin-top: 10px;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 8px;
     }
-    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
-    .anexo-title { color: var(--primary); font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-    .anexo-subtitle { color: var(--text-muted); font-size: 10px; font-family: monospace; }
+    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 8px; }
+    .anexo-title { color: var(--primary); font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+    .anexo-subtitle { color: var(--text-muted); font-size: 9px; font-family: monospace; }
     
-    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; }
-    .anexo-card { background: var(--card-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-    .anexo-card h4 { font-size: 16px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; }
+    .anexo-card { background: var(--card-bg); padding: 8px; border-radius: 6px; border: 1px solid var(--border); }
+    .anexo-card h4 { font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
     
-    .baremo-table { width: 100%; border-collapse: collapse; font-size: 10px; text-align: left; }
-    .baremo-table th, .baremo-table td { padding: 5px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .baremo-table { width: 100%; border-collapse: collapse; font-size: 9px; text-align: left; }
+    .baremo-table th, .baremo-table td { padding: 3px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .baremo-table th { color: var(--text-muted); font-weight: 600; }
     .val-optimo { color: var(--primary); font-weight: 700; }
     .val-riesgo { color: #f43f5e; font-weight: 700; }
@@ -316,15 +316,15 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 12px;
-      padding-top: 10px;
+      margin-top: 8px;
+      padding-top: 6px;
       border-top: 1px dashed var(--border);
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
     }
     .anexo-signature { text-align: right; }
-    .anexo-signature strong { color: var(--text-light); display: block; font-size: 16px; }
-    .anexo-signature span { color: var(--primary); font-size: 10px; }
+    .anexo-signature strong { color: var(--text-light); display: block; font-size: 11px; }
+    .anexo-signature span { color: var(--primary); font-size: 9.5px; }
 
     .modal-overlay {
       position: fixed;
@@ -339,22 +339,22 @@
     .modal-content {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       width: 90%;
-      max-width: 580px;
+      max-width: 540px;
       max-height: 80vh;
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
     .modal-header {
-      padding: 14px 18px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .modal-header h3 { color: var(--primary); font-size: 16px; }
+    .modal-header h3 { color: var(--primary); font-size: 12px; }
     .modal-close {
       background: transparent;
       border: 1px solid var(--border);
@@ -362,12 +362,12 @@
       font-size: 10px;
       font-weight: 700;
       cursor: pointer;
-      padding: 7px 12px;
-      border-radius: 7px;
+      padding: 4px 8px;
+      border-radius: 5px;
     }
     .modal-close:hover { color: #fff; border-color: var(--primary); }
     .modal-footer {
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: flex-end;
@@ -376,14 +376,14 @@
       background: var(--primary);
       color: #06261f;
       border: none;
-      border-radius: 7px;
-      padding: 8px 16px;
+      border-radius: 5px;
+      padding: 6px 12px;
       font-weight: 800;
       cursor: pointer;
       font-size: 10px;
     }
     .modal-body {
-      padding: 16px;
+      padding: 12px;
       overflow-y: auto;
       flex: 1;
     }
@@ -391,16 +391,16 @@
     .dir-perfil-card {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 10px;
-      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      padding: 8px 10px;
     }
     .dir-perfil-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px;
     }
     .dir-perfil-title {
       font-weight: 700;
@@ -409,8 +409,8 @@
       cursor: pointer;
     }
     .dir-eval-sublist {
-      margin-top: 8px;
-      padding-top: 8px;
+      margin-top: 6px;
+      padding-top: 6px;
       border-top: 1px dashed var(--border);
       display: none;
     }
@@ -419,19 +419,19 @@
       justify-content: space-between;
       align-items: center;
       background: rgba(255,255,255,0.03);
-      padding: 6px 10px;
-      border-radius: 6px;
-      margin-bottom: 4px;
-      font-size: 10px;
-    }
-    .btn-sm-action {
       padding: 4px 8px;
       border-radius: 4px;
-      font-size: 10px;
+      margin-bottom: 3px;
+      font-size: 9.5px;
+    }
+    .btn-sm-action {
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-size: 9px;
       font-weight: 600;
       border: none;
       cursor: pointer;
-      margin-left: 4px;
+      margin-left: 3px;
     }
     .btn-sm-load { background: #0284c7; color: #fff; }
     .btn-sm-load:hover { background: #0369a1; }
@@ -441,20 +441,21 @@
     .btn-sm-del:hover { background: #dc2626; }
 
     @media screen and (max-width: 900px) {
-      body { padding: 8px; }
+      body { padding: 6px; }
       .main-grid { grid-template-columns: 1fr; }
-      .panel { padding: 14px; }
-      .header-branding { padding: 14px; }
+      .panel { padding: 10px; }
+      .header-branding { padding: 10px; }
       .datos-medidos-grid, .dashboard-grid, .charts-grid, .anexo-grid, .pilares-intervencion-grid { grid-template-columns: 1fr; }
-      .chart-container { min-height: 390px; }
-      .chart-wrapper-inner { height: 260px; }
+      .chart-container { min-height: 260px; }
+      .chart-wrapper-inner { height: 180px; }
     }
 
     @page {
       size: A4 portrait;
-      margin: 6mm;
+      margin: 8mm 6mm 8mm 6mm;
     }
 
+    /* REGLAS DE IMPRESIÓN COMPACTAS PARA MANTENER EXACTAMENTE 2 PÁGINAS */
     @media print {
       html, body {
         background: #fff !important;
@@ -462,7 +463,8 @@
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        font-size: 10px !important;
+        font-size: 9.5pt !important;
+        line-height: 1.25 !important;
       }
       .main-grid { display: block !important; }
       .panel-controls, .btn-action, .modal-overlay { display: none !important; }
@@ -474,19 +476,55 @@
       }
       .header-branding, .kpi-card, .chart-container, .anexo-container, .anexo-card, .datos-medidos-container, .section-longitudinal, .recomendacion-container, .pilar-card {
         background: #fff !important;
-        border: 1px solid #ccc !important;
+        border: 1px solid #d1d5db !important;
         color: #000 !important;
-        page-break-inside: avoid;
+        box-shadow: none !important;
       }
-      .kpi-card h3, .brand-title h1, .anexo-title, .anexo-signature strong, .card-header-flex h4, .datos-medidos-block strong, .section-longitudinal-header, .recomendacion-title, .panel h2 { color: #000 !important; font-size: 16px !important; }
-      .brand-title p, .anexo-signature span, .val-optimo, .datos-medidos-header, .recomendacion-title, .pilar-card h5 { color: #059669 !important; }
-      .val-riesgo { color: #dc2626 !important; }
-      .recomendacion-text, .pilar-card p { color: #000 !important; border: none !important; font-size: 10px !important; }
-      .recomendacion-persuasivo { color: #0284c7 !important; border-top-color: #ccc !important; font-size: 10px !important; }
-      input, select { background: #fff !important; color: #000 !important; border: none !important; }
+      
+      .header-branding { padding: 6px 12px !important; margin-bottom: 8px !important; }
+      .brand-logo-container img { width: 38px !important; height: 38px !important; }
+      .brand-title h1 { font-size: 13pt !important; color: #000 !important; }
+      .brand-title p { font-size: 8.5pt !important; color: #059669 !important; }
 
-      .kpi-card h3 { font-size: 14px !important; }
-      .anexo-signature strong { font-size: 16px !important; }
+      .datos-medidos-container { padding: 8px 10px !important; margin-bottom: 8px !important; }
+      .datos-medidos-header { font-size: 9.5pt !important; margin-bottom: 6px !important; color: #059669 !important; }
+      .datos-medidos-block { padding: 4px 6px !important; }
+      .datos-medidos-block small { font-size: 7.5pt !important; }
+      .datos-medidos-block strong, .line-item-sub span, .line-item-sub strong { font-size: 8.5pt !important; color: #000 !important; }
+
+      .dashboard-grid { gap: 6px !important; margin-bottom: 8px !important; }
+      .kpi-card { padding: 6px 4px !important; }
+      .kpi-card span { font-size: 7.5pt !important; min-height: 20px !important; color: #4b5563 !important; }
+      .kpi-card h3 { font-size: 11pt !important; color: #000 !important; margin: 1px 0 !important; }
+      .kpi-card small { font-size: 8pt !important; }
+
+      /* CORTE DE PÁGINA 1 Y 2 ARMONIOSO */
+      .charts-grid {
+        page-break-before: always;
+        gap: 8px !important;
+        margin-bottom: 8px !important;
+      }
+      .chart-container { min-height: 180px !important; padding: 8px !important; }
+      .chart-wrapper-inner { height: 110px !important; }
+      .card-header-flex h4 { font-size: 9.5pt !important; color: #000 !important; }
+
+      .recomendacion-container { padding: 8px 10px !important; margin-bottom: 8px !important; }
+      .recomendacion-title { font-size: 9.5pt !important; color: #059669 !important; margin-bottom: 4px !important; }
+      .recomendacion-text { font-size: 8.5pt !important; color: #000 !important; line-height: 1.3 !important; padding: 0 !important; }
+      
+      .pilares-intervencion-grid { gap: 6px !important; margin-top: 6px !important; padding-top: 6px !important; }
+      .pilar-card { padding: 6px !important; }
+      .pilar-card h5 { font-size: 8.5pt !important; color: #059669 !important; }
+      .pilar-card p { font-size: 8pt !important; color: #1f2937 !important; }
+
+      .anexo-container { padding: 8px !important; margin-top: 6px !important; }
+      .anexo-title { font-size: 9.5pt !important; color: #059669 !important; }
+      .anexo-card h4 { font-size: 8pt !important; }
+      .baremo-table { font-size: 8pt !important; }
+      .anexo-signature strong { font-size: 10pt !important; color: #000 !important; }
+      .anexo-signature span { font-size: 8.5pt !important; color: #059669 !important; }
+
+      input, select { background: #fff !important; color: #000 !important; border: none !important; }
     }
   </style>
 </head>
@@ -504,7 +542,7 @@
 
   <div class="main-grid">
     <aside class="panel panel-controls">
-      <button class="btn-action btn-secondary" style="background: #3b82f6; margin-bottom: 12px;" onclick="nuevaEvaluacion()">🧹 Nueva Evaluación (Limpiar Campos)</button>
+      <button class="btn-action btn-secondary" style="background: #3b82f6; margin-bottom: 10px;" onclick="nuevaEvaluacion()">🧹 Nueva Evaluación (Limpiar Campos)</button>
 
       <h2>Datos del Evaluado</h2>
       <div class="form-group">
@@ -574,11 +612,11 @@
       <input type="file" id="inputImportJSON" accept=".json" style="display: none;" onchange="importarBaseDatosJSON(event)">
       <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">Importar BD desde JSON</button>
 
-      <div class="form-group" style="margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
-        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">
+      <div class="form-group" style="margin-top: 8px; background: rgba(16, 185, 129, 0.08); padding: 6px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
+        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 4px;">
           <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> Comparar con Evaluación Anterior
         </label>
-        <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 6px;">
+        <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 4px;">
           <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> Evaluar Todo el Historial (Análisis Longitudinal)
         </label>
         <label style="cursor: pointer; color: #a855f7; font-weight: 600; display: block;">
@@ -586,15 +624,15 @@
         </label>
       </div>
 
-      <button class="btn-action btn-secondary" style="margin-top: 10px;" onclick="abrirModalDirectorio()">Gestión del Directorio</button>
-      <button class="btn-action" style="margin-top: 8px; background: var(--primary);" onclick="window.print()">Imprimir / Guardar PDF del Informe</button>
+      <button class="btn-action btn-secondary" style="margin-top: 8px;" onclick="abrirModalDirectorio()">Gestión del Directorio</button>
+      <button class="btn-action" style="margin-top: 6px; background: var(--primary);" onclick="window.print()">Imprimir / Guardar PDF del Informe</button>
     </aside>
 
     <main class="panel">
       <section class="datos-medidos-container">
         <div class="datos-medidos-header">
           <span>Resumen de Datos del Evaluado y Mediciones Directas</span>
-          <span id="label-comparativa-header" style="font-size: 10px; color: #38bdf8; font-weight: 600;"></span>
+          <span id="label-comparativa-header" style="font-size: 9.5px; color: #38bdf8; font-weight: 600;"></span>
         </div>
         <div class="datos-medidos-grid">
           <div class="datos-medidos-block">
@@ -676,7 +714,7 @@
         </div>
         <div class="chart-container">
           <div class="card-header-flex"><h4><span style="color: #3b82f6;">💪</span> Fuerza de Agarre (kg)</h4><span>Dinamometría Manual</span></div>
-          <div class="chart-wrapper-inner" style="height: 120px; margin-top: 5px;"><canvas id="chartDinamometria"></canvas></div>
+          <div class="chart-wrapper-inner" style="height: 100px; margin-top: 2px;"><canvas id="chartDinamometria"></canvas></div>
           <div class="fraccionamiento-footer">
             <div class="fraccionamiento-item"><small>Mano Izquierda</small><strong id="footer-dino-izq" style="color: #38bdf8;">-</strong></div>
             <div class="fraccionamiento-item"><small>Mano Derecha</small><strong id="footer-dino-der" style="color: #3b82f6;">-</strong></div>
@@ -688,32 +726,32 @@
       <div id="contenedorLongitudinal" class="section-longitudinal" style="display: none;">
         <div class="section-longitudinal-header">
           <span>Análisis de Evolución Longitudinal del Historial</span>
-          <small style="color: var(--text-muted); font-size: 10px;">Mínimo 3 Evaluaciones Registradas</small>
+          <small style="color: var(--text-muted); font-size: 9px;">Mínimo 3 Evaluaciones Registradas</small>
         </div>
 
         <div id="avisoDatosInsuficientes" class="aviso-datos-insuficientes" style="display: none;">
           📊 No se tienen los datos suficientes para la evaluación longitudinal.
-          <br><small style="font-weight: normal; color: var(--text-muted); font-size: 10px;">Se requieren al menos 3 evaluaciones registradas en el historial del perfil seleccionado para generar estos gráficos de seguimiento.</small>
+          <br><small style="font-weight: normal; color: var(--text-muted); font-size: 9px;">Se requieren al menos 3 evaluaciones registradas en el historial del perfil seleccionado para generar estos gráficos de seguimiento.</small>
         </div>
 
-        <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 10px;">
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #10b981;">📈</span> 1. Evolución Composición Corporal</h4><span>Comparación por Variable</span></div>
-            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongComposicion"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongComposicion"></canvas></div>
           </div>
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #f43f5e;">📉</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues Cutáneos</span></div>
-            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongPliegues"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongPliegues"></canvas></div>
           </div>
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Doble Eje de Escala</span></div>
-            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongPerimetros"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongPerimetros"></canvas></div>
           </div>
           <div class="chart-container" id="boxChartLongFuerza">
             <div class="card-header-flex"><h4><span style="color: #a855f7;">💪</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Dinamometría Bilateral</span></div>
-            <div class="chart-wrapper-inner" style="height: 220px; display: flex; align-items: center; justify-content: center;">
+            <div class="chart-wrapper-inner" style="height: 160px; display: flex; align-items: center; justify-content: center;">
               <canvas id="chartLongFuerza"></canvas>
-              <div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:10px; text-align:center; font-weight:600; padding:15px; background:rgba(244,63,94,0.08); border-radius:8px;">
+              <div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:9.5px; text-align:center; font-weight:600; padding:10px; background:rgba(244,63,94,0.08); border-radius:6px;">
                 📊 No hay al menos 3 mediciones de dinamometría registradas para el análisis longitudinal.
               </div>
             </div>
@@ -724,13 +762,12 @@
       <div class="recomendacion-container">
         <div class="recomendacion-title">
           <span>Síntesis Diagnóstica y Recomendación de Evaluación</span>
-          <small style="color: var(--text-muted); font-size: 10px; font-weight: normal; text-transform: none;">✏️ Haz clic para editar tu interpretación profesional</small>
+          <small style="color: var(--text-muted); font-size: 9px; font-weight: normal; text-transform: none;">✏️ Haz clic para editar tu interpretación profesional</small>
         </div>
         <div id="txtSintesisRecomendacion" class="recomendacion-text" contenteditable="true">
           Ingresa los datos del evaluado para generar la síntesis diagnóstica...
         </div>
 
-        <!-- TRANSICIÓN: DISEÑO DE INTERVENCIÓN CLÍNICO-DEPORTIVA (3 PILARES) -->
         <div class="pilares-intervencion-grid">
           <div class="pilar-card">
             <h5>1. Composición Corporal & Reacondicionamiento</h5>
@@ -769,22 +806,22 @@
               </tbody>
             </table>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; flex-direction: column; gap: 6px;">
             <div class="anexo-card">
               <h4>2. Adiposidad central e Índice Cintura-Talla (ICT)</h4>
-              <div style="font-size: 10px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura elevada (adultos no asiáticos; corte general):</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
-              <div style="font-size: 10px; display: flex; justify-content: space-between;"><span>ICT - punto de corte de adiposidad central:</span><strong class="val-optimo">&ge; 0.50 (aumentado)</strong></div>
+              <div style="font-size: 9px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura elevada (adultos no asiáticos):</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
+              <div style="font-size: 9px; display: flex; justify-content: space-between;"><span>ICT - punto de corte adiposidad central:</span><strong class="val-optimo">&ge; 0.50 (aumentado)</strong></div>
             </div>
             <div class="anexo-card">
               <h4>3. Dinamometría y Metodología Fuerza Relativa</h4>
-              <div style="font-size: 10px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Corte operativo provisional de Fuerza Relativa ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
-              <div style="font-size: 10px; color: var(--text-muted); font-style: italic;">* Corte operativo provisional del informe; conservar hasta incorporar una referencia normativa actual por edad y sexo. Se utiliza el mayor valor bilateral.</div>
+              <div style="font-size: 9px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Corte operativo provisional ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
+              <div style="font-size: 8.5px; color: var(--text-muted); font-style: italic;">* Corte operativo provisional del informe; conservar hasta incorporar referencia normativa por edad/sexo.</div>
             </div>
           </div>
         </div>
         <div class="anexo-footer">
           <div><strong>CIENCIA DEPORTIVA © 2026 - Informe Técnico de Evaluación.</strong></div>
-          <div class="anexo-signature"><strong style="font-size: 16px;">Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
+          <div class="anexo-signature"><strong style="font-size: 11px;">Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
         </div>
       </div>
     </main>
@@ -817,7 +854,6 @@
       document.getElementById('fechaEvaluacionReal').value = hoy;
     }
 
-    // Plugin 1: Para etiquetas en barras
     const barTextPlugin = {
       id: 'barTextPlugin',
       afterDatasetsDraw(chart) {
@@ -830,7 +866,7 @@
             if (val !== null && val !== undefined && val > 0) {
               ctx.save();
               ctx.fillStyle = '#ffffff';
-              ctx.font = 'bold 10px Segoe UI, sans-serif';
+              ctx.font = 'bold 9px Segoe UI, sans-serif';
               ctx.textAlign = 'center';
               ctx.textBaseline = 'bottom';
               ctx.fillText(`${val.toFixed(1)}`, bar.x, bar.y - 2);
@@ -841,7 +877,6 @@
       }
     };
 
-    // Plugin 2: Para etiquetas sobre la línea de sumatoria de pliegues
     const lineTextPlugin = {
       id: 'lineTextPlugin',
       afterDatasetsDraw(chart) {
@@ -854,10 +889,10 @@
           if (val > 0) {
             ctx.save();
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 10px Segoe UI, sans-serif';
+            ctx.font = 'bold 9px Segoe UI, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            ctx.fillText(`${val.toFixed(1)} mm`, point.x, point.y - 6);
+            ctx.fillText(`${val.toFixed(1)} mm`, point.x, point.y - 5);
             ctx.restore();
           }
         });
@@ -1299,11 +1334,6 @@
       calcular();
     }
 
-    // ============================================================
-    // MOTOR CIENTÍFICO ÚNICO — 3 NIVELES CON CITAS INTEGRADAS
-    // ============================================================
-
-    // NIVEL 1 — MEDICIÓN
     function construirMedicion(datos = {}) {
       const n = (v) => Number.isFinite(Number(v)) ? Number(v) : 0;
       return {
@@ -1352,7 +1382,6 @@
       return { valido:true, suma4, densidad, pctGrasa, pctMLG:100-pctGrasa, kgGrasa, kgMLG, coeficientes:coef };
     }
 
-    // NIVEL 2 — INDICADORES
     function calcularIndicadores(medicion) {
       const m = construirMedicion(medicion);
       const tallaM = m.talla > 0 ? m.talla / 100 : 0;
@@ -1365,7 +1394,6 @@
       return { medicion:m, composicion:calcularComposicionCorporal(m), imc, ict, icc, maxDino, fuerzaRel, asimetria };
     }
 
-    // NIVEL 3 — INTERPRETACIÓN
     function interpretarIndicadores(ind) {
       const { medicion:m, composicion:c, imc, ict, icc, fuerzaRel, asimetria } = ind;
       const r = {};
@@ -1673,7 +1701,7 @@
         document.getElementById('delta-asimetria-badge').innerHTML = '';
       }
 
-      // Síntesis Diagnóstica con Citas Integradas en Texto (In-Text Citations)
+      // Síntesis Diagnóstica con Citas Integradas
       const txtSintesis = document.getElementById('txtSintesisRecomendacion');
       if (peso > 0 && talla > 0 && comp.valido) {
         const generoTxt = sexo === 'M' ? 'El evaluado' : 'La evaluada';
@@ -1683,7 +1711,6 @@
 
         txtSintesis.innerHTML = `${generoTxt} <strong>${nombre || 'Atleta'}</strong> registra una composición corporal estimada mediante el modelo de 4 pliegues de <strong>Durnin & Womersley (1974)</strong> y la ecuación de <strong>Siri (1961)</strong>, obteniendo un porcentaje de grasa del <strong>${pctGrasa.toFixed(1)}%</strong> (${kgGrasa.toFixed(1)} kg) catalogado como <strong>${interpretacion.grasa}</strong> bajo las referencias normativas de <strong>Lee & Nieman (2003)</strong>. La Masa Libre de Grasa (MLG) estimada alcanza los <strong>${kgMLG.toFixed(1)} kg</strong>. En el perfil neuromuscular, la fuerza de agarre relativa registrada es de <strong>${fuerzaTxt}</strong> con un nivel de asimetría bilateral de <strong>${asimTxt}</strong> (evaluado según criterios de <strong>Maffiuletti et al., 2016</strong>). Por su parte, la adiposidad central y riesgo cardiometabólico reflejan un Índice Cintura-Talla (ICT) de <strong>${ictTxt}</strong> y un perímetro de cintura de <strong>${cintura.toFixed(1)} cm</strong> (${interpretacion.cintura}), los cuales no configuran criterios clínicos de adiposidad patológica según el marco de evaluación de <strong>Rubino et al. (2025)</strong>.`;
 
-        // Actualizar textos dinámicos de los 3 pilares según resultados
         document.getElementById('txtPilar1').innerText = `Mantener una estrategia nutricional orientada a la recomposición corporal para optimizar los ${pctGrasa.toFixed(1)}% de masa grasa resguardando los ${kgMLG.toFixed(1)} kg de MLG (Lee & Nieman, 2003).`;
         document.getElementById('txtPilar2').innerText = `Priorizar el desarrollo de la fuerza muscular general para elevar la fuerza relativa (actual: ${fuerzaTxt}) y corregir el desbalance bilateral (${asimTxt}) (Maffiuletti et al., 2016).`;
         document.getElementById('txtPilar3').innerText = `Prescribir entrenamiento contra resistencia (frecuencia ≥3 días/semana) complementado con ejercicio aeróbico de baja intensidad para mantener la eficiencia metabólica e ICT (Rubino et al., 2025).`;
@@ -1776,7 +1803,7 @@
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
           },
           scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
         }
@@ -1790,18 +1817,18 @@
         data: {
           labels: fechas,
           datasets: [
-            { label: 'Σ4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 3.5, pointRadius: 5, pointBackgroundColor: '#10b981' },
-            { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 3 },
-            { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.5, pointRadius: 3 },
-            { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.5, pointRadius: 3 },
-            { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.5, pointRadius: 3 }
+            { label: 'Σ4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#10b981' },
+            { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.2, pointRadius: 2.5 },
+            { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.2, pointRadius: 2.5 },
+            { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.2, pointRadius: 2.5 },
+            { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.2, pointRadius: 2.5 }
           ]
         },
         plugins: [lineTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 10 } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
           },
           scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
         }
@@ -1827,7 +1854,7 @@
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
           },
           scales: {
             x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } },
@@ -1836,7 +1863,7 @@
               display: true,
               position: 'left',
               ticks: { color: '#94a3b8' },
-              title: { display: true, text: 'Tronco (cm)', color: '#94a3b8', font: { size: 10 } }
+              title: { display: true, text: 'Tronco (cm)', color: '#94a3b8', font: { size: 8 } }
             },
             y1: {
               type: 'linear',
@@ -1846,7 +1873,7 @@
               max: 5,
               grid: { drawOnChartArea: false },
               ticks: { color: '#38bdf8' },
-              title: { display: true, text: 'Δ Brazo (cm)', color: '#38bdf8', font: { size: 10 } }
+              title: { display: true, text: 'Δ Brazo (cm)', color: '#38bdf8', font: { size: 8 } }
             }
           }
         }
@@ -1883,7 +1910,7 @@
           options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
-              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
             },
             scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
           }
@@ -1914,7 +1941,7 @@
             data: [kgGrasa.toFixed(1), kgMLG.toFixed(1)],
             backgroundColor: ['#f43f5e', '#10b981'],
             borderWidth: 0,
-            hoverOffset: 4
+            hoverOffset: 3
           }]
         },
         options: {
@@ -1924,7 +1951,7 @@
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#94a3b8', font: { size: 10, weight: '500' }, padding: 8, usePointStyle: true }
+              labels: { color: '#94a3b8', font: { size: 9, weight: '500' }, padding: 6, usePointStyle: true }
             }
           }
         }
@@ -1936,8 +1963,8 @@
         data: {
           labels: ['Fuerza Bilateral'],
           datasets: [
-            { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
-            { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
+            { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 4, bottomLeft: 4 }, borderSkipped: false },
+            { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 4, bottomRight: 4 }, borderSkipped: false }
           ]
         },
         plugins: [barTextPlugin],
@@ -1947,7 +1974,7 @@
           maintainAspectRatio: false,
           scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10, weight: '600' } } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9, weight: '600' } } }
           }
         }
       });
@@ -1969,5 +1996,3 @@
   </script>
 </body>
 </html>
-
-```
