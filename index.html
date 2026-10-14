@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Auditoría de maquetación de impresión (2 páginas exactas): 2026-10-14 -->
+  <!-- Auditoría de maquetación de impresión (1 página exacta): 2026-10-14 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CIENCIA DEPORTIVA - Informe Antropométrico y Funcional</title>
   
@@ -255,6 +255,18 @@
       background: rgba(255, 255, 255, 0.02);
     }
 
+    .editable-pilar {
+      outline: none;
+      border: 1px dashed transparent;
+      border-radius: 4px;
+      padding: 2px;
+      transition: 0.2s;
+    }
+    .editable-pilar:hover, .editable-pilar:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
     .pilares-intervencion-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -452,10 +464,10 @@
 
     @page {
       size: A4 portrait;
-      margin: 8mm 6mm 8mm 6mm;
+      margin: 5mm 5mm 5mm 5mm;
     }
 
-    /* REGLAS DE IMPRESIÓN COMPACTAS PARA MANTENER EXACTAMENTE 2 PÁGINAS */
+    /* REGLAS DE IMPRESIÓN COMPACTAS PARA 1 SOLA PÁGINA EXACTA Y TIPOGRAFÍA AUMENTADA */
     @media print {
       html, body {
         background: #fff !important;
@@ -463,11 +475,11 @@
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        font-size: 9.5pt !important;
-        line-height: 1.25 !important;
+        font-size: 11pt !important; /* Escala base aumentada (14px - 16px) */
+        line-height: 1.2 !important;
       }
       .main-grid { display: block !important; }
-      .panel-controls, .btn-action, .modal-overlay { display: none !important; }
+      .panel-controls, .btn-action, .modal-overlay, .nota-edicion-pantalla { display: none !important; }
       .panel {
         background: #fff !important;
         border: none !important;
@@ -481,48 +493,49 @@
         box-shadow: none !important;
       }
       
-      .header-branding { padding: 6px 12px !important; margin-bottom: 8px !important; }
-      .brand-logo-container img { width: 38px !important; height: 38px !important; }
-      .brand-title h1 { font-size: 13pt !important; color: #000 !important; }
-      .brand-title p { font-size: 8.5pt !important; color: #059669 !important; }
+      .header-branding { padding: 4px 8px !important; margin-bottom: 5px !important; }
+      .brand-logo-container img { width: 36px !important; height: 36px !important; }
+      .brand-title h1 { font-size: 13.5pt !important; color: #000 !important; } /* Encabezado principal (17px - 19px) */
+      .brand-title p { font-size: 9pt !important; color: #059669 !important; }
 
-      .datos-medidos-container { padding: 8px 10px !important; margin-bottom: 8px !important; }
-      .datos-medidos-header { font-size: 9.5pt !important; margin-bottom: 6px !important; color: #059669 !important; }
-      .datos-medidos-block { padding: 4px 6px !important; }
-      .datos-medidos-block small { font-size: 7.5pt !important; }
-      .datos-medidos-block strong, .line-item-sub span, .line-item-sub strong { font-size: 8.5pt !important; color: #000 !important; }
+      .datos-medidos-container { padding: 5px 8px !important; margin-bottom: 5px !important; }
+      .datos-medidos-header { font-size: 10.5pt !important; margin-bottom: 4px !important; color: #059669 !important; }
+      .datos-medidos-block { padding: 3px 5px !important; }
+      .datos-medidos-block small { font-size: 8pt !important; }
+      .datos-medidos-block strong, .line-item-sub span, .line-item-sub strong { font-size: 9.5pt !important; color: #000 !important; }
 
-      .dashboard-grid { gap: 6px !important; margin-bottom: 8px !important; }
-      .kpi-card { padding: 6px 4px !important; }
-      .kpi-card span { font-size: 7.5pt !important; min-height: 20px !important; color: #4b5563 !important; }
-      .kpi-card h3 { font-size: 11pt !important; color: #000 !important; margin: 1px 0 !important; }
-      .kpi-card small { font-size: 8pt !important; }
+      .dashboard-grid { gap: 4px !important; margin-bottom: 5px !important; }
+      .kpi-card { padding: 4px 3px !important; }
+      .kpi-card span { font-size: 8pt !important; min-height: 18px !important; color: #4b5563 !important; }
+      .kpi-card h3 { font-size: 15pt !important; color: #000 !important; margin: 1px 0 !important; } /* Números grandes KPIs (19px - 21px) */
+      .kpi-card small { font-size: 8.5pt !important; }
 
-      /* CORTE DE PÁGINA 1 Y 2 ARMONIOSO */
       .charts-grid {
-        page-break-before: always;
-        gap: 8px !important;
-        margin-bottom: 8px !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        page-break-before: auto !important;
+        gap: 5px !important;
+        margin-bottom: 5px !important;
       }
-      .chart-container { min-height: 180px !important; padding: 8px !important; }
-      .chart-wrapper-inner { height: 110px !important; }
-      .card-header-flex h4 { font-size: 9.5pt !important; color: #000 !important; }
+      .chart-container { min-height: 125px !important; padding: 5px !important; }
+      .chart-wrapper-inner { height: 75px !important; }
+      .card-header-flex h4 { font-size: 10.5pt !important; color: #000 !important; }
 
-      .recomendacion-container { padding: 8px 10px !important; margin-bottom: 8px !important; }
-      .recomendacion-title { font-size: 9.5pt !important; color: #059669 !important; margin-bottom: 4px !important; }
-      .recomendacion-text { font-size: 8.5pt !important; color: #000 !important; line-height: 1.3 !important; padding: 0 !important; }
+      .recomendacion-container { padding: 5px 8px !important; margin-bottom: 5px !important; }
+      .recomendacion-title { font-size: 10.5pt !important; color: #059669 !important; margin-bottom: 3px !important; }
+      .recomendacion-text { font-size: 9.5pt !important; color: #000 !important; line-height: 1.2 !important; padding: 0 !important; }
       
-      .pilares-intervencion-grid { gap: 6px !important; margin-top: 6px !important; padding-top: 6px !important; }
-      .pilar-card { padding: 6px !important; }
-      .pilar-card h5 { font-size: 8.5pt !important; color: #059669 !important; }
-      .pilar-card p { font-size: 8pt !important; color: #1f2937 !important; }
+      .pilares-intervencion-grid { gap: 4px !important; margin-top: 4px !important; padding-top: 4px !important; }
+      .pilar-card { padding: 4px !important; }
+      .pilar-card h5 { font-size: 9.5pt !important; color: #059669 !important; }
+      .pilar-card p { font-size: 9pt !important; color: #1f2937 !important; }
 
-      .anexo-container { padding: 8px !important; margin-top: 6px !important; }
-      .anexo-title { font-size: 9.5pt !important; color: #059669 !important; }
-      .anexo-card h4 { font-size: 8pt !important; }
-      .baremo-table { font-size: 8pt !important; }
-      .anexo-signature strong { font-size: 10pt !important; color: #000 !important; }
-      .anexo-signature span { font-size: 8.5pt !important; color: #059669 !important; }
+      .anexo-container { padding: 5px !important; margin-top: 4px !important; }
+      .anexo-title { font-size: 10.5pt !important; color: #059669 !important; }
+      .anexo-card h4 { font-size: 8.5pt !important; }
+      .baremo-table { font-size: 8.5pt !important; }
+      .anexo-signature strong { font-size: 11pt !important; color: #000 !important; }
+      .anexo-signature span { font-size: 9pt !important; color: #059669 !important; }
 
       input, select { background: #fff !important; color: #000 !important; border: none !important; }
     }
@@ -762,7 +775,7 @@
       <div class="recomendacion-container">
         <div class="recomendacion-title">
           <span>Síntesis Diagnóstica y Recomendación de Evaluación</span>
-          <small style="color: var(--text-muted); font-size: 9px; font-weight: normal; text-transform: none;">✏️ Haz clic para editar tu interpretación profesional</small>
+          <small class="nota-edicion-pantalla" style="color: var(--text-muted); font-size: 9px; font-weight: normal; text-transform: none;">✏️ Haz clic para editar tu interpretación profesional</small>
         </div>
         <div id="txtSintesisRecomendacion" class="recomendacion-text" contenteditable="true">
           Ingresa los datos del evaluado para generar la síntesis diagnóstica...
@@ -771,15 +784,15 @@
         <div class="pilares-intervencion-grid">
           <div class="pilar-card">
             <h5>1. Composición Corporal & Reacondicionamiento</h5>
-            <p id="txtPilar1">Establecer déficit calórico moderado manteniendo la ingesta proteica para priorizar la pérdida de masa grasa resguardando la Masa Libre de Grasa (MLG) estimada (Lee & Nieman, 2003).</p>
+            <p id="txtPilar1" class="editable-pilar" contenteditable="true">Establecer déficit calórico moderado manteniendo la ingesta proteica para priorizar la pérdida de masa grasa resguardando la Masa Libre de Grasa (MLG) estimada (Lee & Nieman, 2003).</p>
           </div>
           <div class="pilar-card">
             <h5>2. Optimización Neuromuscular & Equilibrio</h5>
-            <p id="txtPilar2">Desarrollar la fuerza de agarre y corregir asimetrías bilaterales superiores al 10% mediante trabajo unilateral (Maffiuletti et al., 2016).</p>
+            <p id="txtPilar2" class="editable-pilar" contenteditable="true">Desarrollar la fuerza de agarre y corregir asimetrías bilaterales superiores al 10% mediante trabajo unilateral (Maffiuletti et al., 2016).</p>
           </div>
           <div class="pilar-card">
             <h5>3. Prescripción de Ejercicio & Dosificación</h5>
-            <p id="txtPilar3">Combinar entrenamiento de fuerza (≥3 veces/semana) con ejercicio cardiovascular Zona 2 para optimizar la salud cardiometabólica e ICT (Rubino et al., 2025).</p>
+            <p id="txtPilar3" class="editable-pilar" contenteditable="true">Combinar entrenamiento de fuerza (≥3 veces/semana) con ejercicio cardiovascular Zona 2 para optimizar la salud cardiometabólica e ICT (Rubino et al., 2025).</p>
           </div>
         </div>
 
