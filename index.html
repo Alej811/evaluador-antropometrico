@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Auditoría de maquetación de impresión (2 páginas exactas): 2026-10-14 -->
+  <!-- Auditoría metodológica aplicada: 2026-10-12 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CIENCIA DEPORTIVA - Informe Antropométrico y Funcional</title>
   
@@ -23,42 +23,42 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-light); padding: 12px; line-height: 1.35; font-size: 11px; }
+    body { background-color: var(--bg-dark); color: var(--text-light); padding: 15px; line-height: 1.4; font-size: 15px; }
 
     .header-branding {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       background: var(--card-bg);
-      padding: 10px 16px;
-      border-radius: 10px;
-      margin-bottom: 10px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      margin-bottom: 15px;
       border: 1px solid var(--border);
     }
 
-    .brand-logo-container { display: flex; align-items: center; gap: 12px; }
-    .brand-logo-container img { width: 48px; height: 48px; object-fit: contain; border-radius: 6px; }
-    .brand-title h1 { font-size: 15px; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
-    .brand-title p { font-size: 10px; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+    .brand-logo-container { display: flex; align-items: center; gap: 16px; }
+    .brand-logo-container img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; }
+    .brand-title h1 { font-size: 1.55rem; letter-spacing: 0.5px; color: #ffffff; font-weight: 800; }
+    .brand-title p { font-size: 0.9rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-    .main-grid { display: grid; grid-template-columns: 300px 1fr; gap: 12px; }
+    .main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 15px; }
 
-    .panel { background: var(--card-bg); padding: 14px; border-radius: 10px; border: 1px solid var(--border); }
-    .panel h2 { font-size: 12px; margin-top: 10px; margin-bottom: 8px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .panel { background: var(--card-bg); padding: 18px; border-radius: 12px; border: 1px solid var(--border); }
+    .panel h2 { font-size: 0.95rem; margin-top: 14px; margin-bottom: 10px; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
     .panel h2:first-of-type { margin-top: 0; }
 
-    .form-group { margin-bottom: 8px; }
-    .form-group label { display: block; font-size: 10px; color: var(--text-muted); margin-bottom: 2px; font-weight: 600; }
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 3px; font-weight: 600; }
     .form-group input, .form-group select {
-      width: 100%; padding: 6px 8px; border-radius: 5px; border: 1px solid var(--border);
-      background: var(--input-bg); color: #fff; font-size: 10px; outline: none; transition: 0.2s;
+      width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border);
+      background: var(--input-bg); color: #fff; font-size: 0.9rem; outline: none; transition: 0.2s;
     }
     .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
 
     .btn-action {
-      width: 100%; padding: 9px; border: none; border-radius: 6px;
+      width: 100%; padding: 11px; border: none; border-radius: 8px;
       background: var(--primary); color: #0f172a; font-weight: 700;
-      cursor: pointer; margin-top: 6px; transition: 0.2s; font-size: 10px;
+      cursor: pointer; margin-top: 8px; transition: 0.2s; font-size: 0.9rem;
     }
     .btn-action:hover { background: var(--primary-dark); color: #fff; }
     .btn-secondary { background: #334155; color: #fff; }
@@ -68,57 +68,57 @@
     .datos-medidos-container {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 15px;
     }
     .datos-medidos-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 4px;
+      padding-bottom: 6px;
     }
     .datos-medidos-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      font-size: 10px;
+      gap: 12px;
+      font-size: 0.85rem;
     }
     .datos-medidos-block {
       background: rgba(255, 255, 255, 0.02);
-      padding: 6px 8px;
-      border-radius: 6px;
+      padding: 10px 12px;
+      border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.04);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 9px; margin-bottom: 3px; font-weight: 700; text-transform: uppercase; }
-    .datos-medidos-block strong { color: #fff; font-size: 10px; }
+    .datos-medidos-block small { display: block; color: var(--text-muted); font-size: 0.72rem; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
+    .datos-medidos-block strong { color: #fff; font-size: 0.9rem; }
     
     .line-item-sub {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 2px;
-      font-size: 10px;
+      margin-top: 4px;
+      font-size: 0.82rem;
     }
-    .line-item-sub span { color: var(--text-muted); font-size: 9px; }
+    .line-item-sub span { color: var(--text-muted); font-size: 0.75rem; }
 
     .delta-badge {
       display: inline-block;
-      font-size: 9px;
+      font-size: 0.7rem;
       font-weight: 700;
-      padding: 1px 4px;
-      border-radius: 3px;
-      margin-left: 3px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 4px;
       white-space: nowrap;
     }
     .delta-pos { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
@@ -128,64 +128,64 @@
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 15px;
     }
     .kpi-card {
       background: #0f172a;
-      padding: 8px 6px;
-      border-radius: 6px;
+      padding: 12px 10px;
+      border-radius: 8px;
       text-align: center;
       border: 1px solid var(--border);
-      border-top: 2px solid var(--primary);
+      border-top: 3px solid var(--primary);
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .kpi-card span { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.2px; display: block; min-height: 22px; line-height: 1.1; }
-    .kpi-card h3 { font-size: 13px; margin: 2px 0; color: #fff; font-weight: 800; }
-    .kpi-card small { font-size: 9.5px; font-weight: 600; display: block; }
-    .kpi-card .nota-sub { font-size: 8.5px; color: var(--text-muted); margin-top: 1px; font-weight: normal; line-height: 1; }
+    .kpi-card span { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.2px; display: block; min-height: 28px; line-height: 1.1; }
+    .kpi-card h3 { font-size: 1.25rem; margin: 4px 0; color: #fff; font-weight: 800; }
+    .kpi-card small { font-size: 0.78rem; font-weight: 600; display: block; }
+    .kpi-card .nota-sub { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; font-weight: normal; line-height: 1; }
 
-    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
     .chart-container {
       background: #0f172a;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 16px;
+      border-radius: 10px;
       border: 1px solid var(--border);
-      min-height: 220px;
+      min-height: 310px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
     }
 
-    .card-header-flex { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-    .card-header-flex h4 { font-size: 11px; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-    .card-header-flex span { font-size: 9px; color: var(--text-muted); font-weight: 500; }
+    .card-header-flex { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .card-header-flex h4 { font-size: 0.92rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .card-header-flex span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
-    .chart-wrapper-inner { position: relative; height: 140px; width: 100%; display: flex; align-items: center; justify-content: center; }
+    .chart-wrapper-inner { position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; }
 
     .fraccionamiento-footer {
       width: 100%;
       border-top: 1px solid var(--border);
-      margin-top: 4px;
-      padding-top: 4px;
+      margin-top: 8px;
+      padding-top: 8px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       text-align: center;
     }
-    .fraccionamiento-item small { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 1px; }
-    .fraccionamiento-item strong { font-size: 11px; font-weight: 700; }
+    .fraccionamiento-item small { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+    .fraccionamiento-item strong { font-size: 1rem; font-weight: 700; }
 
     .fuerza-dominancia-label {
       width: 100%;
       text-align: center;
-      margin-top: 4px;
-      padding-top: 4px;
+      margin-top: 8px;
+      padding-top: 6px;
       border-top: 1px solid var(--border);
-      font-size: 9.5px;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #3b82f6;
     }
@@ -193,18 +193,18 @@
     .section-longitudinal {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 15px;
     }
     .section-longitudinal-header {
       color: var(--primary);
-      font-size: 11px;
+      font-size: 0.95rem;
       font-weight: 700;
       text-transform: uppercase;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 4px;
-      margin-bottom: 8px;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -214,39 +214,39 @@
       background: rgba(244, 63, 94, 0.1);
       border: 1px dashed rgba(244, 63, 94, 0.4);
       color: #f43f5e;
-      padding: 12px;
-      border-radius: 6px;
+      padding: 20px;
+      border-radius: 8px;
       text-align: center;
-      font-size: 10px;
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
     .recomendacion-container {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-left: 3px solid var(--primary);
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 10px;
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 15px;
     }
     .recomendacion-title {
-      font-size: 11px;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .recomendacion-text {
-      font-size: 10px;
+      font-size: 0.88rem;
       color: #e2e8f0;
-      line-height: 1.4;
-      padding: 4px;
+      line-height: 1.55;
+      padding: 8px;
       border: 1px dashed transparent;
-      border-radius: 4px;
+      border-radius: 6px;
       outline: none;
       transition: 0.2s;
     }
@@ -255,68 +255,32 @@
       background: rgba(255, 255, 255, 0.02);
     }
 
-    .pilares-intervencion-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(16, 185, 129, 0.3);
-    }
-    .pilar-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 8px;
-    }
-    .pilar-card h5 {
-      font-size: 9.5px;
-      color: var(--primary);
-      font-weight: 700;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-    }
-    .pilar-card p {
-      font-size: 9px;
-      color: #cbd5e1;
-      line-height: 1.35;
-      padding: 3px;
-      border: 1px dashed transparent;
-      border-radius: 4px;
-      outline: none;
-      transition: 0.2s;
-    }
-    .pilar-card p:hover, .pilar-card p:focus {
-      border-color: var(--primary);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
     .recomendacion-persuasivo {
-      margin-top: 8px;
-      padding-top: 6px;
+      margin-top: 10px;
+      padding-top: 8px;
       border-top: 1px dashed rgba(16, 185, 129, 0.3);
       color: #38bdf8;
       font-weight: 600;
-      font-size: 9.5px;
+      font-size: 0.88rem;
     }
 
     .anexo-container {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 8px;
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 10px;
     }
-    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 8px; }
-    .anexo-title { color: var(--primary); font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-    .anexo-subtitle { color: var(--text-muted); font-size: 9px; font-family: monospace; }
+    .anexo-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
+    .anexo-title { color: var(--primary); font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .anexo-subtitle { color: var(--text-muted); font-size: 0.75rem; font-family: monospace; }
     
-    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 8px; }
-    .anexo-card { background: var(--card-bg); padding: 8px; border-radius: 6px; border: 1px solid var(--border); }
-    .anexo-card h4 { font-size: 9.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .anexo-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; }
+    .anexo-card { background: var(--card-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+    .anexo-card h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
     
-    .baremo-table { width: 100%; border-collapse: collapse; font-size: 9px; text-align: left; }
-    .baremo-table th, .baremo-table td { padding: 3px 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .baremo-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; }
+    .baremo-table th, .baremo-table td { padding: 5px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .baremo-table th { color: var(--text-muted); font-weight: 600; }
     .val-optimo { color: var(--primary); font-weight: 700; }
     .val-riesgo { color: #f43f5e; font-weight: 700; }
@@ -325,15 +289,15 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 8px;
-      padding-top: 6px;
+      margin-top: 12px;
+      padding-top: 10px;
       border-top: 1px dashed var(--border);
-      font-size: 9px;
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
     .anexo-signature { text-align: right; }
-    .anexo-signature strong { color: var(--text-light); display: block; font-size: 11px; }
-    .anexo-signature span { color: var(--primary); font-size: 9.5px; }
+    .anexo-signature strong { color: var(--text-light); display: block; font-size: 0.85rem; }
+    .anexo-signature span { color: var(--primary); font-size: 0.8rem; }
 
     .modal-overlay {
       position: fixed;
@@ -348,35 +312,35 @@
     .modal-content {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       width: 90%;
-      max-width: 540px;
+      max-width: 580px;
       max-height: 80vh;
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
     .modal-header {
-      padding: 12px 14px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .modal-header h3 { color: var(--primary); font-size: 12px; }
+    .modal-header h3 { color: var(--primary); font-size: 1rem; }
     .modal-close {
       background: transparent;
       border: 1px solid var(--border);
       color: var(--text-light);
-      font-size: 10px;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 5px;
+      padding: 7px 12px;
+      border-radius: 7px;
     }
     .modal-close:hover { color: #fff; border-color: var(--primary); }
     .modal-footer {
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: flex-end;
@@ -385,14 +349,13 @@
       background: var(--primary);
       color: #06261f;
       border: none;
-      border-radius: 5px;
-      padding: 6px 12px;
+      border-radius: 7px;
+      padding: 8px 16px;
       font-weight: 800;
       cursor: pointer;
-      font-size: 10px;
     }
     .modal-body {
-      padding: 12px;
+      padding: 16px;
       overflow-y: auto;
       flex: 1;
     }
@@ -400,26 +363,26 @@
     .dir-perfil-card {
       background: #0f172a;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      margin-bottom: 8px;
-      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 10px 12px;
     }
     .dir-perfil-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 6px;
     }
     .dir-perfil-title {
       font-weight: 700;
       color: #fff;
-      font-size: 10px;
+      font-size: 0.9rem;
       cursor: pointer;
     }
     .dir-eval-sublist {
-      margin-top: 6px;
-      padding-top: 6px;
+      margin-top: 8px;
+      padding-top: 8px;
       border-top: 1px dashed var(--border);
       display: none;
     }
@@ -428,19 +391,19 @@
       justify-content: space-between;
       align-items: center;
       background: rgba(255,255,255,0.03);
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-bottom: 3px;
-      font-size: 9.5px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
     }
     .btn-sm-action {
-      padding: 3px 6px;
-      border-radius: 3px;
-      font-size: 9px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
       font-weight: 600;
       border: none;
       cursor: pointer;
-      margin-left: 3px;
+      margin-left: 4px;
     }
     .btn-sm-load { background: #0284c7; color: #fff; }
     .btn-sm-load:hover { background: #0369a1; }
@@ -449,22 +412,23 @@
     .btn-sm-del { background: #ef4444; color: #fff; }
     .btn-sm-del:hover { background: #dc2626; }
 
+
+    /* Interfaz: conserva la tipografía original; solo adapta la distribución en pantallas pequeñas */
     @media screen and (max-width: 900px) {
-      body { padding: 6px; }
+      body { padding: 8px; }
       .main-grid { grid-template-columns: 1fr; }
-      .panel { padding: 10px; }
-      .header-branding { padding: 10px; }
-      .datos-medidos-grid, .dashboard-grid, .charts-grid, .anexo-grid, .pilares-intervencion-grid { grid-template-columns: 1fr; }
-      .chart-container { min-height: 260px; }
-      .chart-wrapper-inner { height: 180px; }
+      .panel { padding: 14px; }
+      .header-branding { padding: 14px; }
+      .datos-medidos-grid, .dashboard-grid, .charts-grid, .anexo-grid { grid-template-columns: 1fr; }
+      .chart-container { min-height: 390px; }
+      .chart-wrapper-inner { height: 260px; }
     }
 
     @page {
       size: A4 portrait;
-      margin: 8mm 6mm 8mm 6mm;
+      margin: 6mm;
     }
 
-    /* REGLAS DE IMPRESIÓN COMPACTAS PARA MANTENER EXACTAMENTE 2 PÁGINAS */
     @media print {
       html, body {
         background: #fff !important;
@@ -472,8 +436,7 @@
         padding: 0 !important;
         margin: 0 !important;
         width: 100% !important;
-        font-size: 9.5pt !important;
-        line-height: 1.25 !important;
+        zoom: 100%;
       }
       .main-grid { display: block !important; }
       .panel-controls, .btn-action, .modal-overlay { display: none !important; }
@@ -483,76 +446,41 @@
         padding: 0 !important;
         color: #000 !important;
       }
-      .header-branding, .kpi-card, .chart-container, .anexo-container, .anexo-card, .datos-medidos-container, .section-longitudinal, .recomendacion-container, .pilar-card {
+      .header-branding, .kpi-card, .chart-container, .anexo-container, .anexo-card, .datos-medidos-container, .section-longitudinal, .recomendacion-container {
         background: #fff !important;
-        border: 1px solid #d1d5db !important;
+        border: 1px solid #ccc !important;
         color: #000 !important;
-        box-shadow: none !important;
-      }
-      
-      .header-branding { padding: 6px 12px !important; margin-bottom: 8px !important; }
-      .brand-logo-container img { width: 38px !important; height: 38px !important; }
-      .brand-title h1 { font-size: 13pt !important; color: #000 !important; }
-      .brand-title p { font-size: 8.5pt !important; color: #059669 !important; }
-
-      .datos-medidos-container { padding: 8px 10px !important; margin-bottom: 8px !important; }
-      .datos-medidos-header { font-size: 9.5pt !important; margin-bottom: 6px !important; color: #059669 !important; }
-      .datos-medidos-block { padding: 4px 6px !important; }
-      .datos-medidos-block small { font-size: 7.5pt !important; }
-      .datos-medidos-block strong, .line-item-sub span, .line-item-sub strong { font-size: 8.5pt !important; color: #000 !important; }
-
-      .dashboard-grid { gap: 6px !important; margin-bottom: 8px !important; }
-      .kpi-card { padding: 6px 4px !important; }
-      .kpi-card span { font-size: 7.5pt !important; min-height: 20px !important; color: #4b5563 !important; }
-      .kpi-card h3 { font-size: 11pt !important; color: #000 !important; margin: 1px 0 !important; }
-      .kpi-card small { font-size: 8pt !important; }
-
-      /* Impresión compacta: sin salto de página forzado */
-      .charts-grid {
-        break-before: auto !important;
-        page-break-before: auto !important;
-        gap: 6px !important;
-        margin-bottom: 6px !important;
-      }
-      .chart-container {
-        min-height: 0 !important;
-        padding: 5px !important;
-        break-inside: avoid;
         page-break-inside: avoid;
       }
-      .chart-wrapper-inner { height: 82px !important; }
-      .fraccionamiento-footer { margin-top: 2px !important; padding-top: 2px !important; }
-      .dashboard-grid { gap: 4px !important; margin-bottom: 5px !important; }
-      .kpi-card { padding: 4px 3px !important; }
-      .datos-medidos-container { padding: 5px 7px !important; margin-bottom: 5px !important; }
-      .datos-medidos-grid { gap: 4px !important; }
-      .recomendacion-container { padding: 5px 7px !important; margin-bottom: 5px !important; }
-      .pilares-intervencion-grid { gap: 4px !important; margin-top: 4px !important; padding-top: 4px !important; }
-      .pilar-card { padding: 4px !important; }
-      .anexo-container { padding: 5px !important; margin-top: 4px !important; }
-      .anexo-card { padding: 5px !important; }
-      .section-longitudinal { padding: 6px !important; margin-bottom: 5px !important; }
-      .section-longitudinal .chart-container { min-height: 0 !important; }
-      .section-longitudinal .chart-wrapper-inner { height: 90px !important; }
-      .card-header-flex h4 { font-size: 9.5pt !important; color: #000 !important; }
-
-      .recomendacion-container { padding: 8px 10px !important; margin-bottom: 8px !important; }
-      .recomendacion-title { font-size: 9.5pt !important; color: #059669 !important; margin-bottom: 4px !important; }
-      .recomendacion-text { font-size: 8.5pt !important; color: #000 !important; line-height: 1.3 !important; padding: 0 !important; }
-      
-      .pilares-intervencion-grid { gap: 6px !important; margin-top: 6px !important; padding-top: 6px !important; }
-      .pilar-card { padding: 6px !important; }
-      .pilar-card h5 { font-size: 8.5pt !important; color: #059669 !important; }
-      .pilar-card p { font-size: 8pt !important; color: #1f2937 !important; }
-
-      .anexo-container { padding: 8px !important; margin-top: 6px !important; }
-      .anexo-title { font-size: 9.5pt !important; color: #059669 !important; }
-      .anexo-card h4 { font-size: 8pt !important; }
-      .baremo-table { font-size: 8pt !important; }
-      .anexo-signature strong { font-size: 10pt !important; color: #000 !important; }
-      .anexo-signature span { font-size: 8.5pt !important; color: #059669 !important; }
-
+      .kpi-card h3, .brand-title h1, .anexo-title, .anexo-signature strong, .card-header-flex h4, .datos-medidos-block strong, .section-longitudinal-header, .recomendacion-title { color: #000 !important; }
+      .brand-title p, .anexo-signature span, .val-optimo, .datos-medidos-header, .recomendacion-title { color: #059669 !important; }
+      .val-riesgo { color: #dc2626 !important; }
+      .recomendacion-text { color: #000 !important; border: none !important; }
+      .recomendacion-persuasivo { color: #0284c7 !important; border-top-color: #ccc !important; }
       input, select { background: #fff !important; color: #000 !important; border: none !important; }
+
+      /* PDF/impresión: tipografía ampliada ~2x; no modifica la interfaz */
+      body { font-size: 30px !important; line-height: 1.45 !important; }
+      .brand-title h1 { font-size: 3.1rem !important; }
+      .brand-title p { font-size: 1.8rem !important; }
+      .datos-medidos-header, .recomendacion-title, .section-longitudinal-header, .anexo-title { font-size: 1.84rem !important; }
+      .datos-medidos-block small { font-size: 1.44rem !important; }
+      .datos-medidos-block strong { font-size: 1.8rem !important; }
+      .line-item-sub, .line-item-sub span { font-size: 1.5rem !important; }
+      .kpi-card span { font-size: 1.36rem !important; min-height: 0 !important; }
+      .kpi-card h3 { font-size: 2.5rem !important; }
+      .kpi-card small { font-size: 1.56rem !important; }
+      .kpi-card .nota-sub { font-size: 1.3rem !important; }
+      .card-header-flex h4 { font-size: 1.84rem !important; }
+      .card-header-flex span { font-size: 1.5rem !important; }
+      .fraccionamiento-item small { font-size: 1.5rem !important; }
+      .fraccionamiento-item strong { font-size: 2rem !important; }
+      .fuerza-dominancia-label, .recomendacion-text, .recomendacion-persuasivo { font-size: 1.7rem !important; }
+      .anexo-card h4 { font-size: 1.6rem !important; }
+      .baremo-table { font-size: 1.6rem !important; }
+      .anexo-subtitle, .anexo-footer { font-size: 1.5rem !important; }
+      .anexo-signature strong { font-size: 1.7rem !important; }
+      .anexo-signature span { font-size: 1.6rem !important; }
     }
   </style>
 </head>
@@ -570,7 +498,7 @@
 
   <div class="main-grid">
     <aside class="panel panel-controls">
-      <button class="btn-action btn-secondary" style="background: #3b82f6; margin-bottom: 10px;" onclick="nuevaEvaluacion()">🧹 Nueva Evaluación (Limpiar Campos)</button>
+      <button class="btn-action btn-secondary" style="background: #3b82f6; margin-bottom: 12px;" onclick="nuevaEvaluacion()">🧹 Nueva Evaluación (Limpiar Campos)</button>
 
       <h2>Datos del Evaluado</h2>
       <div class="form-group">
@@ -607,7 +535,7 @@
 
       <h2>Prescripción / Hito Meta</h2>
       <div class="form-group">
-        <label>% Grasa Objetivo Personalizado (%):</label>
+        <label>🎯 % Grasa Objetivo Personalizado (%):</label>
         <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="calcular()">
       </div>
 
@@ -633,34 +561,34 @@
         <input type="date" id="fechaEvaluacionReal">
       </div>
 
-      <button id="btnGuardarEvaluacion" class="btn-action" onclick="ejecutarGuardarHistorial()">Guardar Evaluación</button>
+      <button id="btnGuardarEvaluacion" class="btn-action" onclick="ejecutarGuardarHistorial()">💾 Guardar Evaluación</button>
 
       <h2>Respaldo local</h2>
       <button class="btn-action btn-secondary" style="background: #0284c7;" onclick="exportarBaseDatosJSON()">Descargar copia BD (JSON)</button>
       <input type="file" id="inputImportJSON" accept=".json" style="display: none;" onchange="importarBaseDatosJSON(event)">
-      <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">Importar BD desde JSON</button>
+      <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">📤 Importar BD desde JSON</button>
 
-      <div class="form-group" style="margin-top: 8px; background: rgba(16, 185, 129, 0.08); padding: 6px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
-        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 4px;">
-          <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> Comparar con Evaluación Anterior
+      <div class="form-group" style="margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
+        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">
+          <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> 🔄 Comparar con Evaluación Anterior
         </label>
-        <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 4px;">
-          <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> Evaluar Todo el Historial (Análisis Longitudinal)
+        <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 6px;">
+          <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> 📈 Evaluar Todo el Historial (Análisis Longitudinal)
         </label>
         <label style="cursor: pointer; color: #a855f7; font-weight: 600; display: block;">
-          <input type="checkbox" id="chkPotencialCliente" onchange="calcular()"> Potencial Cliente (Texto Persuasivo)
+          <input type="checkbox" id="chkPotencialCliente" onchange="calcular()"> 🎯 Potencial Cliente (Texto Persuasivo)
         </label>
       </div>
 
-      <button class="btn-action btn-secondary" style="margin-top: 8px;" onclick="abrirModalDirectorio()">Gestión del Directorio</button>
-      <button class="btn-action" style="margin-top: 6px; background: var(--primary);" onclick="window.print()">Imprimir / Guardar PDF del Informe</button>
+      <button class="btn-action btn-secondary" style="margin-top: 10px;" onclick="abrirModalDirectorio()">👥 Gestión del Directorio</button>
+      <button class="btn-action" style="margin-top: 8px; background: var(--primary);" onclick="window.print()">🖨️ Imprimir / Guardar PDF del Informe</button>
     </aside>
 
     <main class="panel">
       <section class="datos-medidos-container">
         <div class="datos-medidos-header">
-          <span>Resumen de Datos del Evaluado y Mediciones Directas</span>
-          <span id="label-comparativa-header" style="font-size: 9.5px; color: #38bdf8; font-weight: 600;"></span>
+          <span>📋 Resumen de Datos del Evaluado y Mediciones Directas</span>
+          <span id="label-comparativa-header" style="font-size: 0.78rem; color: #38bdf8; font-weight: 600;"></span>
         </div>
         <div class="datos-medidos-grid">
           <div class="datos-medidos-block">
@@ -733,7 +661,7 @@
 
       <div class="charts-grid">
         <div class="chart-container">
-          <div class="card-header-flex"><h4><span style="color: var(--primary);">⚖️</span> Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
+          <div class="card-header-flex"><h4><span style="color: var(--primary);">⚖️</span>⚖️ Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
           <div class="chart-wrapper-inner"><canvas id="chartComposicion"></canvas></div>
           <div class="fraccionamiento-footer">
             <div class="fraccionamiento-item"><small>Masa Grasa Total</small><strong id="footer-kg-grasa" style="color: #f43f5e;">-</strong><div id="delta-kg-grasa-badge"></div></div>
@@ -742,7 +670,7 @@
         </div>
         <div class="chart-container">
           <div class="card-header-flex"><h4><span style="color: #3b82f6;">💪</span> Fuerza de Agarre (kg)</h4><span>Dinamometría Manual</span></div>
-          <div class="chart-wrapper-inner" style="height: 100px; margin-top: 2px;"><canvas id="chartDinamometria"></canvas></div>
+          <div class="chart-wrapper-inner" style="height: 120px; margin-top: 5px;"><canvas id="chartDinamometria"></canvas></div>
           <div class="fraccionamiento-footer">
             <div class="fraccionamiento-item"><small>Mano Izquierda</small><strong id="footer-dino-izq" style="color: #38bdf8;">-</strong></div>
             <div class="fraccionamiento-item"><small>Mano Derecha</small><strong id="footer-dino-der" style="color: #3b82f6;">-</strong></div>
@@ -754,32 +682,32 @@
       <div id="contenedorLongitudinal" class="section-longitudinal" style="display: none;">
         <div class="section-longitudinal-header">
           <span>Análisis de Evolución Longitudinal del Historial</span>
-          <small style="color: var(--text-muted); font-size: 9px;">Mínimo 3 Evaluaciones Registradas</small>
+          <small style="color: var(--text-muted); font-size: 0.78rem;">Mínimo 3 Evaluaciones Registradas</small>
         </div>
 
         <div id="avisoDatosInsuficientes" class="aviso-datos-insuficientes" style="display: none;">
           📊 No se tienen los datos suficientes para la evaluación longitudinal.
-          <br><small style="font-weight: normal; color: var(--text-muted); font-size: 9px;">Se requieren al menos 3 evaluaciones registradas en el historial del perfil seleccionado para generar estos gráficos de seguimiento.</small>
+          <br><small style="font-weight: normal; color: var(--text-muted); font-size: 0.8rem;">Se requieren al menos 3 evaluaciones registradas en el historial del perfil seleccionado para generar estos gráficos de seguimiento.</small>
         </div>
 
-        <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #10b981;">📈</span> 1. Evolución Composición Corporal</h4><span>Comparación por Variable</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongComposicion"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongComposicion"></canvas></div>
           </div>
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #f43f5e;">📉</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues Cutáneos</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongPliegues"></canvas></div>
+            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongPliegues"></canvas></div>
           </div>
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Doble Eje de Escala</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px;"><canvas id="chartLongPerimetros"></canvas></div>
+            <div class="card-header-flex"><h4><span style="color: #38bdf8;">📏</span> 3. Evolución Perímetros & Tono Muscular</h4><span>Comparación por Variable</span></div>
+            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongPerimetros"></canvas></div>
           </div>
           <div class="chart-container" id="boxChartLongFuerza">
             <div class="card-header-flex"><h4><span style="color: #a855f7;">💪</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Dinamometría Bilateral</span></div>
-            <div class="chart-wrapper-inner" style="height: 160px; display: flex; align-items: center; justify-content: center;">
+            <div class="chart-wrapper-inner" style="height: 220px; display: flex; align-items: center; justify-content: center;">
               <canvas id="chartLongFuerza"></canvas>
-              <div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:9.5px; text-align:center; font-weight:600; padding:10px; background:rgba(244,63,94,0.08); border-radius:6px;">
+              <div id="msgNoDinamometriaLong" style="display:none; color:#f43f5e; font-size:0.85rem; text-align:center; font-weight:600; padding:15px; background:rgba(244,63,94,0.08); border-radius:8px;">
                 📊 No hay al menos 3 mediciones de dinamometría registradas para el análisis longitudinal.
               </div>
             </div>
@@ -790,26 +718,11 @@
       <div class="recomendacion-container">
         <div class="recomendacion-title">
           <span>Síntesis Diagnóstica y Recomendación de Evaluación</span>
+          <small style="color: var(--text-muted); font-size: 0.72rem; font-weight: normal; text-transform: none;">✏️ Haz clic para editar tu interpretación profesional</small>
         </div>
         <div id="txtSintesisRecomendacion" class="recomendacion-text" contenteditable="true">
           Ingresa los datos del evaluado para generar la síntesis diagnóstica...
         </div>
-
-        <div class="pilares-intervencion-grid">
-          <div class="pilar-card">
-            <h5>1. Composición Corporal & Reacondicionamiento</h5>
-            <p id="txtPilar1" contenteditable="true" spellcheck="true">Establecer déficit calórico moderado manteniendo la ingesta proteica para priorizar la pérdida de masa grasa resguardando la Masa Libre de Grasa (MLG) estimada (Lee & Nieman, 2003).</p>
-          </div>
-          <div class="pilar-card">
-            <h5>2. Optimización Neuromuscular & Equilibrio</h5>
-            <p id="txtPilar2" contenteditable="true" spellcheck="true">Desarrollar la fuerza de agarre y corregir asimetrías bilaterales superiores al 10% mediante trabajo unilateral (Maffiuletti et al., 2016).</p>
-          </div>
-          <div class="pilar-card">
-            <h5>3. Prescripción de Ejercicio & Dosificación</h5>
-            <p id="txtPilar3" contenteditable="true" spellcheck="true">Combinar entrenamiento de fuerza (≥3 veces/semana) con ejercicio cardiovascular Zona 2 para optimizar la salud cardiometabólica e ICT (Rubino et al., 2025).</p>
-          </div>
-        </div>
-
         <div id="txtPersuasivoCliente" class="recomendacion-persuasivo" style="display: none;">
           🎯 Este es tu punto de partida. A partir de esta evaluación, puedo estructurar un plan de entrenamiento y recomposición corporal personalizado que evite el estancamiento y garantice tus resultados de forma segura.
         </div>
@@ -833,22 +746,22 @@
               </tbody>
             </table>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
             <div class="anexo-card">
               <h4>2. Adiposidad central e Índice Cintura-Talla (ICT)</h4>
-              <div style="font-size: 9px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura elevada (adultos no asiáticos):</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
-              <div style="font-size: 9px; display: flex; justify-content: space-between;"><span>ICT - punto de corte adiposidad central:</span><strong class="val-optimo">&ge; 0.50 (aumentado)</strong></div>
+              <div style="font-size: 0.78rem; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Cintura elevada (adultos no asiáticos; corte general):</span><strong class="val-riesgo">&ge; 102 cm (H) / &ge; 88 cm (M)</strong></div>
+              <div style="font-size: 0.78rem; display: flex; justify-content: space-between;"><span>ICT - punto de corte de adiposidad central:</span><strong class="val-optimo">&ge; 0.50 (aumentado)</strong></div>
             </div>
             <div class="anexo-card">
               <h4>3. Dinamometría y Metodología Fuerza Relativa</h4>
-              <div style="font-size: 9px; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Corte operativo provisional ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
-              <div style="font-size: 8.5px; color: var(--text-muted); font-style: italic;">* Corte operativo provisional del informe; conservar hasta incorporar referencia normativa por edad/sexo.</div>
+              <div style="font-size: 0.78rem; display: flex; justify-content: space-between; margin-bottom: 2px;"><span>Corte operativo provisional de Fuerza Relativa ($F_{max}/Peso$):</span><strong class="val-optimo">&ge; 0.55 H / &ge; 0.40 M</strong></div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-style: italic;">* Corte operativo provisional del informe; conservar hasta incorporar una referencia normativa actual por edad y sexo. Se utiliza el mayor valor bilateral.</div>
             </div>
           </div>
         </div>
         <div class="anexo-footer">
           <div><strong>CIENCIA DEPORTIVA © 2026 - Informe Técnico de Evaluación.</strong></div>
-          <div class="anexo-signature"><strong style="font-size: 11px;">Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
+          <div class="anexo-signature"><strong>Lcdo. Maykol Jayaro</strong><span>Lcdo. en Ciencias del deporte +51 925986816</span></div>
         </div>
       </div>
     </main>
@@ -857,7 +770,7 @@
   <div id="modalDirectorio" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Gestión del Directorio de Perfiles y Evaluaciones</h3>
+        <h3>👥 Gestión del Directorio de Perfiles y Evaluaciones</h3>
         <button class="modal-close" type="button" onclick="cerrarModalDirectorio()" aria-label="Cerrar directorio">Cerrar</button>
       </div>
       <div class="modal-body" id="modal-directorio-list"></div>
@@ -876,21 +789,12 @@
     let chartLong3 = null;
     let chartLong4 = null;
 
-    // Los pilares se generan automáticamente hasta que el usuario edita cada uno.
-    const pilaresEditadosManualmente = new Set();
-    ['txtPilar1', 'txtPilar2', 'txtPilar3'].forEach(id => {
-      window.addEventListener('DOMContentLoaded', () => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.addEventListener('input', () => pilaresEditadosManualmente.add(id));
-      }, { once: true });
-    });
-
     function fijarFechaHoyInput() {
       const hoy = new Date().toISOString().split('T')[0];
       document.getElementById('fechaEvaluacionReal').value = hoy;
     }
 
+    // Plugin 1: Para etiquetas en barras
     const barTextPlugin = {
       id: 'barTextPlugin',
       afterDatasetsDraw(chart) {
@@ -903,7 +807,7 @@
             if (val !== null && val !== undefined && val > 0) {
               ctx.save();
               ctx.fillStyle = '#ffffff';
-              ctx.font = 'bold 9px Segoe UI, sans-serif';
+              ctx.font = 'bold 11px Segoe UI, sans-serif';
               ctx.textAlign = 'center';
               ctx.textBaseline = 'bottom';
               ctx.fillText(`${val.toFixed(1)}`, bar.x, bar.y - 2);
@@ -914,6 +818,7 @@
       }
     };
 
+    // Plugin 2: Para etiquetas sobre la línea de sumatoria de pliegues
     const lineTextPlugin = {
       id: 'lineTextPlugin',
       afterDatasetsDraw(chart) {
@@ -926,10 +831,10 @@
           if (val > 0) {
             ctx.save();
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 9px Segoe UI, sans-serif';
+            ctx.font = 'bold 11px Segoe UI, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            ctx.fillText(`${val.toFixed(1)} mm`, point.x, point.y - 5);
+            ctx.fillText(`${val.toFixed(1)} mm`, point.x, point.y - 6);
             ctx.restore();
           }
         });
@@ -967,12 +872,12 @@
               cont++;
             }
           }
-          alert(`Éxito: Se importaron ${cont} perfiles de atletas a la base de datos.`);
+          alert(`✅ Éxito: Se importaron ${cont} perfiles de atletas a la base de datos.`);
           actualizarDatalistAtletas();
           cargarSelectPerfilesExistentes();
           calcular();
         } catch (err) {
-          alert("Error: El archivo cargado no tiene un formato JSON válido de Ciencia Deportiva.");
+          alert("❌ Error: El archivo cargado no tiene un formato JSON válido de Ciencia Deportiva.");
         }
       };
       reader.readAsText(file);
@@ -1015,7 +920,6 @@
     }
 
     function nuevaEvaluacion() {
-      pilaresEditadosManualmente.clear();
       document.getElementById('nombre').value = '';
       document.getElementById('edad').value = '';
       document.getElementById('talla').value = '';
@@ -1051,14 +955,14 @@
       if (tipo === 'existente') {
         groupExistente.style.display = 'block';
         groupFecha.style.display = 'block';
-        btnGuardar.innerText = 'Guardar Evaluación';
+        btnGuardar.innerText = '💾 Guardar Evaluación';
         btnGuardar.className = 'btn-action';
         btnGuardar.onclick = ejecutarGuardarHistorial;
         cargarSelectPerfilesExistentes();
       } else if (tipo === 'nuevo') {
         groupExistente.style.display = 'none';
         groupFecha.style.display = 'block';
-        btnGuardar.innerText = 'Guardar Evaluación';
+        btnGuardar.innerText = '💾 Guardar Evaluación';
         btnGuardar.className = 'btn-action';
         btnGuardar.onclick = ejecutarGuardarHistorial;
       } else {
@@ -1196,6 +1100,8 @@
       document.getElementById('modalDirectorio').style.display = 'none';
     }
 
+
+    // Cierre accesible del directorio: clic fuera del cuadro o tecla Escape.
     document.getElementById('modalDirectorio').addEventListener('click', function(event) {
       if (event.target === this) cerrarModalDirectorio();
     });
@@ -1346,6 +1252,7 @@
       return `<span class="delta-badge ${clase}">${flecha} ${signo}${diff.toFixed(1)}${unidad}</span>`;
     }
 
+    // Actualiza el título dinámico del encabezado para el documento PDF/Impreso
     function actualizarModoEInforme() {
       const chkComp = document.getElementById('chkCompararAnterior').checked;
       const chkLong = document.getElementById('chkEvaluarHistorial').checked;
@@ -1372,6 +1279,14 @@
       calcular();
     }
 
+    // ============================================================
+    // MOTOR CIENTÍFICO ÚNICO — 3 NIVELES
+    // 1) MEDICIÓN: datos observados, sin interpretación.
+    // 2) INDICADOR: ecuaciones y variables derivadas.
+    // 3) INTERPRETACIÓN: clasificación separada de los cálculos.
+    // ============================================================
+
+    // NIVEL 1 — MEDICIÓN
     function construirMedicion(datos = {}) {
       const n = (v) => Number.isFinite(Number(v)) ? Number(v) : 0;
       return {
@@ -1388,7 +1303,7 @@
     }
 
     function coeficientesDurninWomersley(sexo, edad) {
-      if (!edad || edad < 18) return null;
+      if (!edad || edad < 18) return null; // El informe y sus baremos están configurados para adultos (18+).
       const tabla = sexo === 'M'
         ? [
             [17,19,1.1620,0.0630], [20,29,1.1631,0.0632],
@@ -1404,6 +1319,9 @@
       return fila ? { c: fila[2], m: fila[3] } : null;
     }
 
+    // ÚNICA función autorizada para calcular % de grasa en toda la aplicación.
+    // Durnin & Womersley (1974): densidad por sexo + grupo etario.
+    // Siri (1961): %GC = (4.95 / densidad - 4.50) * 100.
     function calcularComposicionCorporal(medicion) {
       const m = construirMedicion(medicion);
       const pliegues = [m.biceps, m.triceps, m.subescapular, m.suprailiaco];
@@ -1420,6 +1338,7 @@
       return { valido:true, suma4, densidad, pctGrasa, pctMLG:100-pctGrasa, kgGrasa, kgMLG, coeficientes:coef };
     }
 
+    // NIVEL 2 — INDICADORES
     function calcularIndicadores(medicion) {
       const m = construirMedicion(medicion);
       const tallaM = m.talla > 0 ? m.talla / 100 : 0;
@@ -1432,6 +1351,7 @@
       return { medicion:m, composicion:calcularComposicionCorporal(m), imc, ict, icc, maxDino, fuerzaRel, asimetria };
     }
 
+    // NIVEL 3 — INTERPRETACIÓN
     function interpretarIndicadores(ind) {
       const { medicion:m, composicion:c, imc, ict, icc, fuerzaRel, asimetria } = ind;
       const r = {};
@@ -1443,6 +1363,7 @@
       r.ict = ict<=0 ? 'Sin datos' : ict < 0.50 ? 'Por debajo de 0.50' : 'Aumentado (≥ 0.50)';
       const corteCintura = m.sexo==='M' ? 102 : 88;
       r.cintura = m.cintura<=0 ? 'Sin datos' : m.cintura >= corteCintura ? 'Cintura elevada' : 'Por debajo del corte';
+      // Baremos de dinamometría conservados por decisión metodológica del proyecto; son provisionales.
       r.fuerza = fuerzaRel<=0 ? 'Sin datos' : fuerzaRel >= (m.sexo==='M'?0.55:0.40) ? 'Cumple corte operativo provisional' : 'Bajo corte operativo provisional';
       r.asimetria = ind.maxDino<=0 || m.dinoDer<=0 || m.dinoIzq<=0 ? 'Sin datos bilaterales' : asimetria<=10 ? '≤ 10% (corte operativo provisional)' : '> 10% (corte operativo provisional)';
 
@@ -1563,7 +1484,7 @@
         document.getElementById('delta-imc-badge').innerHTML = '';
       }
 
-      // Porcentaje de Grasa & MLG
+      // Porcentaje de Grasa & MLG — usa exclusivamente calcularComposicionCorporal()
       let pctGrasa = 0, kgGrasa = 0, pctMLG = 0, kgMLG = 0;
       const comp = indicadores.composicion;
       if (comp.valido && peso > 0) {
@@ -1636,7 +1557,7 @@
         document.getElementById('kpi-recomp-estado').style.color = '#f43f5e';
       }
 
-      // Índice Cintura-Talla (ICT)
+      // Índice Cintura-Talla (ICT): indicador continuo; punto de corte ≥0.50.
       if (indicadores.ict > 0) {
         const ict = indicadores.ict;
         document.getElementById('kpi-ict').innerText = ict.toFixed(2);
@@ -1650,7 +1571,7 @@
         document.getElementById('delta-ict-badge').innerHTML = '';
       }
 
-      // Adiposidad central (Cintura)
+      // Adiposidad central: la cintura es un indicador antropométrico, no una medición directa de grasa visceral.
       if (cintura > 0) {
         document.getElementById('kpi-visceral-val').innerText = `${cintura.toFixed(1)} cm`;
         const elevada = interpretacion.cintura === 'Cintura elevada';
@@ -1664,7 +1585,9 @@
         document.getElementById('delta-visceral-badge').innerHTML = '';
       }
 
-      // Diagnóstico Obesidad Clínica (Rubino 2025)
+      // Marco Rubino et al. 2025: adiposidad + componente clínico.
+
+      // Diagnóstico Obesidad Clínica (Rubino 2025) — lógica restaurada del código original
       const imcVal = (peso > 0 && talla > 0) ? (peso / (tallaM * tallaM)) : 0;
       if (imcVal > 0 && cintura > 0) {
         const umbralCinturaRubino = sexo === 'M' ? 102.0 : 88.0;
@@ -1739,30 +1662,16 @@
         document.getElementById('delta-asimetria-badge').innerHTML = '';
       }
 
-      // Síntesis Diagnóstica con Citas Integradas
+      // Síntesis: separa resultados de interpretación y evita convertir tamizaje en diagnóstico automático.
       const txtSintesis = document.getElementById('txtSintesisRecomendacion');
       if (peso > 0 && talla > 0 && comp.valido) {
         const generoTxt = sexo === 'M' ? 'El evaluado' : 'La evaluada';
         const fuerzaTxt = indicadores.fuerzaRel > 0 ? `${indicadores.fuerzaRel.toFixed(2)} kg/kg (${interpretacion.fuerza})` : 'sin datos';
         const asimTxt = indicadores.maxDino > 0 && dinoDer > 0 && dinoIzq > 0 ? `${indicadores.asimetria.toFixed(1)}% (${interpretacion.asimetria})` : 'sin datos bilaterales';
         const ictTxt = indicadores.ict > 0 ? `${indicadores.ict.toFixed(2)} (${interpretacion.ict})` : 'sin datos';
-
-        txtSintesis.innerHTML = `${generoTxt} <strong>${nombre || 'Atleta'}</strong> registra una composición corporal estimada mediante el modelo de 4 pliegues de <strong>Durnin & Womersley (1974)</strong> y la ecuación de <strong>Siri (1961)</strong>, obteniendo un porcentaje de grasa del <strong>${pctGrasa.toFixed(1)}%</strong> (${kgGrasa.toFixed(1)} kg) catalogado como <strong>${interpretacion.grasa}</strong> bajo las referencias normativas de <strong>Lee & Nieman (2003)</strong>. La Masa Libre de Grasa (MLG) estimada alcanza los <strong>${kgMLG.toFixed(1)} kg</strong>. En el perfil neuromuscular, la fuerza de agarre relativa registrada es de <strong>${fuerzaTxt}</strong> con un nivel de asimetría bilateral de <strong>${asimTxt}</strong> (evaluado según criterios de <strong>Maffiuletti et al., 2016</strong>). Por su parte, la adiposidad central y riesgo cardiometabólico reflejan un Índice Cintura-Talla (ICT) de <strong>${ictTxt}</strong> y un perímetro de cintura de <strong>${cintura.toFixed(1)} cm</strong> (${interpretacion.cintura}), los cuales no configuran criterios clínicos de adiposidad patológica según el marco de evaluación de <strong>Rubino et al. (2025)</strong>.`;
-
-        if (!pilaresEditadosManualmente.has("txtPilar1")) {
-
-          document.getElementById("txtPilar1").innerText = `Mantener una estrategia nutricional orientada a la recomposición corporal para optimizar los ${pctGrasa.toFixed(1)}% de masa grasa resguardando los ${kgMLG.toFixed(1)} kg de MLG (Lee & Nieman, 2003).`;
-
-        }
-        if (!pilaresEditadosManualmente.has("txtPilar2")) {
-          document.getElementById("txtPilar2").innerText = `Priorizar el desarrollo de la fuerza muscular general para elevar la fuerza relativa (actual: ${fuerzaTxt}) y corregir el desbalance bilateral (${asimTxt}) (Maffiuletti et al., 2016).`;
-        }
-        if (!pilaresEditadosManualmente.has("txtPilar3")) {
-          document.getElementById("txtPilar3").innerText = `Prescribir entrenamiento contra resistencia (frecuencia ≥3 días/semana) complementado con ejercicio aeróbico de baja intensidad para mantener la eficiencia metabólica e ICT (Rubino et al., 2025).`;
-        }
-
+        txtSintesis.innerHTML = `${generoTxt} <strong>${nombre || 'Atleta'}</strong> presenta un porcentaje de grasa estimado por Durnin & Womersley + Siri de <strong>${pctGrasa.toFixed(1)}%</strong>, interpretado como <strong>${interpretacion.grasa}</strong>, y una masa libre de grasa estimada de <strong>${kgMLG.toFixed(1)} kg</strong>. La fuerza de agarre relativa es <strong>${fuerzaTxt}</strong> y la diferencia bilateral es <strong>${asimTxt}</strong>. La cintura se interpreta como <strong>${interpretacion.cintura}</strong> y el ICT como <strong>${ictTxt}</strong>. Estos resultados describen indicadores antropométricos y funcionales y no constituyen un diagnóstico clínico de obesidad.`;
       } else {
-        txtSintesis.innerHTML = `Ingresa peso, talla, edad y los cuatro pliegues para estimar la composición corporal mediante las ecuaciones de Durnin & Womersley (1974) y Siri (1961). ${comp.motivo ? 'Estado actual: ' + comp.motivo + '.' : ''}`;
+        txtSintesis.innerHTML = `Ingresa peso, talla, edad y los cuatro pliegues para estimar composición corporal. ${comp.motivo ? 'Estado: ' + comp.motivo + '.' : ''}`;
       }
 
       const chkCliente = document.getElementById('chkPotencialCliente').checked;
@@ -1803,8 +1712,10 @@
       if (typeof Chart === 'undefined') return;
 
       const fechas = historial.map(item => item.fechaStr);
+      
       const pesos = historial.map(item => item.peso);
       
+      // Composición longitudinal: usa la MISMA función científica que la evaluación actual.
       const composiciones = historial.map(item => calcularComposicionCorporal(construirMedicion(item)));
       const grasasPct = composiciones.map(c => c.valido ? c.pctGrasa : null);
       const mlgs = composiciones.map(c => c.valido ? c.kgMLG : null);
@@ -1819,13 +1730,14 @@
       const caderas = historial.map(item => item.cadera);
       const flexBrazoDeltas = historial.map(item => item.brazoFlex - item.brazoRel);
 
+      // Dinamometría real >= 3
       const evaluacionesConDinamometria = historial.filter(item => Math.max(item.dinoDer, item.dinoIzq) > 0);
       const fuerzasDominantes = historial.map(item => Math.max(item.dinoDer, item.dinoIzq));
       const fuerzasRelativas = historial.map((item, i) => item.peso > 0 ? (fuerzasDominantes[i] / item.peso) : 0);
 
       const coloresFechas = ['#38bdf8', '#3b82f6', '#10b981', '#a855f7', '#f59e0b', '#f43f5e'];
 
-      // 1. Evolución Composición Corporal
+      // 1. Evolución Composición Corporal (Manejo estricto de nulos sin arrastrar Peso a MLG)
       const ctxL1 = document.getElementById('chartLongComposicion').getContext('2d');
       if (chartLong1) chartLong1.destroy();
       
@@ -1849,7 +1761,7 @@
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
           },
           scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
         }
@@ -1863,18 +1775,18 @@
         data: {
           labels: fechas,
           datasets: [
-            { label: 'Σ4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#10b981' },
-            { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.2, pointRadius: 2.5 },
-            { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.2, pointRadius: 2.5 },
-            { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.2, pointRadius: 2.5 },
-            { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.2, pointRadius: 2.5 }
+            { label: 'Σ4 Pliegues (mm)', data: sumatoriasArr, borderColor: '#10b981', borderWidth: 3.5, pointRadius: 5, pointBackgroundColor: '#10b981' },
+            { label: 'Bíceps', data: bicepsArr, borderColor: '#38bdf8', borderWidth: 1.5, pointRadius: 3 },
+            { label: 'Tríceps', data: tricepsArr, borderColor: '#f59e0b', borderWidth: 1.5, pointRadius: 3 },
+            { label: 'Subescapular', data: subescapularArr, borderColor: '#a855f7', borderWidth: 1.5, pointRadius: 3 },
+            { label: 'Suprailíaco', data: suprailiacoArr, borderColor: '#f43f5e', borderWidth: 1.5, pointRadius: 3 }
           ]
         },
         plugins: [lineTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 10 } }
           },
           scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
         }
@@ -1900,27 +1812,11 @@
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
           },
           scales: {
             x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } },
-            y: {
-              type: 'linear',
-              display: true,
-              position: 'left',
-              ticks: { color: '#94a3b8' },
-              title: { display: true, text: 'Tronco (cm)', color: '#94a3b8', font: { size: 8 } }
-            },
-            y1: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-              min: 0,
-              max: 5,
-              grid: { drawOnChartArea: false },
-              ticks: { color: '#38bdf8' },
-              title: { display: true, text: 'Δ Brazo (cm)', color: '#38bdf8', font: { size: 8 } }
-            }
+            y: { ticks: { color: '#94a3b8' } }
           }
         }
       });
@@ -1956,7 +1852,7 @@
           options: {
             responsive: true, maintainAspectRatio: false,
             plugins: {
-              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9 }, padding: 8 } }
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
             },
             scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
           }
@@ -1987,7 +1883,7 @@
             data: [kgGrasa.toFixed(1), kgMLG.toFixed(1)],
             backgroundColor: ['#f43f5e', '#10b981'],
             borderWidth: 0,
-            hoverOffset: 3
+            hoverOffset: 4
           }]
         },
         options: {
@@ -1997,7 +1893,7 @@
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#94a3b8', font: { size: 9, weight: '500' }, padding: 6, usePointStyle: true }
+              labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
             }
           }
         }
@@ -2009,8 +1905,8 @@
         data: {
           labels: ['Fuerza Bilateral'],
           datasets: [
-            { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 4, bottomLeft: 4 }, borderSkipped: false },
-            { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 4, bottomRight: 4 }, borderSkipped: false }
+            { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
+            { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
           ]
         },
         plugins: [barTextPlugin],
@@ -2020,7 +1916,7 @@
           maintainAspectRatio: false,
           scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
           plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 9, weight: '600' } } }
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
           }
         }
       });
