@@ -1054,25 +1054,6 @@
       }
     }
 
-    function prepararCargaRetroactiva(key) {
-      const historial = JSON.parse(localStorage.getItem(key) || '[]');
-      if (historial.length === 0) return;
-
-      const nombreAtleta = historial[0].nombre;
-      
-      nuevaEvaluacion();
-      
-      document.getElementById('nombre').value = nombreAtleta;
-      document.getElementById('tipoGuardado').value = 'existente';
-      toggleModoGuardado();
-      
-      const select = document.getElementById('selectPerfilExistente');
-      select.value = key;
-
-      cerrarModalDirectorio();
-      alert(`📥 Modo Carga de Evaluación Pasada Activo para [${nombreAtleta}].\nTipea los datos de esa medición en los campos y ajusta la "Fecha Real de Evaluación" en el panel izquierdo antes de guardar.`);
-    }
-
     function ejecutarGuardarHistorial() {
       const tipo = document.getElementById('tipoGuardado').value;
       if (tipo === 'ninguno') return;
@@ -1183,7 +1164,6 @@
             <div class="dir-perfil-header">
               <span class="dir-perfil-title" onclick="toggleSublistaDirectorio('${key}')">👤 ${nombreAtleta} (${historial.length} Eval.)</span>
               <div>
-                <button class="btn-sm-action btn-sm-load" onclick="prepararCargaRetroactiva('${key}')">📥 Cargar Eval. Pasada</button>
                 <button class="btn-sm-action btn-sm-del" onclick="eliminarPerfilCompleto('${key}', '${nombreAtleta}')">🗑️ Eliminar Perfil</button>
               </div>
             </div>
