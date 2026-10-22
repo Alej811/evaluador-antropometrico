@@ -583,12 +583,6 @@
       <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" placeholder="0.0" step="0.5" oninput="calcular()"></div>
       <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" placeholder="0.0" step="0.5" oninput="calcular()"></div>
 
-      <h2>Prescripción / Hito Meta</h2>
-      <div class="form-group">
-        <label>🎯 % Grasa Objetivo Personalizado (%):</label>
-        <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="calcular()">
-      </div>
-
       <h2>Gestión de Historial</h2>
       <div class="form-group">
         <label>Tipo de Guardado:</label>
@@ -988,7 +982,6 @@
       document.getElementById('cadera').value = '';
       document.getElementById('dinoDer').value = '';
       document.getElementById('dinoIzq').value = '';
-      document.getElementById('pctGrasaObjetivo').value = '';
       document.getElementById('chkEvaluarHistorial').checked = false;
       document.getElementById('chkPotencialCliente').checked = false;
       fijarFechaHoyInput();
@@ -1584,8 +1577,7 @@
 
       if (pctGrasa > 0 && peso > 0) {
         let umbralCorteGrasaOptimo = sexo === 'M' ? 15.0 : 23.0;
-        const inputGrasaMetaVal = parseFloat(document.getElementById('pctGrasaObjetivo').value);
-        let pctGrasaMeta = !isNaN(inputGrasaMetaVal) && inputGrasaMetaVal > 0 ? inputGrasaMetaVal : umbralCorteGrasaOptimo;
+        const pctGrasaMeta = umbralCorteGrasaOptimo;
 
         const elRecompVal = document.getElementById('kpi-recomp-val');
         const elRecompEstado = document.getElementById('kpi-recomp-estado');
