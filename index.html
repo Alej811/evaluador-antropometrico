@@ -166,8 +166,6 @@
     .card-header-flex span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
     .chart-wrapper-inner { position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; }
-    .chart-composicion-wrapper { position: relative; width: 100%; max-width: 190px; height: 190px; flex: 0 0 190px; margin: 0 auto; overflow: visible; }
-    .chart-composicion-wrapper canvas { display:block; width:100% !important; height:100% !important; }
 
     .fraccionamiento-footer {
       width: 100%;
@@ -510,14 +508,12 @@
       .kpi-card .nota-sub { font-size:7px !important; line-height:1.1 !important; }
 
       .charts-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap:8px !important; margin-bottom:8px !important; align-items:stretch !important; }
-      .chart-container { padding:9px !important; min-height:250px !important; width:100% !important; overflow:visible !important; align-items:stretch !important; justify-content:flex-start !important; }
+      .chart-container { padding:9px !important; min-height:250px !important; width:100% !important; overflow:hidden !important; align-items:stretch !important; justify-content:flex-start !important; }
       .card-header-flex { min-height:28px !important; margin-bottom:4px !important; gap:6px !important; }
       .card-header-flex h4 { font-size:10px !important; line-height:1.15 !important; color:#000 !important; }
       .card-header-flex span { font-size:8px !important; text-align:right !important; }
       .chart-wrapper-inner { width:100% !important; height:155px !important; margin:0 auto !important; display:flex !important; align-items:center !important; justify-content:center !important; overflow:hidden !important; }
       .chart-wrapper-inner canvas { display:block !important; margin:auto !important; max-width:100% !important; max-height:100% !important; }
-      .chart-composicion-wrapper { width:175px !important; max-width:175px !important; height:175px !important; flex:0 0 175px !important; overflow:visible !important; margin:0 auto !important; }
-      .chart-composicion-wrapper canvas { width:175px !important; height:175px !important; max-width:none !important; max-height:none !important; }
       .fraccionamiento-footer { margin-top:5px !important; padding-top:5px !important; }
       .fraccionamiento-item small { font-size:8px !important; }
       .fraccionamiento-item strong { font-size:12px !important; }
@@ -642,6 +638,12 @@
       <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" placeholder="0.0" step="0.5" oninput="calcular()"></div>
       <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" placeholder="0.0" step="0.5" oninput="calcular()"></div>
 
+      <h2>Prescripción / Hito Meta</h2>
+      <div class="form-group">
+        <label>🎯 % Grasa Objetivo Personalizado (%):</label>
+        <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="calcular()">
+      </div>
+
       <h2>Gestión de Historial</h2>
       <div class="form-group">
         <label>Tipo de Guardado:</label>
@@ -763,7 +765,7 @@
       <div class="charts-grid">
         <div class="chart-container">
           <div class="card-header-flex"><h4><span style="color: var(--primary);">⚖️</span> Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
-          <div class="chart-wrapper-inner chart-composicion-wrapper"><canvas id="chartComposicion"></canvas></div>
+          <div class="chart-wrapper-inner"><canvas id="chartComposicion"></canvas></div>
           <div id="clasificacion-grasa-grafico" class="clasificacion-grafico">
             <span>Clasificación % grasa</span>
             <strong id="grafico-grasa-estado">-</strong>
@@ -1046,6 +1048,7 @@
       document.getElementById('cadera').value = '';
       document.getElementById('dinoDer').value = '';
       document.getElementById('dinoIzq').value = '';
+      document.getElementById('pctGrasaObjetivo').value = '';
       document.getElementById('chkCompararAnterior').checked = false;
       document.getElementById('chkEvaluarHistorial').checked = false;
       document.getElementById('chkPotencialCliente').checked = false;
@@ -1684,7 +1687,8 @@
       // Proyección Recomposición
       if (pctGrasa > 0 && peso > 0) {
         let umbralCorteGrasaOptimo = sexo === 'M' ? 15.0 : 23.0;
-        const pctGrasaMeta = umbralCorteGrasaOptimo;
+        const inputGrasaMetaVal = parseFloat(document.getElementById('pctGrasaObjetivo').value);
+        let pctGrasaMeta = !isNaN(inputGrasaMetaVal) && inputGrasaMetaVal > 0 ? inputGrasaMetaVal : umbralCorteGrasaOptimo;
 
         const elRecompVal = document.getElementById('kpi-recomp-val');
         const elRecompEstado = document.getElementById('kpi-recomp-estado');
@@ -2036,28 +2040,6 @@
       if (chartDino) chartDino.destroy();
 
       const ctx1 = c1.getContext('2d');
-      const porcentajeGrasa = (kgGrasa / (kgGrasa + kgMLG)) * 100;
-      const etiquetaCentralDona = {
-        id: 'etiquetaCentralDona',
-        afterDraw(chart) {
-          const area = chart.chartArea;
-          if (!area) return;
-          const { ctx } = chart;
-          const x = (area.left + area.right) / 2;
-          const y = (area.top + area.bottom) / 2;
-          ctx.save();
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillStyle = '#0f3b57';
-          ctx.font = '700 23px Segoe UI, sans-serif';
-          ctx.fillText(porcentajeGrasa.toFixed(1) + '%', x, y - 7);
-          ctx.fillStyle = '#526779';
-          ctx.font = '500 10px Segoe UI, sans-serif';
-          ctx.fillText('% grasa corporal', x, y + 13);
-          ctx.restore();
-        }
-      };
-
       chartComp = new Chart(ctx1, {
         type: 'doughnut',
         data: {
@@ -2069,24 +2051,14 @@
             hoverOffset: 4
           }]
         },
-        plugins: [etiquetaCentralDona],
         options: {
           responsive: true,
           maintainAspectRatio: false,
           cutout: '70%',
-          rotation: -Math.PI / 2,
-          circumference: 2 * Math.PI,
-          layout: { padding: 4 },
           plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label(context) {
-                  const total = context.dataset.data.reduce((sum, value) => sum + Number(value), 0);
-                  const pct = total ? Number(context.raw) / total * 100 : 0;
-                  return ' ' + context.label + ': ' + Number(context.raw).toFixed(1) + ' kg (' + pct.toFixed(1) + '%)';
-                }
-              }
+            legend: {
+              position: 'bottom',
+              labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
             }
           }
         }
