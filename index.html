@@ -166,6 +166,8 @@
     .card-header-flex span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
     .chart-wrapper-inner { position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; }
+    .chart-composicion-wrapper { width: 190px; max-width: 100%; height: 190px; flex: 0 0 190px; margin: 0 auto; overflow: visible; }
+    .chart-composicion-wrapper canvas { display: block; width: 100% !important; height: 100% !important; }
 
     .fraccionamiento-footer {
       width: 100%;
@@ -514,6 +516,8 @@
       .card-header-flex span { font-size:8px !important; text-align:right !important; }
       .chart-wrapper-inner { width:100% !important; height:155px !important; margin:0 auto !important; display:flex !important; align-items:center !important; justify-content:center !important; overflow:hidden !important; }
       .chart-wrapper-inner canvas { display:block !important; margin:auto !important; max-width:100% !important; max-height:100% !important; }
+      .chart-composicion-wrapper { width:160px !important; max-width:160px !important; height:160px !important; flex:0 0 160px !important; overflow:visible !important; }
+      .chart-composicion-wrapper canvas { width:160px !important; height:160px !important; max-width:none !important; max-height:none !important; }
       .fraccionamiento-footer { margin-top:5px !important; padding-top:5px !important; }
       .fraccionamiento-item small { font-size:8px !important; }
       .fraccionamiento-item strong { font-size:12px !important; }
@@ -765,7 +769,7 @@
       <div class="charts-grid">
         <div class="chart-container">
           <div class="card-header-flex"><h4><span style="color: var(--primary);">⚖️</span> Fraccionamiento Corporal (kg)</h4><span>Sustracción MLG</span></div>
-          <div class="chart-wrapper-inner"><canvas id="chartComposicion"></canvas></div>
+          <div class="chart-wrapper-inner chart-composicion-wrapper"><canvas id="chartComposicion"></canvas></div>
           <div id="clasificacion-grasa-grafico" class="clasificacion-grafico">
             <span>Clasificación % grasa</span>
             <strong id="grafico-grasa-estado">-</strong>
@@ -2040,6 +2044,27 @@
       if (chartDino) chartDino.destroy();
 
       const ctx1 = c1.getContext('2d');
+      const porcentajeGrasa = (kgGrasa / (kgGrasa + kgMLG)) * 100;
+      const porcentajeGrasaPlugin = {
+        id: 'porcentajeGrasaCentral',
+        afterDraw(chart) {
+          const area = chart.chartArea;
+          if (!area) return;
+          const x = (area.left + area.right) / 2;
+          const y = (area.top + area.bottom) / 2;
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#0f3b57';
+          ctx.font = '700 23px Arial, sans-serif';
+          ctx.fillText(porcentajeGrasa.toFixed(1) + '%', x, y - 6);
+          ctx.fillStyle = '#526779';
+          ctx.font = '500 10px Arial, sans-serif';
+          ctx.fillText('% grasa corporal', x, y + 13);
+          ctx.restore();
+        }
+      };
       chartComp = new Chart(ctx1, {
         type: 'doughnut',
         data: {
@@ -2051,14 +2076,18 @@
             hoverOffset: 4
           }]
         },
+        plugins: [porcentajeGrasaPlugin],
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          aspectRatio: 1,
           cutout: '70%',
+          rotation: -Math.PI / 2,
+          circumference: 2 * Math.PI,
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
+              labels: { color: '#94a3b8', font: { size: 10, weight: '500' }, padding: 6, usePointStyle: true, boxWidth: 8 }
             }
           }
         }
