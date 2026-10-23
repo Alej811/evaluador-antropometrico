@@ -927,7 +927,7 @@
             const val = dataset.data[bar.$context.dataIndex];
             if (val !== null && val !== undefined && val > 0) {
               ctx.save();
-              ctx.fillStyle = '#111827';
+              ctx.fillStyle = window.matchMedia && window.matchMedia('print').matches ? '#111827' : '#ffffff';
               ctx.font = 'bold 11px Segoe UI, sans-serif';
               
               if (isHorizontal) {
