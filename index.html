@@ -952,7 +952,7 @@
             if (val !== null && val !== undefined && val > 0) {
               ctx.save();
               ctx.fillStyle = window.matchMedia && window.matchMedia('print').matches ? '#111827' : '#ffffff';
-              ctx.font = chart.canvas.id === 'chartLongFuerza' ? 'bold 18px Segoe UI, sans-serif' : 'bold 11px Segoe UI, sans-serif';
+              ctx.font = chart.canvas.id === 'chartLongFuerza' ? 'bold 22px Segoe UI, sans-serif' : 'bold 11px Segoe UI, sans-serif';
               
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
@@ -2005,7 +2005,7 @@
           options: {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
-            datasets: { bar: { barThickness: 48, maxBarThickness: 48 } },
+            datasets: { bar: { barThickness: 14, maxBarThickness: 14 } },
           scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
           }
         });
