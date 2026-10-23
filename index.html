@@ -834,7 +834,7 @@
           </div>
           <div class="chart-container" id="boxChartLongFuerza">
             <div class="card-header-flex"><h4><span style="color: #a855f7;">💪</span> 4. Perfil de Fuerza & Dinamometría</h4><span>Dinamometría Bilateral</span></div>
-            <div class="chart-wrapper-inner" style="height: 132px; max-height: 132px; display: flex; align-items: center; justify-content: center;">
+            <div class="chart-wrapper-inner" style="height: 220px; max-height: 220px; display: flex; align-items: center; justify-content: center;">
               <canvas id="chartLongFuerza"></canvas>
               <div id="msgNoDinamometriaLong" class="aviso-longitudinal-centrado" style="display:none;">
                 📊 No hay al menos 3 mediciones de dinamometría registradas para el análisis longitudinal.
@@ -944,7 +944,7 @@
             if (val !== null && val !== undefined && val > 0) {
               ctx.save();
               ctx.fillStyle = window.matchMedia && window.matchMedia('print').matches ? '#111827' : '#ffffff';
-              ctx.font = 'bold 11px Segoe UI, sans-serif';
+              ctx.font = chart.canvas.id === 'chartLongFuerza' ? 'bold 18px Segoe UI, sans-serif' : 'bold 11px Segoe UI, sans-serif';
               
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
@@ -1887,24 +1887,12 @@
 
       const ctxL1a = document.getElementById('chartLongPesoMLG').getContext('2d');
       if (chartLong1a) chartLong1a.destroy();
-      const calcularTendencia = (valores) => {
-        const puntos = valores.map((v, i) => ({ x: i, y: v })).filter(p => Number.isFinite(p.y));
-        if (puntos.length < 2) return valores.map(() => null);
-        const mediaX = puntos.reduce((sum, p) => sum + p.x, 0) / puntos.length;
-        const mediaY = puntos.reduce((sum, p) => sum + p.y, 0) / puntos.length;
-        const denominador = puntos.reduce((sum, p) => sum + (p.x - mediaX) ** 2, 0);
-        if (!denominador) return valores.map(() => null);
-        const pendiente = puntos.reduce((sum, p) => sum + (p.x - mediaX) * (p.y - mediaY), 0) / denominador;
-        const intercepto = mediaY - pendiente * mediaX;
-        return valores.map((_, i) => Number.isFinite(valores[i]) ? pendiente * i + intercepto : null);
-      };
       const pesosValidos = pesos.map(v => Number.isFinite(v) ? v : null);
-      const mlgsValidos = mlgs.map(v => Number.isFinite(v) ? parseFloat(v.toFixed(1)) : null);
-      const datasetsPesoMLG = [
-        { type: 'bar', label: 'Peso Total (kg)', data: pesosValidos, backgroundColor: '#38bdf8B3' },
-        { type: 'bar', label: 'MLG (kg)', data: mlgsValidos, backgroundColor: '#10b981B3' },
-        { type: 'line', label: 'Tendencia del peso', data: calcularTendencia(pesosValidos), borderColor: '#f43f5e', backgroundColor: '#f43f5e', borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 3, tension: 0, spanGaps: true }
-      ];
+      const datasetsPesoMLG = [{
+        label: 'Masa Corporal (kg)',
+        data: pesosValidos,
+        backgroundColor: '#38bdf8B3'
+      }];
 
       chartLong1a = new Chart(ctxL1a, {
         type: 'bar',
@@ -1920,10 +1908,11 @@
       const ctxL1b = document.getElementById('chartLongGrasaPct').getContext('2d');
       if (chartLong1b) chartLong1b.destroy();
       const grasaValida = grasasPct.map(v => Number.isFinite(v) ? parseFloat(v.toFixed(1)) : null);
-      const datasetsGrasaPct = [
-        { type: 'bar', label: '% Grasa Corporal', data: grasaValida, backgroundColor: '#a855f7B3' },
-        { type: 'line', label: 'Tendencia % grasa', data: calcularTendencia(grasaValida), borderColor: '#f43f5e', backgroundColor: '#f43f5e', borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 3, tension: 0, spanGaps: true }
-      ];
+      const datasetsGrasaPct = [{
+        label: '% Grasa Corporal',
+        data: grasaValida,
+        backgroundColor: '#a855f7B3'
+      }];
 
       chartLong1b = new Chart(ctxL1b, {
         type: 'bar',
@@ -2009,7 +1998,8 @@
           options: {
             responsive: true, maintainAspectRatio: false,
             plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
-            scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
+            datasets: { bar: { barThickness: 48, maxBarThickness: 48 } },
+          scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
           }
         });
       }
