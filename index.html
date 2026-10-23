@@ -481,7 +481,6 @@
         border:1px solid #d1d5db !important;
         color:#000 !important;
         box-shadow:none !important;
-        page-break-inside: avoid;
       }
 
       .header-branding { padding: 8px 12px !important; margin-bottom: 8px !important; }
@@ -559,7 +558,7 @@
       .fuerza-relativa-resumen span { font-size:7px !important; }
       .charts-grid > .chart-container { min-height:190px !important; padding:6px !important; }
       .charts-grid > .chart-container .chart-wrapper-inner { height:105px !important; }
-      .section-longitudinal { padding:6px !important; margin-bottom:5px !important; page-break-inside:avoid !important; }
+      .section-longitudinal { padding:6px !important; margin-bottom:5px !important; }
       #gridGraficosLongitudinales { gap:5px !important; margin-bottom:0 !important; }
       #gridGraficosLongitudinales .chart-container { min-height:145px !important; padding:5px !important; }
       #gridGraficosLongitudinales .chart-wrapper-inner { height:105px !important; }
@@ -580,7 +579,7 @@
         word-break:normal !important;
         overflow-wrap:normal !important;
       }
-      .recomendacion-container { break-before:page !important; page-break-before:always !important; }
+
 
       .val-optimo { color:#059669 !important; }
       .val-riesgo { color:#dc2626 !important; }
@@ -673,9 +672,6 @@
       <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">📤 Importar BD desde JSON</button>
 
       <div class="form-group" style="margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
-        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">
-          <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> 🔄 Comparar con Evaluación Anterior
-        </label>
         <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 6px;">
           <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> 📈 Evaluar Todo el Historial (Análisis Longitudinal)
         </label>
@@ -1075,7 +1071,6 @@
       document.getElementById('dinoDer').value = '';
       document.getElementById('dinoIzq').value = '';
       document.getElementById('pctGrasaObjetivo').value = '';
-      document.getElementById('chkCompararAnterior').checked = false;
       document.getElementById('chkEvaluarHistorial').checked = false;
       document.getElementById('chkPotencialCliente').checked = false;
       fijarFechaHoyInput();
@@ -1401,12 +1396,9 @@
         .replace(/[\\/:*?"<>|]+/g, '-')
         .replace(/\s+/g, ' ');
 
-      const chkComp = document.getElementById('chkCompararAnterior').checked;
       const chkLong = document.getElementById('chkEvaluarHistorial').checked;
 
-      let tipoInforme = 'INFORME ANTROPOMÉTRICO';
-      if (chkLong) tipoInforme = 'INFORME LONGITUDINAL';
-      else if (chkComp) tipoInforme = 'INFORME COMPARATIVO';
+      let tipoInforme = chkLong ? 'INFORME LONGITUDINAL' : 'INFORME ANTROPOMÉTRICO';
 
       const fechaInput = document.getElementById('fechaEvaluacionReal').value;
       let fechaCorta;
@@ -1431,7 +1423,6 @@
     }
 
     function actualizarModoEInforme() {
-      const chkComp = document.getElementById('chkCompararAnterior').checked;
       const chkLong = document.getElementById('chkEvaluarHistorial').checked;
       const nombre = (document.getElementById('nombre').value || 'ATLETA').toUpperCase().trim();
 
@@ -1445,12 +1436,7 @@
         fechaFormatted = `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`;
       }
 
-      let tipoDoc = 'INFORME ANTROPOMÉTRICO';
-      if (chkLong) {
-        tipoDoc = 'INFORME LONGITUDINAL';
-      } else if (chkComp) {
-        tipoDoc = 'INFORME COMPARATIVO';
-      }
+      let tipoDoc = chkLong ? 'INFORME LONGITUDINAL' : 'INFORME ANTROPOMÉTRICO';
 
       document.getElementById('subtitulo-encabezado-dinamico').innerText = `${tipoDoc} - ${nombre} ${fechaFormatted}`;
       calcular();
@@ -1578,7 +1564,7 @@
       document.getElementById('res-dinoder-val').innerText = dinoDer > 0 ? `${dinoDer.toFixed(1)} kg` : '-';
 
       let evalPasada = null;
-      const chkComparar = document.getElementById('chkCompararAnterior').checked;
+      const chkComparar = document.getElementById('chkEvaluarHistorial').checked;
       
       if (chkComparar && nombre.trim() !== '') {
         const clave = obtenerClavePerfil(nombre);
