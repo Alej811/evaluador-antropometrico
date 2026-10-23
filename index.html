@@ -436,6 +436,12 @@
     .aviso-longitudinal-centrado {
       color:#f43f5e;
       font-size:0.85rem;
+      display:flex;
+      width:100%;
+      height:100%;
+      box-sizing:border-box;
+      justify-content:center;
+      align-items:center;
       text-align:center;
       font-weight:600;
       padding:15px;
@@ -988,7 +994,7 @@
         if (!text) return;
         const ctx = chart.ctx;
         ctx.save();
-        ctx.fillStyle = '#10b981';
+        ctx.fillStyle = '#f43f5e';
         ctx.font = 'bold 22px Segoe UI, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -1510,7 +1516,7 @@
       r.imc = imc <= 0 ? 'Sin datos' : imc < 18.5 ? 'Bajo peso' : imc < 25 ? 'Normopeso' : imc < 30 ? 'Sobrepeso' : 'Obesidad (clasificación por IMC)';
       if (c.valido) {
         const p=c.pctGrasa;
-        r.grasa = m.sexo==='M' ? (p<=5?'Muy bajo / no saludable':p<=15?'Aceptable - límite bajo':p<=24?'Aceptable - límite alto':'Muy alto / no saludable') : (p<=8?'Muy bajo / no saludable':p<=23?'Aceptable - límite bajo':p<=31?'Aceptable - límite alto':'Muy alto / no saludable');
+        r.grasa = m.sexo==='M' ? (p<=5?'Muy bajo / no saludable':p<=15?'Aceptable - límite bajo':p<=24?'Aceptable - límite alto':'Muy alto / no saludable') : (p<=8?'Muy bajo / no saludable':p<=23?'Aceptable - límite bajo':p<=31?'Moderado':'Muy alto / no saludable');
       } else r.grasa = c.motivo;
       r.ict = ict<=0 ? 'Sin datos' : ict < 0.50 ? 'Por debajo de 0.50' : 'Aumentado (≥ 0.50)';
       const corteCintura = m.sexo==='M' ? 102 : 88;
@@ -1951,7 +1957,7 @@
           datasets: fechas.map((fecha, idx) => ({
             label: fecha,
             data: [cinturas[idx], caderas[idx]],
-            backgroundColor: coloresFechas[idx % coloresFechas.length],
+            backgroundColor: coloresFechas[idx % coloresFechas.length] + '99',
             yAxisID: 'y'
           }))
         },
