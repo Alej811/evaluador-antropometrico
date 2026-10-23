@@ -545,7 +545,10 @@
       #gridGraficosLongitudinales .card-header-flex h4 { min-width:0 !important; font-size:9px !important; }
       #gridGraficosLongitudinales .card-header-flex span { min-width:0 !important; font-size:7px !important; }
       #gridGraficosLongitudinales .chart-wrapper-inner { height:150px !important; min-height:0 !important; width:100% !important; overflow:hidden !important; }
-      #gridGraficosLongitudinales .chart-wrapper-inner canvas { width:100% !important; height:100% !important; max-width:100% !important; max-height:100% !important; }
+      
+      /* LÍNEA CORREGIDA PARA GRÁFICOS LONGITUDINALES */
+      #gridGraficosLongitudinales .chart-wrapper-inner canvas { max-width:100% !important; max-height:100% !important; object-fit: contain; }
+      
       /* El perfil de fuerza inicia en la segunda página del informe longitudinal. */
       #boxChartLongFuerza { break-before: page !important; page-break-before: always !important; }
       .aviso-datos-insuficientes { font-size:9px !important; padding:10px !important; }
@@ -1433,7 +1436,13 @@
       };
       window.addEventListener('afterprint', restaurarTitulo);
 
-      setTimeout(() => window.print(), 80);
+      // SEGUNDA MODIFICACIÓN: Redimensionar los gráficos e incrementar el tiempo de espera
+      setTimeout(() => {
+        for (let id in Chart.instances) {
+          Chart.instances[id].resize();
+        }
+        window.print();
+      }, 600);
     }
 
     function actualizarModoEInforme() {
