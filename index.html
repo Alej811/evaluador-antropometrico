@@ -164,7 +164,8 @@
     .card-header-flex h4 { font-size: 0.92rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .card-header-flex span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
-    .chart-wrapper-inner { position: relative; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; }
+    .chart-wrapper-inner { position: relative; height: 200px; width: 100%; min-width: 0; max-width: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .chart-wrapper-inner canvas { display: block; width: 100% !important; max-width: 100% !important; max-height: 100% !important; }
 
     .fraccionamiento-footer {
       width: 100%;
@@ -523,8 +524,12 @@
       .section-longitudinal { padding:9px !important; margin-bottom:8px !important; }
       .section-longitudinal-header { font-size:10px !important; margin-bottom:7px !important; padding-bottom:4px !important; color:#000 !important; }
       #gridGraficosLongitudinales { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap:8px !important; }
-      #gridGraficosLongitudinales .chart-container { min-height:180px !important; }
-      #gridGraficosLongitudinales .chart-wrapper-inner { height:150px !important; }
+      #gridGraficosLongitudinales .chart-container { min-height:0 !important; height:auto !important; padding:7px !important; gap:5px !important; overflow:hidden !important; }
+      #gridGraficosLongitudinales .card-header-flex { min-width:0 !important; gap:4px !important; align-items:flex-start !important; }
+      #gridGraficosLongitudinales .card-header-flex h4 { min-width:0 !important; font-size:9px !important; }
+      #gridGraficosLongitudinales .card-header-flex span { min-width:0 !important; font-size:7px !important; }
+      #gridGraficosLongitudinales .chart-wrapper-inner { height:150px !important; min-height:0 !important; width:100% !important; overflow:hidden !important; }
+      #gridGraficosLongitudinales .chart-wrapper-inner canvas { width:100% !important; height:100% !important; max-width:100% !important; max-height:100% !important; }
       .aviso-datos-insuficientes { font-size:9px !important; padding:10px !important; }
 
       .recomendacion-container { padding:9px 11px !important; margin-bottom:8px !important; }
@@ -1935,12 +1940,7 @@
             data: [cinturas[idx], caderas[idx]],
             backgroundColor: coloresFechas[idx % coloresFechas.length],
             yAxisID: 'y'
-          })).concat([{
-            label: 'Δ Flex. Brazo',
-            data: flexBrazoDeltas.map(d => parseFloat(d.toFixed(1))),
-            backgroundColor: '#10b981',
-            yAxisID: 'y1'
-          }])
+          }))
         },
         plugins: [barTextPlugin],
         options: {
@@ -1948,8 +1948,7 @@
           plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
           scales: {
             x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } },
-            y: { type: 'linear', position: 'left', title: { display: true, text: 'Perímetros (cm)', color: '#94a3b8' }, ticks: { color: '#94a3b8' } },
-            y1: { type: 'linear', position: 'right', title: { display: true, text: 'Flexión de brazo (cm)', color: '#10b981' }, ticks: { color: '#10b981' }, grid: { drawOnChartArea: false }, beginAtZero: true }
+            y: { type: 'linear', position: 'left', title: { display: true, text: 'Perímetros (cm)', color: '#94a3b8' }, ticks: { color: '#94a3b8' } }
           }
         }
       });
