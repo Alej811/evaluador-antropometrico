@@ -480,9 +480,7 @@
         box-shadow:none !important;
       }
 
-      .datos-medidos-container, .dashboard-grid, .charts-grid, .section-longitudinal, .recomendacion-container, .anexo-container {
-        page-break-inside: avoid;
-      }
+      /* Las secciones fluyen según su contenido, sin forzar bloques indivisibles. */
 
       .header-branding { padding: 8px 12px !important; margin-bottom: 8px !important; }
       .brand-logo-container img { width: 42px !important; height: 42px !important; }
@@ -512,7 +510,8 @@
       .card-header-flex h4 { font-size:10px !important; line-height:1.15 !important; color:#000 !important; }
       .card-header-flex span { font-size:8px !important; text-align:right !important; }
       
-      .chart-wrapper-inner { width:100% !important; margin:0 auto !important; display:flex !important; align-items:center !important; justify-content:center !important; }
+      .chart-wrapper-inner { width:100% !important; min-width:0 !important; max-width:100% !important; margin:0 auto !important; display:flex !important; align-items:center !important; justify-content:center !important; overflow:hidden !important; }
+      .chart-wrapper-inner canvas { display:block !important; min-width:0 !important; max-width:100% !important; }
       
       #chartComposicion { max-width: 160px !important; max-height: 160px !important; margin: 0 auto !important; }
 
@@ -1929,22 +1928,28 @@
       
       chartLong3 = new Chart(ctxL3, {
         type: 'bar',
-        data: { 
-          labels: fechas, 
-          datasets: [
-            { label: 'Cintura (cm)', data: cinturas, backgroundColor: '#38bdf8', yAxisID: 'y' },
-            { label: 'Cadera (cm)', data: caderas, backgroundColor: '#3b82f6', yAxisID: 'y' },
-            { label: 'Δ Flex. Brazo', data: flexBrazoDeltas.map(d => parseFloat(d.toFixed(1))), backgroundColor: '#10b981', yAxisID: 'y1' }
-          ] 
+        data: {
+          labels: ['Cintura (cm)', 'Cadera (cm)'],
+          datasets: fechas.map((fecha, idx) => ({
+            label: fecha,
+            data: [cinturas[idx], caderas[idx]],
+            backgroundColor: coloresFechas[idx % coloresFechas.length],
+            yAxisID: 'y'
+          })).concat([{
+            label: 'Δ Flex. Brazo',
+            data: flexBrazoDeltas.map(d => parseFloat(d.toFixed(1))),
+            backgroundColor: '#10b981',
+            yAxisID: 'y1'
+          }])
         },
         plugins: [barTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
-          scales: { 
-            x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, 
-            y: { position: 'left', ticks: { color: '#94a3b8' } },
-            y1: { position: 'right', ticks: { color: '#94a3b8' }, grid: { drawOnChartArea: false } }
+          scales: {
+            x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } },
+            y: { type: 'linear', position: 'left', title: { display: true, text: 'Perímetros (cm)', color: '#94a3b8' }, ticks: { color: '#94a3b8' } },
+            y1: { type: 'linear', position: 'right', title: { display: true, text: 'Flexión de brazo (cm)', color: '#10b981' }, ticks: { color: '#10b981' }, grid: { drawOnChartArea: false }, beginAtZero: true }
           }
         }
       });
