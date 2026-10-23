@@ -411,15 +411,36 @@
     .btn-sm-del { background: #ef4444; color: #fff; }
     .btn-sm-del:hover { background: #dc2626; }
 
-    /* Interfaz: conserva la tipografía original */
+
     .kpi-internos { display: none !important; }
     .dashboard-grid-salud { grid-template-columns: repeat(5, 1fr); }
-    .clasificacion-grafico { width: 100%; text-align: center; padding: 6px 8px; margin-top: 4px; border-top: 1px solid var(--border); line-height: 1.2; }
+    .clasificacion-grafico {
+      width: 100%;
+      text-align: center;
+      padding: 6px 8px;
+      margin-top: 4px;
+      border-top: 1px solid var(--border);
+      line-height: 1.2;
+    }
     .clasificacion-grafico span { display:block; font-size:0.7rem; color:var(--text-muted); }
     .clasificacion-grafico strong { display:block; margin-top:2px; font-size:0.82rem; }
     .fuerza-resultados-grid { grid-template-columns: 1fr 1fr 1.15fr; }
     .fuerza-relativa-resumen span { display:block; font-size:0.68rem; margin-top:2px; line-height:1.15; }
-    .aviso-longitudinal-centrado { color:#f43f5e; font-size:0.85rem; text-align:center; font-weight:600; padding:15px; background:rgba(244,63,94,0.08); border-radius:8px; width:min(92%, 420px); margin:auto; line-height:1.35; white-space:normal; overflow-wrap:normal; word-break:normal; }
+    .aviso-longitudinal-centrado {
+      color:#f43f5e;
+      font-size:0.85rem;
+      text-align:center;
+      font-weight:600;
+      padding:15px;
+      background:rgba(244,63,94,0.08);
+      border-radius:8px;
+      width:min(92%, 420px);
+      margin:auto;
+      line-height:1.35;
+      white-space:normal;
+      overflow-wrap:normal;
+      word-break:normal;
+    }
 
     @media screen and (max-width: 900px) {
       body { padding: 8px; }
@@ -431,16 +452,37 @@
       .chart-wrapper-inner { height: 260px; }
     }
 
-    @page { size: A4 portrait; margin: 6mm; }
+    @page {
+      size: A4 portrait;
+      margin: 6mm;
+    }
 
     @media print {
-      html, body { background: #fff !important; color: #000 !important; padding: 0 !important; margin: 0 !important; width: 100% !important; font-size: 11px !important; line-height: 1.28 !important; zoom: 100%; }
+      html, body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        font-size: 11px !important;
+        line-height: 1.28 !important;
+        zoom: 100%;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
       .main-grid { display: block !important; }
       .panel-controls, .btn-action, .modal-overlay { display: none !important; }
       .panel { background:#fff !important; border:none !important; padding:0 !important; color:#000 !important; }
 
       .header-branding, .kpi-card, .chart-container, .anexo-container, .anexo-card,
-      .datos-medidos-container, .section-longitudinal, .recomendacion-container { background:#fff !important; border:1px solid #d1d5db !important; color:#000 !important; box-shadow:none !important; page-break-inside: avoid; }
+      .datos-medidos-container, .section-longitudinal, .recomendacion-container {
+        background:#fff !important;
+        border:1px solid #d1d5db !important;
+        color:#000 !important;
+        box-shadow:none !important;
+        page-break-inside: avoid;
+      }
 
       .header-branding { padding: 8px 12px !important; margin-bottom: 8px !important; }
       .brand-logo-container img { width: 42px !important; height: 42px !important; }
@@ -503,6 +545,7 @@
       .anexo-signature strong { font-size:8.5px !important; color:#000 !important; }
       .anexo-signature span { font-size:8px !important; color:#059669 !important; }
 
+
       .solo-interfaz { display:none !important; }
       .dashboard-grid-salud { grid-template-columns:repeat(5,minmax(0,1fr)) !important; gap:5px !important; margin-bottom:6px !important; }
       .dashboard-grid-salud .kpi-card { min-height:82px !important; padding:5px 4px !important; }
@@ -514,8 +557,8 @@
       .clasificacion-grafico strong { font-size:8.5px !important; }
       .fuerza-resultados-grid { grid-template-columns:1fr 1fr 1.2fr !important; }
       .fuerza-relativa-resumen span { font-size:7px !important; }
-      .charts-grid > .chart-container { min-height: 175px !important; padding: 6px !important; }
-      .charts-grid > .chart-container .chart-wrapper-inner { height: 105px !important; }
+      .charts-grid > .chart-container { min-height:190px !important; padding:6px !important; }
+      .charts-grid > .chart-container .chart-wrapper-inner { height:105px !important; }
       .section-longitudinal { padding:6px !important; margin-bottom:5px !important; page-break-inside:avoid !important; }
       #gridGraficosLongitudinales { gap:5px !important; margin-bottom:0 !important; }
       #gridGraficosLongitudinales .chart-container { min-height:145px !important; padding:5px !important; }
@@ -523,10 +566,21 @@
       #gridGraficosLongitudinales .card-header-flex { min-height:20px !important; margin-bottom:2px !important; }
       #gridGraficosLongitudinales .card-header-flex h4 { font-size:8px !important; }
       #gridGraficosLongitudinales .card-header-flex span { font-size:6.5px !important; }
-      .aviso-longitudinal-centrado { display:flex; align-items:center; justify-content:center; width:88% !important; min-height:72px; margin:auto !important; padding:8px !important; font-size:8px !important; line-height:1.3 !important; white-space:normal !important; word-break:normal !important; overflow-wrap:normal !important; }
-      
-      /* Esta regla previene que la síntesis se parta, y permite que el navegador haga el salto natural hacia la página 2 si falta espacio */
-      .recomendacion-container { page-break-inside: avoid !important; break-before: auto !important; page-break-before: auto !important; margin-top: 5px !important; }
+      .aviso-longitudinal-centrado {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:88% !important;
+        min-height:72px;
+        margin:auto !important;
+        padding:8px !important;
+        font-size:8px !important;
+        line-height:1.3 !important;
+        white-space:normal !important;
+        word-break:normal !important;
+        overflow-wrap:normal !important;
+      }
+      .recomendacion-container { break-before:page !important; page-break-before:always !important; }
 
       .val-optimo { color:#059669 !important; }
       .val-riesgo { color:#dc2626 !important; }
@@ -556,7 +610,7 @@
         <input type="text" id="nombre" list="listAtletasDirectorio" placeholder="Escribe para buscar..." oninput="onInputNombreAtleta();">
         <datalist id="listAtletasDirectorio"></datalist>
       </div>
-      <div class="form-group"><label>Edad (años):</label><input type="number" id="edad" placeholder="Ej. 30" oninput="calcular()"></div>
+      <div class="form-group"><label>Edad (años):</label><input type="number" id="edad" placeholder="Ej. 30" oninput="debouncedCalcular()"></div>
       <div class="form-group">
         <label>Sexo Biológico:</label>
         <select id="sexo" onchange="calcular()">
@@ -564,24 +618,30 @@
           <option value="F">Femenino</option>
         </select>
       </div>
-      <div class="form-group"><label>Talla (cm):</label><input type="number" id="talla" placeholder="Ej. 170" oninput="calcular()"></div>
-      <div class="form-group"><label>Masa Corporal Total (kg):</label><input type="number" id="peso" placeholder="Ej. 70.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Talla (cm):</label><input type="number" id="talla" placeholder="Ej. 170" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Masa Corporal Total (kg):</label><input type="number" id="peso" placeholder="Ej. 70.0" step="0.1" oninput="debouncedCalcular()"></div>
 
       <h2>Pliegues Cutáneos (mm)</h2>
-      <div class="form-group"><label>Bíceps:</label><input type="number" id="biceps" placeholder="0.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Tríceps:</label><input type="number" id="triceps" placeholder="0.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Subescapular:</label><input type="number" id="subescapular" placeholder="0.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Suprailíaco:</label><input type="number" id="suprailiaco" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Bíceps:</label><input type="number" id="biceps" placeholder="0.0" step="0.5" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Tríceps:</label><input type="number" id="triceps" placeholder="0.0" step="0.5" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Subescapular:</label><input type="number" id="subescapular" placeholder="0.0" step="0.5" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Suprailíaco:</label><input type="number" id="suprailiaco" placeholder="0.0" step="0.5" oninput="debouncedCalcular()"></div>
 
       <h2>Perímetros (cm)</h2>
-      <div class="form-group"><label>Brazo Relajado:</label><input type="number" id="brazoRelajado" placeholder="0.0" step="0.1" oninput="calcular()"></div>
-      <div class="form-group"><label>Brazo Flexionado:</label><input type="number" id="brazoFlexionado" placeholder="0.0" step="0.1" oninput="calcular()"></div>
-      <div class="form-group"><label>Cintura Abdominal:</label><input type="number" id="cintura" placeholder="0.0" step="0.1" oninput="calcular()"></div>
-      <div class="form-group"><label>Cadera Maximum:</label><input type="number" id="cadera" placeholder="0.0" step="0.1" oninput="calcular()"></div>
+      <div class="form-group"><label>Brazo Relajado:</label><input type="number" id="brazoRelajado" placeholder="0.0" step="0.1" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Brazo Flexionado:</label><input type="number" id="brazoFlexionado" placeholder="0.0" step="0.1" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Cintura Abdominal:</label><input type="number" id="cintura" placeholder="0.0" step="0.1" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Cadera Maximum:</label><input type="number" id="cadera" placeholder="0.0" step="0.1" oninput="debouncedCalcular()"></div>
 
       <h2>Dinamometría de Agarre (kg)</h2>
-      <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" placeholder="0.0" step="0.5" oninput="calcular()"></div>
-      <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" placeholder="0.0" step="0.5" oninput="calcular()"></div>
+      <div class="form-group"><label>Mano Derecha:</label><input type="number" id="dinoDer" placeholder="0.0" step="0.5" oninput="debouncedCalcular()"></div>
+      <div class="form-group"><label>Mano Izquierda:</label><input type="number" id="dinoIzq" placeholder="0.0" step="0.5" oninput="debouncedCalcular()"></div>
+
+      <h2>Prescripción / Hito Meta</h2>
+      <div class="form-group">
+        <label>🎯 % Grasa Objetivo Personalizado (%):</label>
+        <input type="number" id="pctGrasaObjetivo" placeholder="Ej: 15.0 (H) / 23.0 (M)" step="0.5" oninput="debouncedCalcular()">
+      </div>
 
       <h2>Gestión de Historial</h2>
       <div class="form-group">
@@ -613,7 +673,9 @@
       <button class="btn-action btn-secondary" style="background: #0d9488; margin-top: 4px;" onclick="document.getElementById('inputImportJSON').click()">📤 Importar BD desde JSON</button>
 
       <div class="form-group" style="margin-top: 10px; background: rgba(16, 185, 129, 0.08); padding: 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
-        <!-- Eliminado el checkbox de "Comparar Anterior" para simplificar la interfaz -->
+        <label style="cursor: pointer; color: #fff; font-weight: 600; display: block; margin-bottom: 6px;">
+          <input type="checkbox" id="chkCompararAnterior" onchange="actualizarModoEInforme()"> 🔄 Comparar con Evaluación Anterior
+        </label>
         <label style="cursor: pointer; color: #38bdf8; font-weight: 600; display: block; margin-bottom: 6px;">
           <input type="checkbox" id="chkEvaluarHistorial" onchange="actualizarModoEInforme()"> 📈 Evaluar Todo el Historial (Análisis Longitudinal)
         </label>
@@ -741,8 +803,12 @@
 
         <div id="gridGraficosLongitudinales" class="charts-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
           <div class="chart-container">
-            <div class="card-header-flex"><h4><span style="color: #10b981;">📈</span> 1. Evolución Composición Corporal</h4><span>Comparación por Variable</span></div>
-            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongComposicion"></canvas></div>
+            <div class="card-header-flex"><h4><span style="color: #10b981;">📈</span> 1a. Evolución Peso y MLG (kg)</h4><span>Masa Corporal</span></div>
+            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongPesoMLG"></canvas></div>
+          </div>
+          <div class="chart-container">
+            <div class="card-header-flex"><h4><span style="color: #f59e0b;">📊</span> 1b. Evolución % Grasa</h4><span>Composición</span></div>
+            <div class="chart-wrapper-inner" style="height: 220px;"><canvas id="chartLongGrasaPct"></canvas></div>
           </div>
           <div class="chart-container">
             <div class="card-header-flex"><h4><span style="color: #f43f5e;">📉</span> 2. Tendencia Medidas Antropométricas</h4><span>Pliegues Cutáneos</span></div>
@@ -833,10 +899,17 @@
     let chartComp = null;
     let chartDino = null;
 
-    let chartLong1 = null;
+    let chartLong1a = null;
+    let chartLong1b = null;
     let chartLong2 = null;
     let chartLong3 = null;
     let chartLong4 = null;
+
+    let timeoutCalc;
+    function debouncedCalcular() {
+      clearTimeout(timeoutCalc);
+      timeoutCalc = setTimeout(calcular, 300);
+    }
 
     function fijarFechaHoyInput() {
       const hoy = new Date().toISOString().split('T')[0];
@@ -885,6 +958,25 @@
             ctx.restore();
           }
         });
+      }
+    };
+
+    const donutCenterTextPlugin = {
+      id: 'donutCenterTextPlugin',
+      beforeDraw: function(chart) {
+        if (chart.config.type !== 'doughnut') return;
+        const text = chart.config.options.plugins.donutCenterText?.text;
+        if (!text) return;
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 22px Segoe UI, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const x = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+        const y = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
+        ctx.fillText(text, x, y);
+        ctx.restore();
       }
     };
 
@@ -982,6 +1074,8 @@
       document.getElementById('cadera').value = '';
       document.getElementById('dinoDer').value = '';
       document.getElementById('dinoIzq').value = '';
+      document.getElementById('pctGrasaObjetivo').value = '';
+      document.getElementById('chkCompararAnterior').checked = false;
       document.getElementById('chkEvaluarHistorial').checked = false;
       document.getElementById('chkPotencialCliente').checked = false;
       fijarFechaHoyInput();
@@ -989,7 +1083,9 @@
     }
 
     function obtenerClavePerfil(nombre) {
-      return 'cd_perfil_' + nombre.trim().toUpperCase().replace(/\s+/g, '_');
+      return 'cd_perfil_' + nombre.trim().toUpperCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, '_');
     }
 
     function toggleModoGuardado() {
@@ -1045,6 +1141,25 @@
       if (!hayPerfiles) {
         select.innerHTML = '<option value="">No hay perfiles creados aún</option>';
       }
+    }
+
+    function prepararCargaRetroactiva(key) {
+      const historial = JSON.parse(localStorage.getItem(key) || '[]');
+      if (historial.length === 0) return;
+
+      const nombreAtleta = historial[0].nombre;
+      
+      nuevaEvaluacion();
+      
+      document.getElementById('nombre').value = nombreAtleta;
+      document.getElementById('tipoGuardado').value = 'existente';
+      toggleModoGuardado();
+      
+      const select = document.getElementById('selectPerfilExistente');
+      select.value = key;
+
+      cerrarModalDirectorio();
+      alert(`📥 Modo Carga de Evaluación Pasada Activo para [${nombreAtleta}].\nTipea los datos de esa medición en los campos y ajusta la "Fecha Real de Evaluación" en el panel izquierdo antes de guardar.`);
     }
 
     function ejecutarGuardarHistorial() {
@@ -1157,6 +1272,7 @@
             <div class="dir-perfil-header">
               <span class="dir-perfil-title" onclick="toggleSublistaDirectorio('${key}')">👤 ${nombreAtleta} (${historial.length} Eval.)</span>
               <div>
+                <button class="btn-sm-action btn-sm-load" onclick="prepararCargaRetroactiva('${key}')">📥 Cargar Eval. Pasada</button>
                 <button class="btn-sm-action btn-sm-del" onclick="eliminarPerfilCompleto('${key}', '${nombreAtleta}')">🗑️ Eliminar Perfil</button>
               </div>
             </div>
@@ -1285,10 +1401,12 @@
         .replace(/[\\/:*?"<>|]+/g, '-')
         .replace(/\s+/g, ' ');
 
+      const chkComp = document.getElementById('chkCompararAnterior').checked;
       const chkLong = document.getElementById('chkEvaluarHistorial').checked;
 
       let tipoInforme = 'INFORME ANTROPOMÉTRICO';
       if (chkLong) tipoInforme = 'INFORME LONGITUDINAL';
+      else if (chkComp) tipoInforme = 'INFORME COMPARATIVO';
 
       const fechaInput = document.getElementById('fechaEvaluacionReal').value;
       let fechaCorta;
@@ -1313,6 +1431,7 @@
     }
 
     function actualizarModoEInforme() {
+      const chkComp = document.getElementById('chkCompararAnterior').checked;
       const chkLong = document.getElementById('chkEvaluarHistorial').checked;
       const nombre = (document.getElementById('nombre').value || 'ATLETA').toUpperCase().trim();
 
@@ -1329,13 +1448,14 @@
       let tipoDoc = 'INFORME ANTROPOMÉTRICO';
       if (chkLong) {
         tipoDoc = 'INFORME LONGITUDINAL';
+      } else if (chkComp) {
+        tipoDoc = 'INFORME COMPARATIVO';
       }
 
       document.getElementById('subtitulo-encabezado-dinamico').innerText = `${tipoDoc} - ${nombre} ${fechaFormatted}`;
       calcular();
     }
 
-    // NIVEL 1 — MEDICIÓN
     function construirMedicion(datos = {}) {
       const n = (v) => Number.isFinite(Number(v)) ? Number(v) : 0;
       return {
@@ -1352,7 +1472,7 @@
     }
 
     function coeficientesDurninWomersley(sexo, edad) {
-      if (!edad || edad < 18) return null; 
+      if (!edad || edad < 18) return null;
       const tabla = sexo === 'M'
         ? [
             [17,19,1.1620,0.0630], [20,29,1.1631,0.0632],
@@ -1384,7 +1504,6 @@
       return { valido:true, suma4, densidad, pctGrasa, pctMLG:100-pctGrasa, kgGrasa, kgMLG, coeficientes:coef };
     }
 
-    // NIVEL 2 — INDICADORES
     function calcularIndicadores(medicion) {
       const m = construirMedicion(medicion);
       const tallaM = m.talla > 0 ? m.talla / 100 : 0;
@@ -1397,7 +1516,6 @@
       return { medicion:m, composicion:calcularComposicionCorporal(m), imc, ict, icc, maxDino, fuerzaRel, asimetria };
     }
 
-    // NIVEL 3 — INTERPRETACIÓN
     function interpretarIndicadores(ind) {
       const { medicion:m, composicion:c, imc, ict, icc, fuerzaRel, asimetria } = ind;
       const r = {};
@@ -1411,7 +1529,6 @@
       r.cintura = m.cintura<=0 ? 'Sin datos' : m.cintura >= corteCintura ? 'Cintura elevada' : 'Por debajo del corte';
       r.fuerza = fuerzaRel<=0 ? 'Sin datos' : fuerzaRel >= (m.sexo==='M'?0.55:0.40) ? 'Cumple corte operativo provisional' : 'Bajo corte operativo provisional';
       r.asimetria = ind.maxDino<=0 || m.dinoDer<=0 || m.dinoIzq<=0 ? 'Sin datos bilaterales' : asimetria<=10 ? '≤ 10% (corte operativo provisional)' : '> 10% (corte operativo provisional)';
-
       return r;
     }
 
@@ -1439,7 +1556,6 @@
       const indicadores = calcularIndicadores(medicionActual);
       const interpretacion = interpretarIndicadores(indicadores);
 
-      // Resumen de datos
       document.getElementById('res-nombre').innerText = nombre || '-';
       document.getElementById('res-edad-sexo').innerText = edad > 0 ? `${edad} a | ${sexo === 'M' ? 'Masc' : 'Fem'}` : '-';
       document.getElementById('res-talla-val').innerText = talla > 0 ? `${talla} cm` : '-';
@@ -1462,8 +1578,7 @@
       document.getElementById('res-dinoder-val').innerText = dinoDer > 0 ? `${dinoDer.toFixed(1)} kg` : '-';
 
       let evalPasada = null;
-      // Ahora usamos el chkEvaluarHistorial para habilitar la comparacion con la anterior
-      const chkComparar = document.getElementById('chkEvaluarHistorial').checked;
+      const chkComparar = document.getElementById('chkCompararAnterior').checked;
       
       if (chkComparar && nombre.trim() !== '') {
         const clave = obtenerClavePerfil(nombre);
@@ -1494,7 +1609,6 @@
         pasAsimetria = pasInd.asimetria;
       }
 
-      // Badges
       document.getElementById('delta-peso').innerHTML = evalPasada ? generarBadgeDelta(peso, evalPasada.peso, 'kg', 'reducir_es_bueno') : '';
       document.getElementById('delta-biceps').innerHTML = evalPasada ? generarBadgeDelta(biceps, evalPasada.biceps, 'mm', 'reducir_es_bueno') : '';
       document.getElementById('delta-triceps').innerHTML = evalPasada ? generarBadgeDelta(triceps, evalPasada.triceps, 'mm', 'reducir_es_bueno') : '';
@@ -1510,7 +1624,6 @@
       document.getElementById('delta-dinoizq').innerHTML = evalPasada ? generarBadgeDelta(dinoIzq, evalPasada.dinoIzq, 'kg', 'aumentar_es_bueno') : '';
       document.getElementById('delta-dinoder').innerHTML = evalPasada ? generarBadgeDelta(dinoDer, evalPasada.dinoDer, 'kg', 'aumentar_es_bueno') : '';
 
-      // IMC
       const tallaM = talla / 100;
       if (peso > 0 && talla > 0) {
         const imc = peso / (tallaM * tallaM);
@@ -1577,7 +1690,8 @@
 
       if (pctGrasa > 0 && peso > 0) {
         let umbralCorteGrasaOptimo = sexo === 'M' ? 15.0 : 23.0;
-        const pctGrasaMeta = umbralCorteGrasaOptimo;
+        const inputGrasaMetaVal = parseFloat(document.getElementById('pctGrasaObjetivo').value);
+        let pctGrasaMeta = !isNaN(inputGrasaMetaVal) && inputGrasaMetaVal > 0 ? inputGrasaMetaVal : umbralCorteGrasaOptimo;
 
         const elRecompVal = document.getElementById('kpi-recomp-val');
         const elRecompEstado = document.getElementById('kpi-recomp-estado');
@@ -1724,7 +1838,7 @@
       const chkCliente = document.getElementById('chkPotencialCliente').checked;
       document.getElementById('txtPersuasivoCliente').style.display = chkCliente ? 'block' : 'none';
 
-      actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq);
+      actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq, pctGrasa);
       evaluarHistorialLongitudinal();
     }
 
@@ -1781,35 +1895,47 @@
 
       const coloresFechas = ['#38bdf8', '#3b82f6', '#10b981', '#a855f7', '#f59e0b', '#f43f5e'];
 
-      const ctxL1 = document.getElementById('chartLongComposicion').getContext('2d');
-      if (chartLong1) chartLong1.destroy();
-      
-      const datasetsComp = fechas.map((fecha, idx) => ({
+      // 1a. Evolución Peso y MLG (kg)
+      const ctxL1a = document.getElementById('chartLongPesoMLG').getContext('2d');
+      if (chartLong1a) chartLong1a.destroy();
+      const datasetsPesoMLG = fechas.map((fecha, idx) => ({
         label: `Fecha ${fecha}`,
-        data: [
-          pesos[idx], 
-          grasasPct[idx] !== null ? parseFloat(grasasPct[idx].toFixed(1)) : null, 
-          mlgs[idx] !== null ? parseFloat(mlgs[idx].toFixed(1)) : null
-        ],
+        data: [ pesos[idx], mlgs[idx] !== null ? parseFloat(mlgs[idx].toFixed(1)) : null ],
         backgroundColor: coloresFechas[idx % coloresFechas.length]
       }));
 
-      chartLong1 = new Chart(ctxL1, {
+      chartLong1a = new Chart(ctxL1a, {
         type: 'bar',
-        data: {
-          labels: ['Peso Total (kg)', '% Grasa', 'MLG (kg)'],
-          datasets: datasetsComp
-        },
+        data: { labels: ['Peso Total (kg)', 'MLG (kg)'], datasets: datasetsPesoMLG },
         plugins: [barTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
-          },
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
           scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
         }
       });
 
+      // 1b. Evolución % Grasa
+      const ctxL1b = document.getElementById('chartLongGrasaPct').getContext('2d');
+      if (chartLong1b) chartLong1b.destroy();
+      const datasetsGrasaPct = fechas.map((fecha, idx) => ({
+        label: `Fecha ${fecha}`,
+        data: [ grasasPct[idx] !== null ? parseFloat(grasasPct[idx].toFixed(1)) : null ],
+        backgroundColor: coloresFechas[idx % coloresFechas.length]
+      }));
+
+      chartLong1b = new Chart(ctxL1b, {
+        type: 'bar',
+        data: { labels: ['% Grasa Corporal'], datasets: datasetsGrasaPct },
+        plugins: [barTextPlugin],
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
+          scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
+        }
+      });
+
+      // 2. Tendencia Medidas Antropométricas
       const ctxL2 = document.getElementById('chartLongPliegues').getContext('2d');
       if (chartLong2) chartLong2.destroy();
       chartLong2 = new Chart(ctxL2, {
@@ -1827,16 +1953,14 @@
         plugins: [lineTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 10 } }
-          },
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 10 } } },
           scales: { x: { ticks: { color: '#94a3b8' } }, y: { ticks: { color: '#94a3b8' } } }
         }
       });
 
+      // 3. Evolución Perímetros
       const ctxL3 = document.getElementById('chartLongPerimetros').getContext('2d');
       if (chartLong3) chartLong3.destroy();
-
       const datasetsPerim = fechas.map((fecha, idx) => ({
         label: `Fecha ${fecha}`,
         data: [cinturas[idx], caderas[idx], parseFloat(flexBrazoDeltas[idx].toFixed(1))],
@@ -1845,23 +1969,16 @@
 
       chartLong3 = new Chart(ctxL3, {
         type: 'bar',
-        data: {
-          labels: ['Cintura (cm)', 'Cadera (cm)', 'Δ Flex. Brazo (cm)'],
-          datasets: datasetsPerim
-        },
+        data: { labels: ['Cintura (cm)', 'Cadera (cm)', 'Δ Flex. Brazo (cm)'], datasets: datasetsPerim },
         plugins: [barTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
-          },
-          scales: {
-            x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } },
-            y: { ticks: { color: '#94a3b8' } }
-          }
+          plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
+          scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
         }
       });
 
+      // 4. Perfil de Fuerza
       const canvasFuerza = document.getElementById('chartLongFuerza');
       const msgNoDino = document.getElementById('msgNoDinamometriaLong');
 
@@ -1875,7 +1992,6 @@
 
         const ctxL4 = canvasFuerza.getContext('2d');
         if (chartLong4) chartLong4.destroy();
-
         const datasetsFuerza = fechas.map((fecha, idx) => ({
           label: `Fecha ${fecha}`,
           data: [fuerzasDominantes[idx], parseFloat(fuerzasRelativas[idx].toFixed(2))],
@@ -1884,82 +2000,92 @@
 
         chartLong4 = new Chart(ctxL4, {
           type: 'bar',
-          data: {
-            labels: ['Fuerza Dominante (kg)', 'Fuerza Relativa (kg/kg)'],
-            datasets: datasetsFuerza
-          },
+          data: { labels: ['Fuerza Dominante (kg)', 'Fuerza Relativa (kg/kg)'], datasets: datasetsFuerza },
           plugins: [barTextPlugin],
           options: {
             responsive: true, maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } }
-            },
+            plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 }, padding: 12 } } },
             scales: { x: { ticks: { color: '#f8fafc', font: { weight: 'bold' } } }, y: { ticks: { color: '#94a3b8' } } }
           }
         });
       }
     }
 
-    function actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq) {
+    function actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq, pctGrasa) {
       if (typeof Chart === 'undefined') {
-        setTimeout(() => actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq), 250);
+        setTimeout(() => actualizarGraficosConReintento(kgGrasa, kgMLG, dinoDer, dinoIzq, pctGrasa), 250);
         return;
       }
 
       const c1 = document.getElementById('chartComposicion');
       const c2 = document.getElementById('chartDinamometria');
-
       if (!c1 || !c2) return;
 
-      if (chartComp) chartComp.destroy();
-      if (chartDino) chartDino.destroy();
+      const textoCentro = pctGrasa > 0 ? pctGrasa.toFixed(1) + '%' : '-';
 
-      const ctx1 = c1.getContext('2d');
-      chartComp = new Chart(ctx1, {
-        type: 'doughnut',
-        data: {
-          labels: ['Masa Grasa (kg)', 'Masa Libre de Grasa (kg)'],
-          datasets: [{
-            data: [kgGrasa.toFixed(1), kgMLG.toFixed(1)],
-            backgroundColor: ['#f43f5e', '#10b981'],
-            borderWidth: 0,
-            hoverOffset: 4
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: '70%',
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
+      if (chartComp) {
+        chartComp.data.datasets[0].data = [kgGrasa.toFixed(1), kgMLG.toFixed(1)];
+        if (chartComp.options.plugins.donutCenterText) {
+          chartComp.options.plugins.donutCenterText.text = textoCentro;
+        }
+        chartComp.update();
+      } else {
+        const ctx1 = c1.getContext('2d');
+        chartComp = new Chart(ctx1, {
+          type: 'doughnut',
+          data: {
+            labels: ['Masa Grasa (kg)', 'Masa Libre de Grasa (kg)'],
+            datasets: [{
+              data: [kgGrasa.toFixed(1), kgMLG.toFixed(1)],
+              backgroundColor: ['#f43f5e', '#10b981'],
+              borderWidth: 0,
+              hoverOffset: 4
+            }]
+          },
+          plugins: [donutCenterTextPlugin],
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1, 
+            cutout: '70%',
+            plugins: {
+              donutCenterText: { text: textoCentro },
+              legend: {
+                position: 'bottom',
+                labels: { color: '#94a3b8', font: { size: 11, weight: '500' }, padding: 8, usePointStyle: true }
+              }
             }
           }
-        }
-      });
+        });
+      }
 
-      const ctx2 = c2.getContext('2d');
-      chartDino = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-          labels: ['Fuerza Bilateral'],
-          datasets: [
-            { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
-            { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
-          ]
-        },
-        plugins: [barTextPlugin],
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
+      if (chartDino) {
+        chartDino.data.datasets[0].data = [dinoIzq];
+        chartDino.data.datasets[1].data = [dinoDer];
+        chartDino.update();
+      } else {
+        const ctx2 = c2.getContext('2d');
+        chartDino = new Chart(ctx2, {
+          type: 'bar',
+          data: {
+            labels: ['Fuerza Bilateral'],
+            datasets: [
+              { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
+              { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
+            ]
+          },
+          plugins: [barTextPlugin],
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
+            }
           }
-        }
-      });
+        });
+      }
     }
 
     if (document.readyState === 'complete') {
