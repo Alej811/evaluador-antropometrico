@@ -165,6 +165,15 @@
     .card-header-flex span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
     .chart-wrapper-inner { position: relative; height: 200px; width: 100%; min-width: 0; max-width: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    /* Mantener el gráfico de fraccionamiento circular dentro de su tarjeta. */
+    .chart-container:has(#chartComposicion) { min-width:0; }
+    .chart-container:has(#chartComposicion) .chart-wrapper-inner { width:100%; height:auto; aspect-ratio:1 / 1; max-width:220px; flex:0 0 auto; margin:0 auto; overflow:visible; }
+    #chartComposicion { display:block; width:100% !important; height:100% !important; max-width:220px; max-height:220px; aspect-ratio:1 / 1; }
+    /* Distribuir el contenido de Fuerza de Agarre a lo largo de toda la tarjeta. */
+    .chart-container:has(#chartDinamometria) { height:100%; min-height:310px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; align-items:stretch; }
+    .chart-container:has(#chartDinamometria) .chart-wrapper-inner { width:100%; flex:1 1 auto; min-height:120px; max-height:200px; margin:8px 0; }
+    .chart-container:has(#chartDinamometria) .fraccionamiento-footer { flex:0 0 auto; }
+    .chart-container:has(#chartDinametria) #fuerza-dominancia-label { margin-top:8px; }
     .chart-wrapper-inner canvas { display: block; width: 100% !important; max-width: 100% !important; max-height: 100% !important; }
 
     .fraccionamiento-footer {
