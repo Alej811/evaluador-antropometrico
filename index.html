@@ -436,19 +436,18 @@
     .aviso-longitudinal-centrado {
       color:#f43f5e;
       font-size:0.85rem;
-      display:flex;
-      width:100%;
-      height:100%;
-      box-sizing:border-box;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      width: min(92%, 420px);
+      box-sizing: border-box;
       font-weight:600;
       padding:15px;
       background:rgba(244,63,94,0.08);
       border-radius:8px;
-      width:min(92%, 420px);
-      margin:auto;
+      margin: auto;
       line-height:1.35;
       white-space:normal;
       overflow-wrap:normal;
@@ -947,15 +946,14 @@
               ctx.fillStyle = window.matchMedia && window.matchMedia('print').matches ? '#111827' : '#ffffff';
               ctx.font = 'bold 11px Segoe UI, sans-serif';
               
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
               if (isHorizontal) {
                 const x = bar.base + (bar.x - bar.base) / 2;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
                 ctx.fillText(`${val.toFixed(1)}`, x, bar.y);
               } else {
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                ctx.fillText(`${val.toFixed(1)}`, bar.x, bar.y - 2);
+                const y = bar.y + (bar.base - bar.y) / 2;
+                ctx.fillText(`${val.toFixed(1)}`, bar.x, y);
               }
               ctx.restore();
             }
@@ -1892,7 +1890,7 @@
       const datasetsPesoMLG = fechas.map((fecha, idx) => ({
         label: `Fecha ${fecha}`,
         data: [ pesos[idx], mlgs[idx] !== null ? parseFloat(mlgs[idx].toFixed(1)) : null ],
-        backgroundColor: coloresFechas[idx % coloresFechas.length]
+        backgroundColor: coloresFechas[idx % coloresFechas.length] + 'B3'
       }));
 
       chartLong1a = new Chart(ctxL1a, {
@@ -1911,7 +1909,7 @@
       const datasetsGrasaPct = fechas.map((fecha, idx) => ({
         label: `Fecha ${fecha}`,
         data: [ grasasPct[idx] !== null ? parseFloat(grasasPct[idx].toFixed(1)) : null ],
-        backgroundColor: coloresFechas[idx % coloresFechas.length]
+        backgroundColor: coloresFechas[idx % coloresFechas.length] + 'B3'
       }));
 
       chartLong1b = new Chart(ctxL1b, {
@@ -1957,7 +1955,7 @@
           datasets: fechas.map((fecha, idx) => ({
             label: fecha,
             data: [cinturas[idx], caderas[idx]],
-            backgroundColor: coloresFechas[idx % coloresFechas.length] + '99',
+            backgroundColor: coloresFechas[idx % coloresFechas.length] + 'B3' + '99',
             yAxisID: 'y'
           }))
         },
@@ -1988,7 +1986,7 @@
         const datasetsFuerza = fechas.map((fecha, idx) => ({
           label: `Fecha ${fecha}`,
           data: [fuerzasDominantes[idx], parseFloat(fuerzasRelativas[idx].toFixed(2))],
-          backgroundColor: coloresFechas[idx % coloresFechas.length]
+          backgroundColor: coloresFechas[idx % coloresFechas.length] + 'B3'
         }));
 
         chartLong4 = new Chart(ctxL4, {
