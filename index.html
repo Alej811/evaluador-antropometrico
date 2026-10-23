@@ -1887,16 +1887,15 @@
 
       const ctxL1a = document.getElementById('chartLongPesoMLG').getContext('2d');
       if (chartLong1a) chartLong1a.destroy();
-      const pesosValidos = pesos.map(v => Number.isFinite(v) ? v : null);
-      const datasetsPesoMLG = [{
-        label: 'Masa Corporal (kg)',
-        data: pesosValidos,
-        backgroundColor: '#38bdf8B3'
-      }];
+      const datasetsPesoMLG = fechas.map((fecha, idx) => ({
+        label: `Fecha ${fecha}`,
+        data: [ pesos[idx], mlgs[idx] !== null ? parseFloat(mlgs[idx].toFixed(1)) : null ],
+        backgroundColor: coloresFechas[idx % coloresFechas.length] + 'B3'
+      }));
 
       chartLong1a = new Chart(ctxL1a, {
         type: 'bar',
-        data: { labels: fechas, datasets: datasetsPesoMLG },
+        data: { labels: ['Peso Total (kg)', 'MLG (kg)'], datasets: datasetsPesoMLG },
         plugins: [barTextPlugin],
         options: {
           responsive: true, maintainAspectRatio: false,
@@ -1905,7 +1904,7 @@
         }
       });
 
-      const ctxL1b = document.getElementById('chartLongGrasaPct').getContext('2d');
+            const ctxL1b = document.getElementById('chartLongGrasaPct').getContext('2d');
       if (chartLong1b) chartLong1b.destroy();
       const grasaValida = grasasPct.map(v => Number.isFinite(v) ? parseFloat(v.toFixed(1)) : null);
       const datasetsGrasaPct = [{
