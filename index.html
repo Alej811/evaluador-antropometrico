@@ -949,19 +949,20 @@
           const meta = chart.getDatasetMeta(i);
           meta.data.forEach((bar) => {
             const val = dataset.data[bar.$context.dataIndex];
-            if (val !== null && val !== undefined && val > 0) {
+            if (val !== null && val !== undefined && (val > 0 || (chart.canvas.id === 'chartDinamometria' && val < 0))) {
               ctx.save();
               ctx.fillStyle = window.matchMedia && window.matchMedia('print').matches ? '#111827' : '#ffffff';
-              ctx.font = chart.canvas.id === 'chartLongFuerza' ? 'bold 22px Segoe UI, sans-serif' : 'bold 11px Segoe UI, sans-serif';
+              ctx.font = chart.canvas.id === 'chartLongFuerza' ? 'bold 22px Segoe UI, sans-serif' : (chart.canvas.id === 'chartDinamometria' ? 'bold 18px Segoe UI, sans-serif' : 'bold 11px Segoe UI, sans-serif');
               
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
+              const labelValue = chart.canvas.id === 'chartDinamometria' ? Math.abs(val) : val;
               if (isHorizontal) {
                 const x = bar.base + (bar.x - bar.base) / 2;
-                ctx.fillText(`${val.toFixed(1)}`, x, bar.y);
+                ctx.fillText(`${labelValue.toFixed(1)}`, x, bar.y);
               } else {
                 const y = bar.y + (bar.base - bar.y) / 2;
-                ctx.fillText(`${val.toFixed(1)}`, bar.x, y);
+                ctx.fillText(`${labelValue.toFixed(1)}`, bar.x, y);
               }
               ctx.restore();
             }
@@ -2060,9 +2061,12 @@
         });
       }
 
+      const escalaDino = Math.max(dinoIzq, dinoDer, 1) * 1.25;
       if (chartDino) {
-        chartDino.data.datasets[0].data = [dinoIzq];
+        chartDino.data.datasets[0].data = [-dinoIzq];
         chartDino.data.datasets[1].data = [dinoDer];
+        chartDino.options.scales.x.min = -escalaDino;
+        chartDino.options.scales.x.max = escalaDino;
         chartDino.update();
       } else {
         const ctx2 = c2.getContext('2d');
@@ -2071,8 +2075,8 @@
           data: {
             labels: ['Fuerza Bilateral'],
             datasets: [
-              { label: 'Mano Izquierda', data: [dinoIzq], backgroundColor: '#38bdf8', borderRadius: { topLeft: 6, bottomLeft: 6 }, borderSkipped: false },
-              { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: { topRight: 6, bottomRight: 6 }, borderSkipped: false }
+              { label: 'Mano Izquierda', data: [-dinoIzq], backgroundColor: '#38bdf8', borderRadius: 6, borderSkipped: false, barThickness: 44, maxBarThickness: 44 },
+              { label: 'Mano Derecha', data: [dinoDer], backgroundColor: '#3b82f6', borderRadius: 6, borderSkipped: false, barThickness: 44, maxBarThickness: 44 }
             ]
           },
           plugins: [barTextPlugin],
@@ -2080,7 +2084,10 @@
             indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            scales: { x: { stacked: true, display: false }, y: { stacked: true, display: false } },
+            scales: {
+              x: { min: -escalaDino, max: escalaDino, stacked: false, display: false },
+              y: { stacked: false, display: false }
+            },
             plugins: {
               legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 11, weight: '600' } } }
             }
