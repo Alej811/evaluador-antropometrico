@@ -514,7 +514,9 @@
       .chart-wrapper-inner { width:100% !important; min-width:0 !important; max-width:100% !important; margin:0 auto !important; display:flex !important; align-items:center !important; justify-content:center !important; overflow:hidden !important; }
       .chart-wrapper-inner canvas { display:block !important; min-width:0 !important; max-width:100% !important; }
       
-      #chartComposicion { max-width: 160px !important; max-height: 160px !important; margin: 0 auto !important; }
+      #chartComposicion { display:block !important; width:160px !important; height:160px !important; max-width:160px !important; max-height:160px !important; aspect-ratio:1 / 1 !important; flex:0 0 160px !important; margin:0 auto !important; }
+      .chart-container:has(#chartComposicion) .chart-wrapper-inner { width:100% !important; height:170px !important; flex:0 0 170px !important; overflow:visible !important; }
+      .chart-container:has(#chartComposicion) { align-items:stretch !important; }
 
       .fraccionamiento-footer { margin-top:5px !important; padding-top:5px !important; }
       .fraccionamiento-item small { font-size:8px !important; }
@@ -925,7 +927,7 @@
             const val = dataset.data[bar.$context.dataIndex];
             if (val !== null && val !== undefined && val > 0) {
               ctx.save();
-              ctx.fillStyle = '#ffffff';
+              ctx.fillStyle = '#111827';
               ctx.font = 'bold 11px Segoe UI, sans-serif';
               
               if (isHorizontal) {
